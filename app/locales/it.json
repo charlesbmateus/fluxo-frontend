@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "marketplace": "Marketplace",
+    "services": "Servizi",
+    "messages": "Messaggi",
+    "settings": "Impostazioni"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Bentornato!",
+    "revenue": "Entrate",
+    "orders": "Ordini",
+    "services": "Servizi Attivi",
+    "growth": "Crescita"
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "searchPlaceholder": "Cerca servizi...",
+    "filterAll": "Tutte le Categorie",
+    "viewDetails": "Vedi Dettagli"
+  },
+  "service": {
+    "title": "Dettagli Servizio",
+    "description": "Descrizione",
+    "provider": "Fornitore del Servizio",
+    "price": "Prezzo",
+    "rating": "Valutazione",
+    "bookNow": "Prenota Ora"
+  },
+  "messages": {
+    "title": "Messaggi",
+    "noMessages": "Nessun messaggio ancora",
+    "sendMessage": "Invia messaggio",
+    "typeMessage": "Scrivi il tuo messaggio..."
+  },
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "close": "Chiudi"
+  }
+}
