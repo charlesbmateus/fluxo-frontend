@@ -6,7 +6,8 @@ export const useApi = () => {
   const baseURL = config.public.apiBase || 'https://api.example.com'
 
   const fetchServices = async () => {
-    // Simulate network delay for demonstration
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
     await new Promise(resolve => setTimeout(resolve, 1000))
     
     // Mock data for services
@@ -77,7 +78,8 @@ export const useApi = () => {
   }
 
   const fetchFinancialData = async () => {
-    // Simulate network delay for demonstration
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
     await new Promise(resolve => setTimeout(resolve, 1000))
     
     // Mock financial data
@@ -110,7 +112,8 @@ export const useApi = () => {
   }
 
   const fetchMessages = async () => {
-    // Simulate network delay for demonstration
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
     await new Promise(resolve => setTimeout(resolve, 1000))
     
     // Mock messages
