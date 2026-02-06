@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-100 shadow-md">
+  <div class="navbar bg-base-100">
     <!-- Navbar Start - Left Side -->
     <div class="navbar-start">
       <!-- Mobile Menu Button -->
