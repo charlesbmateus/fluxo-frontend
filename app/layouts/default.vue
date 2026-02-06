@@ -29,6 +29,90 @@
           </a>
         </div>
         <div class="flex-none gap-2">
+          <!-- Notifications with Indicator -->
+          <div v-if="isAuthenticated" class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+                <span class="badge badge-xs badge-primary indicator-item">3</span>
+              </div>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-80">
+              <li class="menu-title">
+                <span>Notifications</span>
+              </li>
+              <li>
+                <a class="flex flex-col items-start">
+                  <span class="font-semibold">New service request</span>
+                  <span class="text-xs opacity-50">John Doe requested your service</span>
+                </a>
+              </li>
+              <li>
+                <a class="flex flex-col items-start">
+                  <span class="font-semibold">Payment received</span>
+                  <span class="text-xs opacity-50">You received $150 for Web Development</span>
+                </a>
+              </li>
+              <li>
+                <a class="flex flex-col items-start">
+                  <span class="font-semibold">Review posted</span>
+                  <span class="text-xs opacity-50">Jane Smith left you a 5-star review</span>
+                </a>
+              </li>
+              <li class="mt-2">
+                <a href="#" class="btn btn-sm btn-block">View All</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Messages with Indicator -->
+          <div v-if="isAuthenticated" class="dropdown dropdown-end">
+            <label tabindex="0" class="btn btn-ghost btn-circle">
+              <div class="indicator">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                <span class="badge badge-xs badge-primary indicator-item">5</span>
+              </div>
+            </label>
+            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-80">
+              <li class="menu-title">
+                <span>Messages</span>
+              </li>
+              <li>
+                <a class="flex items-start gap-3">
+                  <div class="avatar placeholder">
+                    <div class="bg-neutral text-neutral-content rounded-full w-8">
+                      <span class="text-xs">JD</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-semibold">John Doe</span>
+                    <span class="text-xs opacity-50">Hi, I'm interested in your...</span>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a class="flex items-start gap-3">
+                  <div class="avatar placeholder">
+                    <div class="bg-neutral text-neutral-content rounded-full w-8">
+                      <span class="text-xs">JS</span>
+                    </div>
+                  </div>
+                  <div class="flex flex-col">
+                    <span class="font-semibold">Jane Smith</span>
+                    <span class="text-xs opacity-50">Thank you for the great work!</span>
+                  </div>
+                </a>
+              </li>
+              <li class="mt-2">
+                <NuxtLink to="/messages" class="btn btn-sm btn-block">View All Messages</NuxtLink>
+              </li>
+            </ul>
+          </div>
+
           <!-- Language Selector -->
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle">
