@@ -42,5 +42,26 @@
     "delete": "Löschen",
     "edit": "Bearbeiten",
     "close": "Schließen"
+  },
+  "auth": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "logout": "Abmelden",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "name": "Vollständiger Name",
+    "confirmPassword": "Passwort bestätigen",
+    "forgotPassword": "Passwort vergessen?",
+    "noAccount": "Noch kein Konto?",
+    "hasAccount": "Bereits ein Konto?",
+    "signIn": "Einloggen",
+    "signUp": "Registrieren",
+    "continueWith": "Oder fortfahren mit",
+    "loginSuccess": "Anmeldung erfolgreich!",
+    "registerSuccess": "Registrierung erfolgreich!",
+    "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.",
+    "registerError": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "loginWith": "Anmelden mit",
+    "or": "oder"
   }
 }

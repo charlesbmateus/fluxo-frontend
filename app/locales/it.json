@@ -42,5 +42,26 @@
     "delete": "Elimina",
     "edit": "Modifica",
     "close": "Chiudi"
+  },
+  "auth": {
+    "login": "Accedi",
+    "register": "Registrati",
+    "logout": "Esci",
+    "email": "E-mail",
+    "password": "Password",
+    "name": "Nome completo",
+    "confirmPassword": "Conferma password",
+    "forgotPassword": "Password dimenticata?",
+    "noAccount": "Non hai un account?",
+    "hasAccount": "Hai già un account?",
+    "signIn": "Accedi",
+    "signUp": "Registrati",
+    "continueWith": "Oppure continua con",
+    "loginSuccess": "Accesso riuscito!",
+    "registerSuccess": "Registrazione riuscita!",
+    "loginError": "Accesso fallito. Controlla le tue credenziali.",
+    "registerError": "Registrazione fallita. Riprova.",
+    "loginWith": "Accedi con",
+    "or": "o"
   }
 }

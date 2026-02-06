@@ -45,17 +45,23 @@
           </label>
 
           <!-- User Menu -->
-          <div class="dropdown dropdown-end">
+          <div v-if="isAuthenticated" class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle avatar">
               <div class="w-10 rounded-full bg-primary text-white flex items-center justify-center">
-                <span>U</span>
+                <span>{{ user?.name?.charAt(0) || 'U' }}</span>
               </div>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
               <li><a>Profile</a></li>
-              <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><NuxtLink to="/settings">Settings</NuxtLink></li>
+              <li><a @click="handleLogout">{{ $t('auth.logout') }}</a></li>
             </ul>
+          </div>
+          
+          <!-- Login/Register Buttons -->
+          <div v-else class="flex gap-2">
+            <NuxtLink to="/login" class="btn btn-ghost btn-sm">{{ $t('auth.login') }}</NuxtLink>
+            <NuxtLink to="/register" class="btn btn-primary btn-sm">{{ $t('auth.register') }}</NuxtLink>
           </div>
         </div>
       </div>
@@ -123,6 +129,8 @@
 <script setup lang="ts">
 const { locale, locales, setLocale } = useI18n()
 const colorMode = useColorMode()
+const { user, isAuthenticated, logout } = useAuth()
+const router = useRouter()
 
 const availableLocales = computed(() => {
   return locales.value
@@ -130,5 +138,10 @@ const availableLocales = computed(() => {
 
 const toggleTheme = () => {
   colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
+
+const handleLogout = async () => {
+  await logout()
+  router.push('/login')
 }
 </script>
