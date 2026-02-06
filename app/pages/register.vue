@@ -141,13 +141,13 @@ const handleRegister = async () => {
 
 const handleEmailRegister = async () => {
   if (password.value !== confirmPassword.value) {
+    // TODO: Replace with toast notification or inline error message
     alert('Passwords do not match!')
     return
   }
   
   // For demo purposes, just redirect to dashboard
   // In production, this would register with Auth0
-  console.log('Email register:', fullName.value, email.value, password.value)
   router.push('/')
 }
 </script>

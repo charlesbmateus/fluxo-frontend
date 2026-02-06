@@ -105,7 +105,6 @@ const handleLogin = async () => {
 const handleEmailLogin = async () => {
   // For demo purposes, just redirect to dashboard
   // In production, this would authenticate with Auth0
-  console.log('Email login:', email.value, password.value)
   router.push('/')
 }
 </script>
