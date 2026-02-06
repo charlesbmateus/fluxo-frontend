@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "marketplace": "Marketplace",
+    "services": "Services",
+    "messages": "Messages",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back!",
+    "revenue": "Revenue",
+    "orders": "Orders",
+    "services": "Active Services",
+    "growth": "Growth"
+  },
+  "marketplace": {
+    "title": "Marketplace",
+    "searchPlaceholder": "Search services...",
+    "filterAll": "All Categories",
+    "viewDetails": "View Details"
+  },
+  "service": {
+    "title": "Service Details",
+    "description": "Description",
+    "provider": "Service Provider",
+    "price": "Price",
+    "rating": "Rating",
+    "bookNow": "Book Now"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "No messages yet",
+    "sendMessage": "Send message",
+    "typeMessage": "Type your message..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "name": "Full Name",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "continueWith": "Or continue with",
+    "loginSuccess": "Login successful!",
+    "registerSuccess": "Registration successful!",
+    "loginError": "Login failed. Please check your credentials.",
+    "registerError": "Registration failed. Please try again.",
+    "loginWith": "Sign in with",
+    "or": "or"
+  }
+}

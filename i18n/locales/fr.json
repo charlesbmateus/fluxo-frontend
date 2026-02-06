@@ -1,0 +1,67 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "marketplace": "Place de marché",
+    "services": "Prestations",
+    "messages": "Messagerie",
+    "settings": "Paramètres"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bon retour!",
+    "revenue": "Revenus",
+    "orders": "Commandes",
+    "services": "Services Actifs",
+    "growth": "Croissance"
+  },
+  "marketplace": {
+    "title": "Place de marché",
+    "searchPlaceholder": "Rechercher des services...",
+    "filterAll": "Toutes les Catégories",
+    "viewDetails": "Voir les Détails"
+  },
+  "service": {
+    "title": "Détails du Service",
+    "description": "Description",
+    "provider": "Fournisseur de Service",
+    "price": "Prix",
+    "rating": "Évaluation",
+    "bookNow": "Réserver Maintenant"
+  },
+  "messages": {
+    "title": "Messagerie",
+    "noMessages": "Pas encore de messages",
+    "sendMessage": "Envoyer un message",
+    "typeMessage": "Tapez votre message..."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "name": "Nom complet",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Pas encore de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "continueWith": "Ou continuer avec",
+    "loginSuccess": "Connexion réussie!",
+    "registerSuccess": "Inscription réussie!",
+    "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
+    "registerError": "Échec de l'inscription. Veuillez réessayer.",
+    "loginWith": "Se connecter avec",
+    "or": "ou"
+  }
+}
