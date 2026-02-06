@@ -2,8 +2,8 @@
   "nav": {
     "dashboard": "Tableau de bord",
     "marketplace": "Place de marché",
-    "services": "Services",
-    "messages": "Messages",
+    "services": "Prestations",
+    "messages": "Messagerie",
     "settings": "Paramètres"
   },
   "dashboard": {
@@ -22,14 +22,14 @@
   },
   "service": {
     "title": "Détails du Service",
-    "description": "Description",
+    "description": "Descriptif",
     "provider": "Fournisseur de Service",
     "price": "Prix",
     "rating": "Évaluation",
     "bookNow": "Réserver Maintenant"
   },
   "messages": {
-    "title": "Messages",
+    "title": "Messagerie",
     "noMessages": "Pas encore de messages",
     "sendMessage": "Envoyer un message",
     "typeMessage": "Tapez votre message..."
