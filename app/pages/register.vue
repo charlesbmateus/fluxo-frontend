@@ -140,7 +140,7 @@ const handleRegister = async () => {
   error.value = ''
   
   if (password.value !== confirmPassword.value) {
-    error.value = 'Passwords do not match'
+    error.value = 'Passwords do not match' // TODO: Add translation key
     loading.value = false
     return
   }

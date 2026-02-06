@@ -29,9 +29,10 @@
               class="input input-bordered w-full" 
               required 
             />
-            <label class="label">
+            <!-- TODO: Implement forgot password functionality -->
+            <!-- <label class="label">
               <a href="#" class="label-text-alt link link-hover">{{ $t('auth.forgotPassword') }}</a>
-            </label>
+            </label> -->
           </div>
 
           <div v-if="error" class="alert alert-error">

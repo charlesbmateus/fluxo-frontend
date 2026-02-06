@@ -1,11 +1,11 @@
 export const useAuth = () => {
-  const user = useState('user', () => null)
+  const user = useState<any>('user', () => null)
   const isAuthenticated = computed(() => !!user.value)
 
   // Login with email and password
   const login = async (email: string, password: string) => {
     try {
-      // In a real app, this would call your backend API
+      // TODO: Replace with actual API call to backend authentication endpoint
       // For demo purposes, we'll simulate a successful login
       await new Promise(resolve => setTimeout(resolve, 1000))
       
@@ -25,7 +25,7 @@ export const useAuth = () => {
   // Register with email and password
   const register = async (name: string, email: string, password: string) => {
     try {
-      // In a real app, this would call your backend API
+      // TODO: Replace with actual API call to backend registration endpoint
       // For demo purposes, we'll simulate a successful registration
       await new Promise(resolve => setTimeout(resolve, 1000))
       
@@ -45,7 +45,7 @@ export const useAuth = () => {
   // SSO Login - Google
   const loginWithGoogle = async () => {
     try {
-      // In a real app, this would redirect to Google OAuth
+      // TODO: Replace with actual Google OAuth redirect or popup flow
       // For demo purposes, we'll simulate a successful SSO login
       await new Promise(resolve => setTimeout(resolve, 1500))
       
@@ -66,7 +66,7 @@ export const useAuth = () => {
   // SSO Login - GitHub
   const loginWithGithub = async () => {
     try {
-      // In a real app, this would redirect to GitHub OAuth
+      // TODO: Replace with actual GitHub OAuth redirect or popup flow
       // For demo purposes, we'll simulate a successful SSO login
       await new Promise(resolve => setTimeout(resolve, 1500))
       
