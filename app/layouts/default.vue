@@ -14,7 +14,7 @@
         </div>
         <div class="flex-1">
           <a class="btn btn-ghost text-xl">
-            <span class="text-primary">Fluxo</span>
+            <span class="text-primary">Flu</span><span class="text-secondary">xo</span>
           </a>
         </div>
         <div class="flex-none gap-2">
@@ -75,7 +75,7 @@
           <div class="flex items-center justify-center py-4">
             <div class="text-center">
               <h2 class="text-2xl font-bold">
-                <span class="text-primary">Fluxo</span>
+                <span class="text-primary">Flu</span><span class="text-secondary">xo</span>
               </h2>
             </div>
           </div>

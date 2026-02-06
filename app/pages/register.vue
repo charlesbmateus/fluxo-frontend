@@ -4,7 +4,7 @@
       <div class="card-body">
         <div class="text-center mb-6">
           <h1 class="text-4xl font-bold">
-            <span class="text-primary">Fluxo</span>
+            <span class="text-primary">Flu</span><span class="text-secondary">xo</span>
           </h1>
           <p class="text-base-content/60 mt-2">{{ $t('auth.joinUs') }}</p>
         </div>
