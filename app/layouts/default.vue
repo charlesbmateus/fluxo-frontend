@@ -62,7 +62,7 @@
                 </a>
               </li>
               <li class="mt-2">
-                <a class="btn btn-sm btn-block">View All</a>
+                <a href="#" class="btn btn-sm btn-block">View All</a>
               </li>
             </ul>
           </div>
