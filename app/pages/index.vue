@@ -72,7 +72,7 @@
           <div class="card-body">
             <h2 class="card-title">Recent Services</h2>
             <div class="space-y-3">
-              <div v-for="service in recentServices" :key="service.id" class="flex items-center justify-between p-3 bg-base-200 rounded-lg">
+              <NuxtLink v-for="service in recentServices" :key="service.id" :to="`/service/${service.id}`" class="flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 transition-colors cursor-pointer">
                 <div class="flex items-center gap-3">
                   <div class="avatar">
                     <div class="w-10 h-10 rounded">
@@ -85,7 +85,7 @@
                   </div>
                 </div>
                 <div class="badge badge-primary">${{ service.price }}</div>
-              </div>
+              </NuxtLink>
             </div>
           </div>
         </div>

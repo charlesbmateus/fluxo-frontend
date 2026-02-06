@@ -15,7 +15,6 @@
         <div class="flex-1">
           <a class="btn btn-ghost text-xl">
             <span class="text-primary">Fluxo</span>
-            <span class="text-secondary">Marketplace</span>
           </a>
         </div>
         <div class="flex-none gap-2">
@@ -76,7 +75,6 @@
               <h2 class="text-2xl font-bold">
                 <span class="text-primary">Fluxo</span>
               </h2>
-              <p class="text-xs text-base-content/60">Marketplace</p>
             </div>
           </div>
         </div>
