@@ -87,8 +87,8 @@
       <label for="main-drawer" class="drawer-overlay"></label>
       <aside class="bg-base-200 min-h-full transition-all duration-300" :class="isDrawerOpen ? 'w-64' : 'w-20'">
         <div class="p-4">
-          <div class="flex items-center py-4" :class="isDrawerOpen ? 'justify-center' : 'justify-center'">
-            <div :class="isDrawerOpen ? 'text-center' : 'text-center'">
+          <div class="flex items-center justify-center py-4">
+            <div class="text-center">
               <h2 class="text-2xl font-bold" v-if="isDrawerOpen">
                 <span class="text-primary">Fluxo</span>
               </h2>
