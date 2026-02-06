@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "marketplace": "Place de marché",
+    "services": "Services",
+    "messages": "Messages",
+    "settings": "Paramètres"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bon retour!",
+    "revenue": "Revenus",
+    "orders": "Commandes",
+    "services": "Services Actifs",
+    "growth": "Croissance"
+  },
+  "marketplace": {
+    "title": "Place de marché",
+    "searchPlaceholder": "Rechercher des services...",
+    "filterAll": "Toutes les Catégories",
+    "viewDetails": "Voir les Détails"
+  },
+  "service": {
+    "title": "Détails du Service",
+    "description": "Description",
+    "provider": "Fournisseur de Service",
+    "price": "Prix",
+    "rating": "Évaluation",
+    "bookNow": "Réserver Maintenant"
+  },
+  "messages": {
+    "title": "Messages",
+    "noMessages": "Pas encore de messages",
+    "sendMessage": "Envoyer un message",
+    "typeMessage": "Tapez votre message..."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Une erreur s'est produite",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "marketplace": "Marktplatz",
+    "services": "Dienstleistungen",
+    "messages": "Nachrichten",
+    "settings": "Einstellungen"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen zurück!",
+    "revenue": "Einnahmen",
+    "orders": "Bestellungen",
+    "services": "Aktive Dienste",
+    "growth": "Wachstum"
+  },
+  "marketplace": {
+    "title": "Marktplatz",
+    "searchPlaceholder": "Dienstleistungen suchen...",
+    "filterAll": "Alle Kategorien",
+    "viewDetails": "Details anzeigen"
+  },
+  "service": {
+    "title": "Dienstleistungsdetails",
+    "description": "Beschreibung",
+    "provider": "Dienstleister",
+    "price": "Preis",
+    "rating": "Bewertung",
+    "bookNow": "Jetzt buchen"
+  },
+  "messages": {
+    "title": "Nachrichten",
+    "noMessages": "Noch keine Nachrichten",
+    "sendMessage": "Nachricht senden",
+    "typeMessage": "Nachricht eingeben..."
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "close": "Schließen"
+  }
+}
