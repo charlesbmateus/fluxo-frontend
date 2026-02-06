@@ -1,13 +1,13 @@
 {
   "nav": {
-    "dashboard": "Dashboard",
-    "marketplace": "Marketplace",
+    "dashboard": "Cruscotto",
+    "marketplace": "Mercato",
     "services": "Servizi",
     "messages": "Messaggi",
     "settings": "Impostazioni"
   },
   "dashboard": {
-    "title": "Dashboard",
+    "title": "Cruscotto",
     "welcome": "Bentornato!",
     "revenue": "Entrate",
     "orders": "Ordini",
@@ -15,7 +15,7 @@
     "growth": "Crescita"
   },
   "marketplace": {
-    "title": "Marketplace",
+    "title": "Mercato",
     "searchPlaceholder": "Cerca servizi...",
     "filterAll": "Tutte le Categorie",
     "viewDetails": "Vedi Dettagli"

@@ -1,13 +1,13 @@
 {
   "nav": {
-    "dashboard": "Dashboard",
+    "dashboard": "Übersicht",
     "marketplace": "Marktplatz",
     "services": "Dienstleistungen",
     "messages": "Nachrichten",
     "settings": "Einstellungen"
   },
   "dashboard": {
-    "title": "Dashboard",
+    "title": "Übersicht",
     "welcome": "Willkommen zurück!",
     "revenue": "Einnahmen",
     "orders": "Bestellungen",
