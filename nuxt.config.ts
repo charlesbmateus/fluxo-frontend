@@ -24,12 +24,19 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'Fluxo Marketplace',
+      title: 'Fluxo',
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: 'Modern dashboard marketplace for services' }
+        { name: 'description', content: 'Modern dashboard for services' }
       ]
+    }
+  },
+
+  runtimeConfig: {
+    public: {
+      auth0Domain: process.env.NUXT_PUBLIC_AUTH0_DOMAIN || '',
+      auth0ClientId: process.env.NUXT_PUBLIC_AUTH0_CLIENT_ID || ''
     }
   }
 })

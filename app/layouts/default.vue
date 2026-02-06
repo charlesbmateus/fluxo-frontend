@@ -51,9 +51,11 @@
               </div>
             </label>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li><NuxtLink to="/login">{{ $t('auth.login') }}</NuxtLink></li>
+              <li><NuxtLink to="/register">{{ $t('auth.register') }}</NuxtLink></li>
               <li><a>Profile</a></li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a>{{ $t('auth.logout') }}</a></li>
             </ul>
           </div>
         </div>

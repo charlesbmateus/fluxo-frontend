@@ -42,5 +42,29 @@
     "delete": "Supprimer",
     "edit": "Modifier",
     "close": "Fermer"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "fullName": "Nom complet",
+    "welcomeBack": "Bienvenue sur Fluxo",
+    "joinUs": "Rejoignez Fluxo aujourd'hui",
+    "loginWithSSO": "Connexion avec SSO",
+    "registerWithSSO": "S'inscrire avec SSO",
+    "emailPlaceholder": "Entrez votre e-mail",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "fullNamePlaceholder": "Entrez votre nom complet",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Vous n'avez pas de compte?",
+    "alreadyHaveAccount": "Vous avez déjà un compte?",
+    "signUp": "S'inscrire",
+    "createAccount": "Créer un compte",
+    "agreeToTerms": "J'accepte les conditions générales",
+    "or": "OU"
   }
 }
