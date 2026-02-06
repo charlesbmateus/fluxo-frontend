@@ -42,5 +42,26 @@
     "delete": "Supprimer",
     "edit": "Modifier",
     "close": "Fermer"
+  },
+  "auth": {
+    "login": "Connexion",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "name": "Nom complet",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié?",
+    "noAccount": "Pas encore de compte?",
+    "hasAccount": "Vous avez déjà un compte?",
+    "signIn": "Se connecter",
+    "signUp": "S'inscrire",
+    "continueWith": "Ou continuer avec",
+    "loginSuccess": "Connexion réussie!",
+    "registerSuccess": "Inscription réussie!",
+    "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
+    "registerError": "Échec de l'inscription. Veuillez réessayer.",
+    "loginWith": "Se connecter avec",
+    "or": "ou"
   }
 }
