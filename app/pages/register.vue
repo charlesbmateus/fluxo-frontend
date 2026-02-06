@@ -101,28 +101,39 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue'
+import { ref, onMounted } from 'vue'
 
 definePageMeta({
   layout: false
 })
 
-const { loginWithRedirect } = useAuth0()
 const router = useRouter()
 
 const fullName = ref('')
 const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
+let loginWithRedirect: any = null
+
+onMounted(async () => {
+  // Only import Auth0 on client side
+  if (process.client) {
+    const { useAuth0 } = await import('@auth0/auth0-vue')
+    const auth0 = useAuth0()
+    loginWithRedirect = auth0.loginWithRedirect
+  }
+})
 
 const handleRegister = async () => {
   try {
     // Auth0 signup with redirect
-    await loginWithRedirect({
-      authorizationParams: {
-        screen_hint: 'signup'
-      }
-    })
+    if (loginWithRedirect) {
+      await loginWithRedirect({
+        authorizationParams: {
+          screen_hint: 'signup'
+        }
+      })
+    }
   } catch (error) {
     console.error('Register error:', error)
   }
