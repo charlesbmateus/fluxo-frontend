@@ -6,6 +6,10 @@ export const useApi = () => {
   const baseURL = config.public.apiBase || 'https://api.example.com'
 
   const fetchServices = async () => {
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     // Mock data for services
     return {
       data: [
@@ -74,6 +78,10 @@ export const useApi = () => {
   }
 
   const fetchFinancialData = async () => {
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     // Mock financial data
     return {
       revenue: {
@@ -104,6 +112,10 @@ export const useApi = () => {
   }
 
   const fetchMessages = async () => {
+    // TODO: Remove simulated delay before production deployment
+    // Simulate network delay for skeleton loader demonstration
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     // Mock messages
     return {
       data: [
