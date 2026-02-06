@@ -22,7 +22,7 @@
   },
   "service": {
     "title": "Détails du Service",
-    "description": "Descriptif",
+    "description": "Description",
     "provider": "Fournisseur de Service",
     "price": "Prix",
     "rating": "Évaluation",
