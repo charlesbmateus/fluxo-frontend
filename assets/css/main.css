@@ -16,4 +16,60 @@
   .card-hover {
     @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
+
+  /* Drawer state classes */
+  .is-drawer-open {
+    width: 16rem; /* 64 * 0.25rem = 16rem (w-64) */
+    transition: width 0.3s ease-in-out;
+  }
+
+  .is-drawer-close {
+    width: 4.5rem; /* Approximately 18 * 0.25rem = 4.5rem */
+    transition: width 0.3s ease-in-out;
+  }
+
+  .is-drawer-open .drawer-text {
+    opacity: 1;
+    display: inline;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .is-drawer-close .drawer-text {
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .is-drawer-open .drawer-logo-full {
+    opacity: 1;
+    display: block;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .is-drawer-close .drawer-logo-full {
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .is-drawer-open .drawer-logo-icon {
+    opacity: 0;
+    display: none;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .is-drawer-close .drawer-logo-icon {
+    opacity: 1;
+    display: block;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Center menu items when drawer is collapsed */
+  .is-drawer-close .menu {
+    @apply items-center;
+  }
+
+  .is-drawer-close .menu li a {
+    @apply justify-center;
+  }
 }
