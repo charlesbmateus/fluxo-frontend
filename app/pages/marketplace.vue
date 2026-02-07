@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { useServicesStore } from '~/stores/services'
+import { storeToRefs } from 'pinia'
+import type { Service } from '~/types/service'
+
+const router = useRouter()
+
+const store = useServicesStore()
+const { items: services, loading } = storeToRefs(store)
+
+const searchQuery = ref('')
+const selectedCategory = ref('')
+
+const filteredServices = computed<Service[]>(() => {
+  const query = searchQuery.value.trim().toLowerCase()
+  const category = selectedCategory.value
+
+  return services.value.filter(service => {
+    const matchesSearch =
+        !query ||
+        service.title.toLowerCase().includes(query) ||
+        service.description.toLowerCase().includes(query)
+
+    const matchesCategory =
+        !category || service.category.name === category
+
+    return matchesSearch && matchesCategory
+  })
+})
+
+const goToService = (id: number) => {
+  router.push(`/service/${id}`)
+}
+
+onMounted(() => {
+  store.fetchServices()
+})
+</script>
+
 <template>
   <NuxtLayout name="default">
     <div class="space-y-6">
@@ -48,27 +87,27 @@
             </figure>
             <div class="card-body">
               <div class="flex justify-between items-start">
-                <h2 class="card-title">{{ service.name }}</h2>
-                <div class="badge badge-primary badge-outline">{{ service.category }}</div>
+                <h2 class="card-title">{{ service.title }}</h2>
+                <div class="badge badge-primary badge-outline">{{ service.category.name }}</div>
               </div>
               <p class="text-base-content/70">{{ service.description }}</p>
               <div class="flex items-center gap-2 mt-2">
                 <div class="avatar">
                   <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-xs">
-                    {{ service.provider.charAt(0) }}
+                    {{ service.provider.name.charAt(0) }}
                   </div>
                 </div>
-                <span class="text-sm text-base-content/70">{{ service.provider }}</span>
+                <span class="text-sm text-base-content/70">{{ service.provider.name }}</span>
               </div>
-              <div class="card-actions justify-between items-center mt-4">
-                <div class="flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-secondary">
-                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                  </svg>
-                  <span class="font-semibold">{{ service.rating }}</span>
-                </div>
-                <div class="text-xl font-bold text-primary">${{ service.price }}</div>
-              </div>
+<!--              <div class="card-actions justify-between items-center mt-4">-->
+<!--                <div class="flex items-center gap-1">-->
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-secondary">-->
+<!--                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />-->
+<!--                  </svg>-->
+<!--                  <span class="font-semibold">{{ service.provider.rating }}</span>-->
+<!--                </div>-->
+<!--                <div class="text-xl font-bold text-primary">${{ service.price }}</div>-->
+<!--              </div>-->
               <button class="btn btn-primary btn-sm mt-2">
                 {{ $t('marketplace.viewDetails') }}
               </button>
@@ -87,38 +126,3 @@
     </div>
   </NuxtLayout>
 </template>
-
-<script setup lang="ts">
-import type { Service } from '~/types'
-
-const { fetchServices } = useApi()
-const router = useRouter()
-
-const services = ref<Service[]>([])
-const searchQuery = ref('')
-const selectedCategory = ref('')
-const loading = ref(true)
-
-const filteredServices = computed(() => {
-  return services.value.filter(service => {
-    const matchesSearch = service.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-                         service.description.toLowerCase().includes(searchQuery.value.toLowerCase())
-    const matchesCategory = !selectedCategory.value || service.category === selectedCategory.value
-    return matchesSearch && matchesCategory
-  })
-})
-
-const goToService = (id: number) => {
-  router.push(`/service/${id}`)
-}
-
-onMounted(async () => {
-  loading.value = true
-  try {
-    const data = await fetchServices()
-    services.value = data.data
-  } finally {
-    loading.value = false
-  }
-})
-</script>

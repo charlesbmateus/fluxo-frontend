@@ -1,8 +1,47 @@
+<script setup lang="ts">
+import { useServicesStore } from '~/stores/services'
+import { storeToRefs } from 'pinia'
+
+const route = useRoute()
+const router = useRouter()
+const { isAuthenticated } = useAuth()
+
+const store = useServicesStore()
+const { loading } = storeToRefs(store)
+
+const service = computed(() => {
+  const id = Number(route.params.id)
+  return store.getById(id)
+})
+
+const handleBookService = () => {
+  if (!isAuthenticated.value) {
+    router.push(`/login?redirect=${route.fullPath}`)
+    return
+  }
+  alert('Booking service...')
+}
+
+const handleContactProvider = () => {
+  if (!isAuthenticated.value) {
+    router.push(`/login?redirect=${route.fullPath}`)
+    return
+  }
+  router.push('/messages')
+}
+
+onMounted(async () => {
+  if (store.items.length === 0) {
+    await store.fetchServices()
+  }
+})
+</script>
+
 <template>
   <NuxtLayout name="default">
     <div class="space-y-6" v-if="service">
       <!-- Back Button -->
-      <button @click="$router.back()" class="btn btn-ghost btn-sm">
+      <button @click="router.back()" class="btn btn-ghost btn-sm">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
         </svg>
@@ -14,23 +53,23 @@
         <div class="card-body">
           <div class="flex flex-col lg:flex-row gap-6">
             <figure class="lg:w-1/2 rounded-lg overflow-hidden">
-              <img :src="service.image" :alt="service.name" class="w-full h-80 object-cover" />
+              <img :src="service?.thumbnail || undefined" :alt="service?.title" class="w-full h-80 object-cover" />
             </figure>
             <div class="lg:w-1/2 space-y-4">
               <div>
-                <div class="badge badge-primary badge-lg mb-2">{{ service.category }}</div>
-                <h1 class="text-4xl font-bold">{{ service.name }}</h1>
+                <div class="badge badge-primary badge-lg mb-2">{{ service?.category?.name }}</div>
+                <h1 class="text-4xl font-bold">{{ service.title }}</h1>
               </div>
               
-              <div class="flex items-center gap-4">
-                <div class="flex items-center gap-1">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-secondary">
-                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
-                  </svg>
-                  <span class="text-2xl font-bold">{{ service.rating }}</span>
-                  <span class="text-base-content/60">(234 reviews)</span>
-                </div>
-              </div>
+<!--              <div class="flex items-center gap-4">-->
+<!--                <div class="flex items-center gap-1">-->
+<!--                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-secondary">-->
+<!--                    <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />-->
+<!--                  </svg>-->
+<!--                  <span class="text-2xl font-bold">{{ service?.rating }}</span>-->
+<!--                  <span class="text-base-content/60">(234 reviews)</span>-->
+<!--                </div>-->
+<!--              </div>-->
 
               <div class="divider"></div>
 
@@ -39,11 +78,11 @@
                 <div class="flex items-center gap-3">
                   <div class="avatar">
                     <div class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-lg">
-                      {{ service.provider.charAt(0) }}
+                      {{ service?.provider?.name.charAt(0) }}
                     </div>
                   </div>
                   <div>
-                    <p class="font-semibold">{{ service.provider }}</p>
+                    <p class="font-semibold">{{ service?.provider.name }}</p>
                     <p class="text-sm text-base-content/60">Professional Service Provider</p>
                   </div>
                 </div>
@@ -54,7 +93,7 @@
               <div>
                 <div class="flex justify-between items-center mb-4">
                   <span class="text-base-content/60">{{ $t('service.price') }}</span>
-                  <span class="text-3xl font-bold text-primary">${{ service.price }}</span>
+                  <span class="text-3xl font-bold text-primary">${{ service?.price }}</span>
                 </div>
                 <button @click="handleBookService" class="btn btn-primary btn-block btn-lg">
                   {{ $t('service.bookNow') }}
@@ -75,7 +114,7 @@
             <div class="card-body">
               <h2 class="card-title text-2xl">{{ $t('service.description') }}</h2>
               <p class="text-base-content/80 leading-relaxed">
-                {{ service.description }}
+                {{ service?.description }}
               </p>
               <div class="mt-4">
                 <h3 class="font-semibold mb-2">What's Included:</h3>
@@ -138,40 +177,3 @@
     </div>
   </NuxtLayout>
 </template>
-
-<script setup lang="ts">
-import type { Service } from '~/types'
-
-const route = useRoute()
-const router = useRouter()
-const { fetchServices } = useApi()
-const { isAuthenticated } = useAuth()
-
-const service = ref<Service | null>(null)
-
-const handleBookService = () => {
-  if (!isAuthenticated.value) {
-    // Redirect to login with return URL
-    router.push(`/login?redirect=${route.fullPath}`)
-    return
-  }
-  // TODO: Implement actual booking logic
-  alert('Booking service...')
-}
-
-const handleContactProvider = () => {
-  if (!isAuthenticated.value) {
-    // Redirect to login with return URL
-    router.push(`/login?redirect=${route.fullPath}`)
-    return
-  }
-  // TODO: Implement actual contact logic (e.g., navigate to messages)
-  router.push('/messages')
-}
-
-onMounted(async () => {
-  const id = parseInt(route.params.id as string)
-  const data = await fetchServices()
-  service.value = data.data.find(s => s.id === id) || null
-})
-</script>

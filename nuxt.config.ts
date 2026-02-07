@@ -2,8 +2,15 @@
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+
+  runtimeConfig: {
+    public: {
+      apiBase: 'http://localhost:8000/api',
+    },
+  },
   
   modules: [
+    '@pinia/nuxt',
     '@nuxtjs/tailwindcss',
     '@nuxtjs/i18n',
     '@nuxtjs/color-mode'
