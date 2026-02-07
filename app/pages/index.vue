@@ -266,7 +266,7 @@ import type { Service } from '~/types'
 
 const { locale, locales, setLocale } = useI18n()
 const colorMode = useColorMode()
-const { fetchServices } = useApi()
+const servicesStore = useServicesStore()
 const router = useRouter()
 
 const featuredServices = ref<Service[]>([])
@@ -336,8 +336,8 @@ const goToService = (id: number) => {
 onMounted(async () => {
   loading.value = true
   try {
-    const data = await fetchServices()
-    featuredServices.value = data.data.slice(0, 3)
+    await servicesStore.fetchServices()
+    featuredServices.value = servicesStore.allServices.slice(0, 3)
   } finally {
     loading.value = false
   }

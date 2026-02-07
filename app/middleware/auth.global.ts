@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const authStore = useAuthStore()
+  const { isAuthenticated } = useAuthStore()
   
   // Public routes that don't require authentication
   const publicRoutes = ['/', '/login', '/register', '/marketplace', '/service']
@@ -14,12 +14,12 @@ export default defineNuxtRouteMiddleware((to, from) => {
   })
   
   // If user is not authenticated and trying to access a protected route
-  if (!authStore.isAuthenticated && !isPublicRoute) {
+  if (!isAuthenticated && !isPublicRoute) {
     return navigateTo('/login')
   }
   
   // If user is authenticated and trying to access login/register/home, redirect to dashboard
-  if (authStore.isAuthenticated && (to.path === '/login' || to.path === '/register' || to.path === '/')) {
+  if (isAuthenticated && (to.path === '/login' || to.path === '/register' || to.path === '/')) {
     return navigateTo('/dashboard')
   }
 })

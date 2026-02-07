@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 const authStore = useAuthStore()
-const user = computed(() => authStore.user)
+const { user, logout } = authStore
 const router = useRouter()
 
 const handleLogout = async () => {

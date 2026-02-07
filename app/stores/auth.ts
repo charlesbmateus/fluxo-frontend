@@ -10,21 +10,29 @@ interface User {
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    user: null as User | null
+    user: null as User | null,
+    loading: false,
+    error: null as string | null,
   }),
 
   getters: {
-    isAuthenticated: (state) => !!state.user
+    isAuthenticated: (state) => !!state.user,
+    currentUser: (state) => state.user,
+    isLoading: (state) => state.loading,
+    hasError: (state) => !!state.error,
   },
 
   actions: {
-    // Login with email and password
     async login(email: string, password: string) {
+      this.loading = true
+      this.error = null
+      
       try {
-        // TODO: Replace with actual API call to backend authentication endpoint
-        // For demo purposes, we'll simulate a successful login
+        // TODO: Replace with actual API endpoint from fluxo-backend
+        // For now, simulating network delay for demonstration
         await new Promise(resolve => setTimeout(resolve, 1000))
         
+        // Mock login - should be replaced with actual API call to fluxo-backend
         this.user = {
           id: 1,
           name: 'Demo User',
@@ -33,18 +41,24 @@ export const useAuthStore = defineStore('auth', {
         }
         
         return { success: true }
-      } catch (error) {
+      } catch (err) {
+        this.error = 'Invalid credentials'
         return { success: false, error: 'Invalid credentials' }
+      } finally {
+        this.loading = false
       }
     },
 
-    // Register with email and password
     async register(name: string, email: string, password: string) {
+      this.loading = true
+      this.error = null
+      
       try {
-        // TODO: Replace with actual API call to backend registration endpoint
-        // For demo purposes, we'll simulate a successful registration
+        // TODO: Replace with actual API endpoint from fluxo-backend
+        // For now, simulating network delay for demonstration
         await new Promise(resolve => setTimeout(resolve, 1000))
         
+        // Mock registration - should be replaced with actual API call to fluxo-backend
         this.user = {
           id: 1,
           name: name,
@@ -53,18 +67,24 @@ export const useAuthStore = defineStore('auth', {
         }
         
         return { success: true }
-      } catch (error) {
+      } catch (err) {
+        this.error = 'Registration failed'
         return { success: false, error: 'Registration failed' }
+      } finally {
+        this.loading = false
       }
     },
 
-    // SSO Login - Google
     async loginWithGoogle() {
+      this.loading = true
+      this.error = null
+      
       try {
-        // TODO: Replace with actual Google OAuth redirect or popup flow
-        // For demo purposes, we'll simulate a successful SSO login
+        // TODO: Replace with actual Google OAuth flow
+        // For now, simulating network delay for demonstration
         await new Promise(resolve => setTimeout(resolve, 1500))
         
+        // Mock SSO login - should be replaced with actual OAuth flow
         this.user = {
           id: 1,
           name: 'Google User',
@@ -74,18 +94,24 @@ export const useAuthStore = defineStore('auth', {
         }
         
         return { success: true }
-      } catch (error) {
+      } catch (err) {
+        this.error = 'Google login failed'
         return { success: false, error: 'Google login failed' }
+      } finally {
+        this.loading = false
       }
     },
 
-    // SSO Login - GitHub
     async loginWithGithub() {
+      this.loading = true
+      this.error = null
+      
       try {
-        // TODO: Replace with actual GitHub OAuth redirect or popup flow
-        // For demo purposes, we'll simulate a successful SSO login
+        // TODO: Replace with actual GitHub OAuth flow
+        // For now, simulating network delay for demonstration
         await new Promise(resolve => setTimeout(resolve, 1500))
         
+        // Mock SSO login - should be replaced with actual OAuth flow
         this.user = {
           id: 1,
           name: 'GitHub User',
@@ -95,15 +121,22 @@ export const useAuthStore = defineStore('auth', {
         }
         
         return { success: true }
-      } catch (error) {
+      } catch (err) {
+        this.error = 'GitHub login failed'
         return { success: false, error: 'GitHub login failed' }
+      } finally {
+        this.loading = false
       }
     },
 
-    // Logout
     async logout() {
       this.user = null
+      this.error = null
       return { success: true }
-    }
-  }
+    },
+    
+    clearError() {
+      this.error = null
+    },
+  },
 })

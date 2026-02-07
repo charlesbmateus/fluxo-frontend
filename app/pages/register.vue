@@ -124,7 +124,7 @@ definePageMeta({
   layout: false
 })
 
-const authStore = useAuthStore()
+const { register, loginWithGoogle, loginWithGithub } = useAuthStore()
 const router = useRouter()
 const { t } = useI18n()
 

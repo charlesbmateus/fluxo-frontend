@@ -21,7 +21,7 @@
             </div>
             <div class="overflow-y-auto">
               <div 
-                v-for="message in messages" 
+                v-for="message in messagesStore.allMessages" 
                 :key="message.id"
                 class="flex items-start gap-3 p-4 hover:bg-base-200 cursor-pointer transition-colors border-b border-base-300"
                 :class="{ 'bg-base-200': selectedMessage?.id === message.id }"
@@ -144,16 +144,17 @@
 </template>
 
 <script setup lang="ts">
+import { useMessagesStore } from '~/stores/messages'
 import type { Message } from '~/types'
 
-const { fetchMessages } = useApi()
+const messagesStore = useMessagesStore()
 
-const messages = ref<Message[]>([])
 const selectedMessage = ref<Message | null>(null)
 const newMessage = ref('')
 
 const selectMessage = (message: Message) => {
   selectedMessage.value = message
+  messagesStore.markAsRead(message.id)
 }
 
 const sendMessage = () => {
@@ -181,7 +182,6 @@ const formatTime = (timestamp: string) => {
 }
 
 onMounted(async () => {
-  const data = await fetchMessages()
-  messages.value = data.data
+  await messagesStore.fetchMessages()
 })
 </script>

@@ -33,7 +33,7 @@
 
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <template v-if="loading">
+        <template v-if="servicesStore.isLoading">
           <SkeletonsServiceCardSkeleton v-for="i in 6" :key="i" />
         </template>
         <template v-else>
@@ -78,7 +78,7 @@
       </div>
 
       <!-- Empty State -->
-      <div v-if="!loading && filteredServices.length === 0" class="text-center py-12">
+      <div v-if="!servicesStore.isLoading && filteredServices.length === 0" class="text-center py-12">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 mx-auto text-base-content/30">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
         </svg>
@@ -89,18 +89,16 @@
 </template>
 
 <script setup lang="ts">
-import type { Service } from '~/types'
+import { useServicesStore } from '~/stores/services'
 
-const { fetchServices } = useApi()
+const servicesStore = useServicesStore()
 const router = useRouter()
 
-const services = ref<Service[]>([])
 const searchQuery = ref('')
 const selectedCategory = ref('')
-const loading = ref(true)
 
 const filteredServices = computed(() => {
-  return services.value.filter(service => {
+  return servicesStore.allServices.filter(service => {
     const matchesSearch = service.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
                          service.description.toLowerCase().includes(searchQuery.value.toLowerCase())
     const matchesCategory = !selectedCategory.value || service.category === selectedCategory.value
@@ -113,12 +111,6 @@ const goToService = (id: number) => {
 }
 
 onMounted(async () => {
-  loading.value = true
-  try {
-    const data = await fetchServices()
-    services.value = data.data
-  } finally {
-    loading.value = false
-  }
+  await servicesStore.fetchServices()
 })
 </script>

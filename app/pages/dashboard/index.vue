@@ -22,9 +22,9 @@
               </svg>
             </div>
             <div class="stat-title">{{ $t('dashboard.revenue') }}</div>
-            <div class="stat-value text-primary">${{ financialData?.revenue.current.toLocaleString() }}</div>
-            <div class="stat-desc" :class="(financialData?.revenue.change ?? 0) > 0 ? 'text-success' : 'text-error'">
-              {{ (financialData?.revenue.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.revenue.change ?? 0) }}% {{ $t('dashboard.growth') }}
+            <div class="stat-value text-primary">${{ financialStore.revenue?.current.toLocaleString() }}</div>
+            <div class="stat-desc" :class="(financialStore.revenue?.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialStore.revenue?.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialStore.revenue?.change ?? 0) }}% {{ $t('dashboard.growth') }}
             </div>
           </div>
 
@@ -35,9 +35,9 @@
               </svg>
             </div>
             <div class="stat-title">{{ $t('dashboard.orders') }}</div>
-            <div class="stat-value text-secondary">{{ financialData?.orders.current }}</div>
-            <div class="stat-desc" :class="(financialData?.orders.change ?? 0) > 0 ? 'text-success' : 'text-error'">
-              {{ (financialData?.orders.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.orders.change ?? 0) }}%
+            <div class="stat-value text-secondary">{{ financialStore.orders?.current }}</div>
+            <div class="stat-desc" :class="(financialStore.orders?.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialStore.orders?.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialStore.orders?.change ?? 0) }}%
             </div>
           </div>
 
@@ -48,9 +48,9 @@
               </svg>
             </div>
             <div class="stat-title">{{ $t('dashboard.services') }}</div>
-            <div class="stat-value">{{ financialData?.services.current }}</div>
-            <div class="stat-desc" :class="(financialData?.services.change ?? 0) > 0 ? 'text-success' : 'text-error'">
-              {{ (financialData?.services.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.services.change ?? 0) }}%
+            <div class="stat-value">{{ financialStore.services?.current }}</div>
+            <div class="stat-desc" :class="(financialStore.services?.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialStore.services?.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialStore.services?.change ?? 0) }}%
             </div>
           </div>
 
@@ -80,7 +80,7 @@
             <div class="card-body">
               <h2 class="card-title">Revenue Overview</h2>
               <ClientOnly>
-                <LineChart v-if="financialData" :data="financialData.chartData" />
+                <LineChart v-if="financialStore.chartData" :data="financialStore.chartData" />
               </ClientOnly>
             </div>
           </div>
@@ -140,22 +140,24 @@
 </template>
 
 <script setup lang="ts">
-import type { FinancialData, Service } from '~/types'
+import { useFinancialStore } from '~/stores/financial'
+import { useServicesStore } from '~/stores/services'
 
-const { fetchFinancialData, fetchServices } = useApi()
+const financialStore = useFinancialStore()
+const servicesStore = useServicesStore()
 
-const financialData = ref<FinancialData | null>(null)
-const recentServices = ref<Service[]>([])
-const loading = ref(true)
+const recentServices = computed(() => {
+  return servicesStore.allServices.slice(0, 3)
+})
+
+const loading = computed(() => {
+  return financialStore.isLoading || servicesStore.isLoading
+})
 
 onMounted(async () => {
-  loading.value = true
-  try {
-    financialData.value = await fetchFinancialData()
-    const servicesData = await fetchServices()
-    recentServices.value = servicesData.data.slice(0, 3)
-  } finally {
-    loading.value = false
-  }
+  await Promise.all([
+    financialStore.fetchFinancialData(),
+    servicesStore.fetchServices()
+  ])
 })
 </script>

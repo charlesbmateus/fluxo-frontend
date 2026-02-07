@@ -95,8 +95,7 @@
 const {locale, locales, setLocale} = useI18n()
 const colorMode = useColorMode()
 const authStore = useAuthStore()
-const user = computed(() => authStore.user)
-const isAuthenticated = computed(() => authStore.isAuthenticated)
+const { user, isAuthenticated, logout } = authStore
 const router = useRouter()
 
 const isDrawerOpen = ref(true)
