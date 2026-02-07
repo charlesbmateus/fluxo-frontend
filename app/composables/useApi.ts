@@ -21,7 +21,7 @@ export const useApi = () => {
           price: 500,
           rating: 4.8,
           category: 'Development',
-          image: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400'
         },
         {
           id: 2,
@@ -41,7 +41,7 @@ export const useApi = () => {
           price: 200,
           rating: 4.7,
           category: 'Writing',
-          image: 'https://plus.unsplash.com/premium_photo-1664286775376-bd07fece39ee?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+          image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?w=400'
         },
         {
           id: 4,

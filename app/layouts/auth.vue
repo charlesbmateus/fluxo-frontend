@@ -5,7 +5,7 @@
         <NuxtLink to="/" class="inline-block">
           <h1 class="text-4xl font-bold">
             <span class="text-primary">Fluxo</span>
-            <span class="text-secondary font-normal">Marketplace</span>
+            <span class="text-secondary">Marketplace</span>
           </h1>
         </NuxtLink>
       </div>

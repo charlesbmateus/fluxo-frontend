@@ -6,6 +6,9 @@
         
         <form @submit.prevent="handleLogin" class="space-y-4">
           <div class="form-control">
+            <label class="label">
+              <span class="label-text">{{ $t('auth.email') }}</span>
+            </label>
             <input 
               v-model="email" 
               type="email" 
@@ -16,6 +19,9 @@
           </div>
           
           <div class="form-control">
+            <label class="label">
+              <span class="label-text">{{ $t('auth.password') }}</span>
+            </label>
             <input 
               v-model="password" 
               type="password" 
