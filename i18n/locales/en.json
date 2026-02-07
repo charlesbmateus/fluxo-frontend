@@ -64,5 +64,81 @@
     "registerError": "Registration failed. Please try again.",
     "loginWith": "Sign in with",
     "or": "or"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover Talent and Services on",
+      "titleHighlight": "Fluxo",
+      "subtitle": "Connect with talented professionals and access thousands of services to grow your business",
+      "browseServices": "Browse Services",
+      "getStarted": "Get Started"
+    },
+    "stats": {
+      "services": "Services Available",
+      "servicesDesc": "From all categories",
+      "providers": "Service Providers",
+      "providersDesc": "Verified professionals",
+      "transactions": "Completed Transactions",
+      "transactionsDesc": "And growing daily",
+      "satisfaction": "Customer Satisfaction",
+      "satisfactionDesc": "Average rating"
+    },
+    "categories": {
+      "title": "Explore Categories",
+      "subtitle": "Find the perfect service for your needs",
+      "services": "services",
+      "development": "Development",
+      "developmentDesc": "Build web apps, mobile apps, and software solutions",
+      "design": "Design",
+      "designDesc": "Create stunning graphics, logos, and user interfaces",
+      "writing": "Writing & Content",
+      "writingDesc": "Professional content writing and copywriting services",
+      "marketing": "Marketing",
+      "marketingDesc": "Digital marketing, SEO, and social media strategies",
+      "video": "Video & Animation",
+      "videoDesc": "Video editing, motion graphics, and 3D animation",
+      "business": "Business Services",
+      "businessDesc": "Consulting, virtual assistance, and business support"
+    },
+    "featured": {
+      "title": "Featured Services",
+      "subtitle": "Top-rated services from our marketplace",
+      "viewAll": "View All Services"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "Start working with professionals in three simple steps",
+      "step1Title": "Browse Services",
+      "step1Desc": "Explore thousands of services across multiple categories",
+      "step2Title": "Choose & Contact",
+      "step2Desc": "Select the perfect service provider and discuss your project",
+      "step3Title": "Get Work Done",
+      "step3Desc": "Receive high-quality work delivered on time"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "subtitle": "Join thousands of satisfied customers and start your project today",
+      "joinNow": "Join Now",
+      "learnMore": "Learn More"
+    },
+    "footer": {
+      "about": "About",
+      "aboutDesc": "Fluxo Marketplace connects talented professionals with businesses worldwide.",
+      "services": "Services",
+      "development": "Development",
+      "design": "Design",
+      "marketing": "Marketing",
+      "writing": "Writing",
+      "company": "Company",
+      "aboutUs": "About Us",
+      "contact": "Contact",
+      "careers": "Careers",
+      "blog": "Blog",
+      "legal": "Legal",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy",
+      "copyright": "All rights reserved."
+    }
   }
 }
