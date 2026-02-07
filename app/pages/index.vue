@@ -43,10 +43,7 @@
           </label>
 
           <NuxtLink to="/login" class="btn btn-ghost btn-sm">
-            {{ $t('auth.login') }}
-          </NuxtLink>
-          <NuxtLink to="/register" class="btn btn-primary btn-sm">
-            {{ $t('auth.register') }}
+            {{ $t('auth.login') }} / {{ $t('auth.register') }}
           </NuxtLink>
         </div>
       </div>
