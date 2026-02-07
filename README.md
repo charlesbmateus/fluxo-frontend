@@ -109,24 +109,53 @@ bun run preview
 ```
 app/
 ├── components/     # Reusable Vue components
-├── composables/    # Vue composables (useApi, etc.)
 ├── layouts/        # Application layouts
 ├── locales/        # i18n translation files
-└── pages/          # Application pages/routes
+├── middleware/     # Route guards and middleware
+├── pages/          # Application pages/routes
+└── types/          # TypeScript type definitions
+stores/             # Pinia state management
+├── auth.ts         # Authentication store
+└── api.ts          # API data store
 ```
+
+## State Management
+
+The application uses **Pinia v3** for centralized state management:
+
+- **Authentication Store** (`stores/auth.ts`)
+  - User authentication and session management
+  - Login, register, and SSO (Google/GitHub) support
+  - Logout functionality
+
+- **API Store** (`stores/api.ts`)
+  - Services data management
+  - Financial data and analytics
+  - Messages and notifications
+  - Loading states for each data type
+
+For detailed information about Pinia integration and backend setup, see [PINIA_INTEGRATION.md](./PINIA_INTEGRATION.md).
 
 ## API Integration
 
-The application uses mock data for demonstration. To connect to the actual backend:
+The application uses Pinia stores with mock data for demonstration. To connect to the actual fluxo-backend:
 
-1. Update the `baseURL` in `app/composables/useApi.ts`
-2. Replace mock functions with actual API calls
-3. Configure environment variables in `.env`
+1. Set the backend API URL in environment variables:
+   ```bash
+   NUXT_PUBLIC_API_BASE=https://api.fluxo.example.com
+   ```
+
+2. Replace mock data in stores with actual API calls:
+   - See `TODO` comments in `stores/auth.ts` and `stores/api.ts`
+   - Use Nuxt's `$fetch` utility for API calls
+
+3. Refer to [PINIA_INTEGRATION.md](./PINIA_INTEGRATION.md) for detailed integration guide
 
 ## Technologies
 
-- **Nuxt 3** - Vue.js framework
+- **Nuxt 4** - Vue.js framework with improved DX
 - **Vue 3** - Progressive JavaScript framework
+- **Pinia 3** - Official Vue state management
 - **DaisyUI** - Tailwind CSS component library
 - **Chart.js** - Data visualization
 - **@nuxtjs/i18n** - Internationalization
