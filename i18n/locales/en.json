@@ -67,7 +67,10 @@
   },
   "home": {
     "hero": {
-      "title": "Discover Talent and Services on",
+      "title1": "Discover Talent and Services on",
+      "title2": "Connect with Trusted Professionals on",
+      "title3": "Learn, Teach, and Grow Together on",
+      "title4": "Find the Right Expert for You on",
       "titleHighlight": "Fluxo",
       "subtitle": "Connect with talented professionals and access thousands of services to grow your business",
       "browseServices": "Browse Services",

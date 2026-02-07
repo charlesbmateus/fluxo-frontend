@@ -6,17 +6,17 @@
         <div class="flex-1">
           <NuxtLink to="/" class="btn btn-ghost text-xl">
             <span class="text-primary">Fluxo</span>
-            <span class="text-secondary">Marketplace</span>
+            <span class="text-secondary font-light">Marketplace</span>
           </NuxtLink>
         </div>
         <div class="flex-none gap-2">
-          <NuxtLink to="/marketplace" class="btn btn-ghost">
+          <NuxtLink to="/marketplace" class="btn btn-ghost font-normal">
             {{ $t('nav.marketplace') }}
           </NuxtLink>
-          <NuxtLink to="/dashboard" class="btn btn-ghost">
+          <NuxtLink to="/dashboard" class="btn btn-ghost font-normal">
             {{ $t('nav.dashboard') }}
           </NuxtLink>
-          
+
           <!-- Language Selector -->
           <div class="dropdown dropdown-end">
             <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -56,9 +56,16 @@
     <section class="hero min-h-[600px] bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10">
       <div class="hero-content text-center max-w-6xl px-4">
         <div>
-          <h1 class="text-5xl md:text-6xl font-bold mb-6">
-            {{ $t('home.hero.title') }}
-            <span class="text-primary">{{ $t('home.hero.titleHighlight') }}</span>
+          <h1 class="text-3xl md:text-5xl font-normal mb-6 leading-tight flex flex-col items-center">
+            <span class="text-rotate duration-6000 whitespace-break-spaces leading-[1.5]">
+              <span class="justify-items-center">
+                <span>{{ $t('home.hero.title1') }}</span>
+                <span>{{ $t('home.hero.title2') }}</span>
+                <span>{{ $t('home.hero.title3') }}</span>
+                <span>{{ $t('home.hero.title4') }}</span>
+              </span>
+            </span>
+            <span class="text-primary mt-2">{{ $t('home.hero.titleHighlight') }}</span>
           </h1>
           <p class="text-xl md:text-2xl text-base-content/70 mb-8 max-w-3xl mx-auto">
             {{ $t('home.hero.subtitle') }}
@@ -78,44 +85,16 @@
       </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-16 bg-base-200">
-      <div class="container mx-auto px-4">
-        <div class="stats stats-vertical lg:stats-horizontal shadow w-full">
-          <div class="stat place-items-center">
-            <div class="stat-title">{{ $t('home.stats.services') }}</div>
-            <div class="stat-value text-primary">10K+</div>
-            <div class="stat-desc">{{ $t('home.stats.servicesDesc') }}</div>
-          </div>
-          <div class="stat place-items-center">
-            <div class="stat-title">{{ $t('home.stats.providers') }}</div>
-            <div class="stat-value text-secondary">5K+</div>
-            <div class="stat-desc">{{ $t('home.stats.providersDesc') }}</div>
-          </div>
-          <div class="stat place-items-center">
-            <div class="stat-title">{{ $t('home.stats.transactions') }}</div>
-            <div class="stat-value">50K+</div>
-            <div class="stat-desc">{{ $t('home.stats.transactionsDesc') }}</div>
-          </div>
-          <div class="stat place-items-center">
-            <div class="stat-title">{{ $t('home.stats.satisfaction') }}</div>
-            <div class="stat-value text-success">98%</div>
-            <div class="stat-desc">{{ $t('home.stats.satisfactionDesc') }}</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Categories Section -->
-    <section class="py-20 bg-base-100">
+    <section class="py-20 bg-base-200">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-bold mb-4">{{ $t('home.categories.title') }}</h2>
           <p class="text-xl text-base-content/70">{{ $t('home.categories.subtitle') }}</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div 
-            v-for="category in categories" 
+          <div
+            v-for="category in categories"
             :key="category.name"
             class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer border border-base-300"
             @click="goToCategory(category.slug)"
@@ -132,7 +111,7 @@
     </section>
 
     <!-- Featured Services Section -->
-    <section class="py-20 bg-base-200">
+    <section class="py-20 bg-base-100">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-bold mb-4">{{ $t('home.featured.title') }}</h2>
@@ -143,8 +122,8 @@
             <SkeletonsServiceCardSkeleton v-for="i in 3" :key="i" />
           </template>
           <template v-else>
-            <div 
-              v-for="service in featuredServices" 
+            <div
+              v-for="service in featuredServices"
               :key="service.id"
               class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer"
               @click="goToService(service.id)"
@@ -188,7 +167,7 @@
     </section>
 
     <!-- How It Works Section -->
-    <section class="py-20 bg-base-100">
+    <section class="py-20 bg-base-200">
       <div class="container mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-4xl font-bold mb-4">{{ $t('home.howItWorks.title') }}</h2>
@@ -251,7 +230,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer sm:footer-horizontal bg-base-300 text-base-content p-10">
+    <footer class="footer sm:footer-horizontal bg-base-100 text-base-content p-10">
       <nav>
         <h6 class="footer-title">{{ $t('home.footer.about') }}</h6>
         <p class="text-base-content/70 max-w-xs">{{ $t('home.footer.aboutDesc') }}</p>
@@ -277,7 +256,7 @@
         <a class="link link-hover">{{ $t('home.footer.cookies') }}</a>
       </nav>
     </footer>
-    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+    <footer class="footer footer-center p-4 bg-base-100 text-base-content">
       <div>
         <p>© 2026 Fluxo Marketplace. {{ $t('home.footer.copyright') }}</p>
       </div>
