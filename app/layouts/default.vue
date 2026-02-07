@@ -92,10 +92,13 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from 'pinia'
+
 const {locale, locales, setLocale} = useI18n()
 const colorMode = useColorMode()
 const authStore = useAuthStore()
-const { user, isAuthenticated, logout } = authStore
+const { user, isAuthenticated } = storeToRefs(authStore)
+const { logout } = authStore
 const router = useRouter()
 
 const isDrawerOpen = ref(true)

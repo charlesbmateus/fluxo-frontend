@@ -112,14 +112,6 @@ app/
 ├── composables/    # Vue composables (useApi, etc.)
 ├── layouts/        # Application layouts
 ├── locales/        # i18n translation files
-## Project Structure
-
-```
-app/
-├── components/     # Reusable Vue components
-├── composables/    # Vue composables (useApi, etc.)
-├── layouts/        # Application layouts
-├── locales/        # i18n translation files
 ├── pages/          # Application pages/routes
 └── stores/         # Pinia stores for state management
 ```

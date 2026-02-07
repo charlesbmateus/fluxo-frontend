@@ -17,8 +17,11 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 const authStore = useAuthStore()
-const { user, logout } = authStore
+const { user } = storeToRefs(authStore)
+const { logout } = authStore
 const router = useRouter()
 
 const handleLogout = async () => {

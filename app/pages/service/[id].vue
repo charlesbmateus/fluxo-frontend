@@ -140,18 +140,19 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import type { Service } from '~/types'
 
 const route = useRoute()
 const router = useRouter()
 const servicesStore = useServicesStore()
 const authStore = useAuthStore()
-const { isAuthenticated } = authStore
+const { isAuthenticated } = storeToRefs(authStore)
 
 const service = ref<Service | null>(null)
 
 const handleBookService = () => {
-  if (!isAuthenticated) {
+  if (!isAuthenticated.value) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
@@ -161,7 +162,7 @@ const handleBookService = () => {
 }
 
 const handleContactProvider = () => {
-  if (!isAuthenticated) {
+  if (!isAuthenticated.value) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
@@ -178,6 +179,6 @@ onMounted(async () => {
     await servicesStore.fetchServices()
   }
   
-  service.value = servicesStore.serviceById(id) || null
+  service.value = servicesStore.serviceById(id)
 })
 </script>

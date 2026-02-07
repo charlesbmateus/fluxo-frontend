@@ -14,7 +14,7 @@ export const useServicesStore = defineStore('services', {
     hasError: (state) => !!state.error,
     
     serviceById: (state) => (id: number) => {
-      return state.services.find(service => service.id === id)
+      return state.services.find(service => service.id === id) ?? null
     },
     
     servicesByCategory: (state) => (category: string) => {
