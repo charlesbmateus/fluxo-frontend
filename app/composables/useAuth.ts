@@ -103,3 +103,6 @@ export const useAuth = () => {
     logout
   }
 }
+
+// Alias for backward compatibility
+export const useAuthStore = useAuth
