@@ -1,18 +1,22 @@
 <template>
-  <div class="drawer lg:drawer-open" :class="{ 'is-drawer-open': isDrawerOpen, 'is-drawer-close': !isDrawerOpen }">
-    <input id="main-drawer" type="checkbox" class="drawer-toggle" />
+  <div :class="[
+    'min-h-screen',
+    isAuthenticated ? 'drawer lg:drawer-open' : '',
+    { 'is-drawer-open': isDrawerOpen && isAuthenticated, 'is-drawer-close': !isDrawerOpen && isAuthenticated }
+  ]">
+    <input v-if="isAuthenticated" id="main-drawer" type="checkbox" class="drawer-toggle" />
     
     <div class="drawer-content flex flex-col">
       <!-- Navbar -->
       <div class="navbar bg-base-100 shadow-md">
-        <div class="flex-none lg:hidden">
+        <div v-if="isAuthenticated" class="flex-none lg:hidden">
           <label for="main-drawer" class="btn btn-square btn-ghost">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </label>
         </div>
-        <div class="flex-none hidden lg:flex">
+        <div v-if="isAuthenticated" class="flex-none hidden lg:flex">
           <button @click="toggleDrawer" class="btn btn-square btn-ghost">
             <svg v-if="isDrawerOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5" />
@@ -167,7 +171,7 @@
     </div>
 
     <!-- Sidebar -->
-    <div class="drawer-side">
+    <div v-if="isAuthenticated" class="drawer-side">
       <label for="main-drawer" class="drawer-overlay"></label>
       <aside class="bg-base-200 min-h-full transition-all duration-300" :class="isDrawerOpen ? 'w-64' : 'w-20'">
         <div class="p-4">
