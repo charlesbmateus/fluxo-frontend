@@ -144,13 +144,14 @@ import type { Service } from '~/types'
 
 const route = useRoute()
 const router = useRouter()
-const { fetchServices } = useApi()
+const servicesStore = useServicesStore()
 const authStore = useAuthStore()
+const { isAuthenticated } = authStore
 
 const service = ref<Service | null>(null)
 
 const handleBookService = () => {
-  if (!authStore.isAuthenticated) {
+  if (!isAuthenticated) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
@@ -160,7 +161,7 @@ const handleBookService = () => {
 }
 
 const handleContactProvider = () => {
-  if (!authStore.isAuthenticated) {
+  if (!isAuthenticated) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
@@ -171,7 +172,12 @@ const handleContactProvider = () => {
 
 onMounted(async () => {
   const id = parseInt(route.params.id as string)
-  const data = await fetchServices()
-  service.value = data.data.find(s => s.id === id) || null
+  
+  // Fetch services if not already loaded
+  if (servicesStore.allServices.length === 0) {
+    await servicesStore.fetchServices()
+  }
+  
+  service.value = servicesStore.serviceById(id) || null
 })
 </script>

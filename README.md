@@ -112,21 +112,76 @@ app/
 ├── composables/    # Vue composables (useApi, etc.)
 ├── layouts/        # Application layouts
 ├── locales/        # i18n translation files
-└── pages/          # Application pages/routes
+## Project Structure
+
 ```
+app/
+├── components/     # Reusable Vue components
+├── composables/    # Vue composables (useApi, etc.)
+├── layouts/        # Application layouts
+├── locales/        # i18n translation files
+├── pages/          # Application pages/routes
+└── stores/         # Pinia stores for state management
+```
+
+## State Management with Pinia
+
+The application uses Pinia for centralized state management. The following stores are available:
+
+### Services Store (`app/stores/services.ts`)
+- Manages services data from the marketplace
+- Provides getters for filtering services by category
+- Handles loading and error states
+
+### Financial Store (`app/stores/financial.ts`)
+- Manages financial data for the dashboard
+- Provides revenue, orders, and services statistics
+- Includes chart data for visualizations
+
+### Messages Store (`app/stores/messages.ts`)
+- Manages messaging functionality
+- Tracks read/unread messages
+- Provides message operations
+
+### Auth Store (`app/stores/auth.ts`)
+- Manages user authentication state
+- Handles login, register, and logout operations
+- Supports SSO authentication (Google, GitHub)
 
 ## API Integration
 
-The application uses mock data for demonstration. To connect to the actual backend:
+The application uses Pinia stores for state management and data fetching. To connect to the actual fluxo-backend:
 
-1. Update the `baseURL` in `app/composables/useApi.ts`
-2. Replace mock functions with actual API calls
-3. Configure environment variables in `.env`
+1. Update the API endpoints in each store (e.g., `app/stores/services.ts`, `app/stores/auth.ts`)
+2. Replace mock data with actual API calls to your backend
+3. Configure environment variables in `.env` for your backend URL
+4. Remove the simulated delays from the store actions
+
+Example of updating a store:
+```typescript
+// In app/stores/services.ts
+async fetchServices() {
+  this.loading = true
+  this.error = null
+  
+  try {
+    const response = await $fetch('/api/services', {
+      baseURL: useRuntimeConfig().public.apiBase
+    })
+    this.services = response.data
+  } catch (err) {
+    this.error = 'Failed to fetch services'
+  } finally {
+    this.loading = false
+  }
+}
+```
 
 ## Technologies
 
 - **Nuxt 3** - Vue.js framework
 - **Vue 3** - Progressive JavaScript framework
+- **Pinia** - State management for Vue
 - **DaisyUI** - Tailwind CSS component library
 - **Chart.js** - Data visualization
 - **@nuxtjs/i18n** - Internationalization
