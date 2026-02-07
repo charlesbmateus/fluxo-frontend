@@ -1,9 +1,5 @@
 <template>
-  <div :class="[
-    'min-h-screen',
-    isAuthenticated ? 'drawer lg:drawer-open' : '',
-    { 'is-drawer-open': isDrawerOpen && isAuthenticated, 'is-drawer-close': !isDrawerOpen && isAuthenticated }
-  ]">
+  <div :class="containerClasses">
     <input v-if="isAuthenticated" id="main-drawer" type="checkbox" class="drawer-toggle" />
     
     <div class="drawer-content flex flex-col">
@@ -234,6 +230,15 @@ const { user, isAuthenticated, logout } = useAuth()
 const router = useRouter()
 
 const isDrawerOpen = ref(true)
+
+const containerClasses = computed(() => [
+  'min-h-screen',
+  isAuthenticated.value ? 'drawer lg:drawer-open' : '',
+  { 
+    'is-drawer-open': isDrawerOpen.value && isAuthenticated.value, 
+    'is-drawer-close': !isDrawerOpen.value && isAuthenticated.value 
+  }
+])
 
 const availableLocales = computed(() => {
   return locales.value
