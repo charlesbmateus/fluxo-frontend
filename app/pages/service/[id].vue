@@ -146,12 +146,11 @@ const route = useRoute()
 const router = useRouter()
 const { fetchServices } = useApi()
 const authStore = useAuthStore()
-const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const service = ref<Service | null>(null)
 
 const handleBookService = () => {
-  if (!isAuthenticated.value) {
+  if (!authStore.isAuthenticated) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
@@ -161,7 +160,7 @@ const handleBookService = () => {
 }
 
 const handleContactProvider = () => {
-  if (!isAuthenticated.value) {
+  if (!authStore.isAuthenticated) {
     // Redirect to login with return URL
     router.push(`/login?redirect=${route.fullPath}`)
     return
