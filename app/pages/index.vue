@@ -251,35 +251,31 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer p-10 bg-base-200 text-base-content">
-      <div class="container mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <span class="footer-title">{{ $t('home.footer.about') }}</span>
-            <p class="text-base-content/70">{{ $t('home.footer.aboutDesc') }}</p>
-          </div>
-          <div>
-            <span class="footer-title">{{ $t('home.footer.services') }}</span>
-            <a class="link link-hover">{{ $t('home.footer.development') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.design') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.marketing') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.writing') }}</a>
-          </div>
-          <div>
-            <span class="footer-title">{{ $t('home.footer.company') }}</span>
-            <a class="link link-hover">{{ $t('home.footer.aboutUs') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.contact') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.careers') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.blog') }}</a>
-          </div>
-          <div>
-            <span class="footer-title">{{ $t('home.footer.legal') }}</span>
-            <a class="link link-hover">{{ $t('home.footer.terms') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.privacy') }}</a>
-            <a class="link link-hover">{{ $t('home.footer.cookies') }}</a>
-          </div>
-        </div>
-      </div>
+    <footer class="footer p-10 bg-base-200 text-base-content container mx-auto">
+      <nav>
+        <h6 class="footer-title">{{ $t('home.footer.about') }}</h6>
+        <p class="text-base-content/70 max-w-xs">{{ $t('home.footer.aboutDesc') }}</p>
+      </nav>
+      <nav>
+        <h6 class="footer-title">{{ $t('home.footer.services') }}</h6>
+        <a class="link link-hover">{{ $t('home.footer.development') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.design') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.marketing') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.writing') }}</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">{{ $t('home.footer.company') }}</h6>
+        <a class="link link-hover">{{ $t('home.footer.aboutUs') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.contact') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.careers') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.blog') }}</a>
+      </nav>
+      <nav>
+        <h6 class="footer-title">{{ $t('home.footer.legal') }}</h6>
+        <a class="link link-hover">{{ $t('home.footer.terms') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.privacy') }}</a>
+        <a class="link link-hover">{{ $t('home.footer.cookies') }}</a>
+      </nav>
     </footer>
     <footer class="footer footer-center p-4 bg-base-300 text-base-content">
       <div>
