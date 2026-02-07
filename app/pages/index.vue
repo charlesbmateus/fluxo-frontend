@@ -23,8 +23,8 @@
             </div>
             <div class="stat-title">{{ $t('dashboard.revenue') }}</div>
             <div class="stat-value text-primary">${{ financialData?.revenue.current.toLocaleString() }}</div>
-            <div class="stat-desc" :class="financialData?.revenue.change > 0 ? 'text-success' : 'text-error'">
-              {{ financialData?.revenue.change > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.revenue.change || 0) }}% {{ $t('dashboard.growth') }}
+            <div class="stat-desc" :class="(financialData?.revenue.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialData?.revenue.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.revenue.change ?? 0) }}% {{ $t('dashboard.growth') }}
             </div>
           </div>
 
@@ -36,8 +36,8 @@
             </div>
             <div class="stat-title">{{ $t('dashboard.orders') }}</div>
             <div class="stat-value text-secondary">{{ financialData?.orders.current }}</div>
-            <div class="stat-desc" :class="financialData?.orders.change > 0 ? 'text-success' : 'text-error'">
-              {{ financialData?.orders.change > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.orders.change || 0) }}%
+            <div class="stat-desc" :class="(financialData?.orders.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialData?.orders.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.orders.change ?? 0) }}%
             </div>
           </div>
 
@@ -49,8 +49,8 @@
             </div>
             <div class="stat-title">{{ $t('dashboard.services') }}</div>
             <div class="stat-value">{{ financialData?.services.current }}</div>
-            <div class="stat-desc" :class="financialData?.services.change > 0 ? 'text-success' : 'text-error'">
-              {{ financialData?.services.change > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.services.change || 0) }}%
+            <div class="stat-desc" :class="(financialData?.services.change ?? 0) > 0 ? 'text-success' : 'text-error'">
+              {{ (financialData?.services.change ?? 0) > 0 ? '↗︎' : '↘︎' }} {{ Math.abs(financialData?.services.change ?? 0) }}%
             </div>
           </div>
 
@@ -140,10 +140,12 @@
 </template>
 
 <script setup lang="ts">
+import type { FinancialData, Service } from '~/types'
+
 const { fetchFinancialData, fetchServices } = useApi()
 
-const financialData = ref(null)
-const recentServices = ref([])
+const financialData = ref<FinancialData | null>(null)
+const recentServices = ref<Service[]>([])
 const loading = ref(true)
 
 onMounted(async () => {

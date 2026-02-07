@@ -140,12 +140,14 @@
 </template>
 
 <script setup lang="ts">
+import type { Service } from '~/types'
+
 const route = useRoute()
 const router = useRouter()
 const { fetchServices } = useApi()
 const { isAuthenticated } = useAuth()
 
-const service = ref(null)
+const service = ref<Service | null>(null)
 
 const handleBookService = () => {
   if (!isAuthenticated.value) {
@@ -170,6 +172,6 @@ const handleContactProvider = () => {
 onMounted(async () => {
   const id = parseInt(route.params.id as string)
   const data = await fetchServices()
-  service.value = data.data.find(s => s.id === id)
+  service.value = data.data.find(s => s.id === id) || null
 })
 </script>

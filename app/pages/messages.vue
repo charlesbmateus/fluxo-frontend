@@ -144,13 +144,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Message } from '~/types'
+
 const { fetchMessages } = useApi()
 
-const messages = ref([])
-const selectedMessage = ref(null)
+const messages = ref<Message[]>([])
+const selectedMessage = ref<Message | null>(null)
 const newMessage = ref('')
 
-const selectMessage = (message) => {
+const selectMessage = (message: Message) => {
   selectedMessage.value = message
 }
 
