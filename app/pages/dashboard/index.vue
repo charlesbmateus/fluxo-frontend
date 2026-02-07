@@ -140,22 +140,18 @@
 </template>
 
 <script setup lang="ts">
-import type { FinancialData, Service } from '~/types'
+import type { Service } from '~/types'
 
-const { fetchFinancialData, fetchServices } = useApi()
+const apiStore = useApiStore()
 
-const financialData = ref<FinancialData | null>(null)
-const recentServices = ref<Service[]>([])
-const loading = ref(true)
+const financialData = computed(() => apiStore.financialData)
+const recentServices = computed(() => apiStore.services.slice(0, 3))
+const loading = computed(() => apiStore.loading.financialData || apiStore.loading.services)
 
 onMounted(async () => {
-  loading.value = true
-  try {
-    financialData.value = await fetchFinancialData()
-    const servicesData = await fetchServices()
-    recentServices.value = servicesData.data.slice(0, 3)
-  } finally {
-    loading.value = false
-  }
+  await Promise.all([
+    apiStore.fetchFinancialData(),
+    apiStore.fetchServices()
+  ])
 })
 </script>

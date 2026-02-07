@@ -89,15 +89,14 @@
 </template>
 
 <script setup lang="ts">
-import type { Service } from '~/types'
-
-const { fetchServices } = useApi()
+const apiStore = useApiStore()
 const router = useRouter()
 
-const services = ref<Service[]>([])
 const searchQuery = ref('')
 const selectedCategory = ref('')
-const loading = ref(true)
+
+const services = computed(() => apiStore.services)
+const loading = computed(() => apiStore.loading.services)
 
 const filteredServices = computed(() => {
   return services.value.filter(service => {
@@ -113,12 +112,6 @@ const goToService = (id: number) => {
 }
 
 onMounted(async () => {
-  loading.value = true
-  try {
-    const data = await fetchServices()
-    services.value = data.data
-  } finally {
-    loading.value = false
-  }
+  await apiStore.fetchServices()
 })
 </script>
