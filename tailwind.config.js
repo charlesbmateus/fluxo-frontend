@@ -21,7 +21,7 @@ module.exports = {
       {
         light: {
           primary: "#8B5CF6",
-          secondary: "#FCD34D",
+          secondary: "oklch(0.80 0.15 85)",
           accent: "#F59E0B",
           neutral: "#3D4451",
           "base-100": "#FFFFFF",
@@ -32,7 +32,7 @@ module.exports = {
         },
         dark: {
           primary: "#8B5CF6",
-          secondary: "#FCD34D",
+          secondary: "oklch(0.80 0.15 85)",
           accent: "#F59E0B",
           neutral: "#1F2937",
           "base-100": "#111827",
