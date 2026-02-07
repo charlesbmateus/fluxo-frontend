@@ -100,7 +100,7 @@ definePageMeta({
   layout: false
 })
 
-const authStore = useAuthStore()
+const { login, loginWithGoogle, loginWithGithub } = useAuth()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -117,7 +117,7 @@ const handleLogin = async () => {
   loading.value = true
   error.value = ''
   
-  const result = await authStore.login(email.value, password.value)
+  const result = await login(email.value, password.value)
   
   if (result.success) {
     router.push(redirectTo.value)
@@ -132,7 +132,7 @@ const handleGoogleLogin = async () => {
   loading.value = true
   error.value = ''
   
-  const result = await authStore.loginWithGoogle()
+  const result = await loginWithGoogle()
   
   if (result.success) {
     router.push(redirectTo.value)
@@ -147,7 +147,7 @@ const handleGithubLogin = async () => {
   loading.value = true
   error.value = ''
   
-  const result = await authStore.loginWithGithub()
+  const result = await loginWithGithub()
   
   if (result.success) {
     router.push(redirectTo.value)

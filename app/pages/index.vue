@@ -265,13 +265,15 @@
 </template>
 
 <script setup lang="ts">
+import type { Service } from '~/types'
+
 const { locale, locales, setLocale } = useI18n()
 const colorMode = useColorMode()
-const apiStore = useApiStore()
+const { fetchServices } = useApi()
 const router = useRouter()
 
-const featuredServices = computed(() => apiStore.services.slice(0, 3))
-const loading = computed(() => apiStore.loading.services)
+const featuredServices = ref<Service[]>([])
+const loading = ref(true)
 
 const availableLocales = computed(() => {
   return locales.value
@@ -335,7 +337,13 @@ const goToService = (id: number) => {
 }
 
 onMounted(async () => {
-  await apiStore.fetchServices()
+  loading.value = true
+  try {
+    const data = await fetchServices()
+    featuredServices.value = data.data.slice(0, 3)
+  } finally {
+    loading.value = false
+  }
 })
 
 // Set layout to none for home page (we'll use a simpler navbar)

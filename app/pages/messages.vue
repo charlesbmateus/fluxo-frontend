@@ -146,9 +146,9 @@
 <script setup lang="ts">
 import type { Message } from '~/types'
 
-const apiStore = useApiStore()
+const { fetchMessages } = useApi()
 
-const messages = computed(() => apiStore.messages)
+const messages = ref<Message[]>([])
 const selectedMessage = ref<Message | null>(null)
 const newMessage = ref('')
 
@@ -181,6 +181,7 @@ const formatTime = (timestamp: string) => {
 }
 
 onMounted(async () => {
-  await apiStore.fetchMessages()
+  const data = await fetchMessages()
+  messages.value = data.data
 })
 </script>
