@@ -26,7 +26,8 @@
     "provider": "Fornitore del Servizio",
     "price": "Prezzo",
     "rating": "Valutazione",
-    "bookNow": "Prenota Ora"
+    "bookNow": "Prenota Ora",
+    "contactProvider": "Contatta il Fornitore"
   },
   "messages": {
     "title": "Messaggi",

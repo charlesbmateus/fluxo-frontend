@@ -26,7 +26,8 @@
     "provider": "Fournisseur de Service",
     "price": "Prix",
     "rating": "Évaluation",
-    "bookNow": "Réserver Maintenant"
+    "bookNow": "Réserver Maintenant",
+    "contactProvider": "Contacter le Fournisseur"
   },
   "messages": {
     "title": "Messagerie",

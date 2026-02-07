@@ -56,8 +56,11 @@
                   <span class="text-base-content/60">{{ $t('service.price') }}</span>
                   <span class="text-3xl font-bold text-primary">${{ service.price }}</span>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg">
+                <button @click="handleBookService" class="btn btn-primary btn-block btn-lg">
                   {{ $t('service.bookNow') }}
+                </button>
+                <button @click="handleContactProvider" class="btn btn-outline btn-block btn-lg mt-2">
+                  {{ $t('service.contactProvider') }}
                 </button>
               </div>
             </div>
@@ -138,9 +141,31 @@
 
 <script setup lang="ts">
 const route = useRoute()
+const router = useRouter()
 const { fetchServices } = useApi()
+const { isAuthenticated } = useAuth()
 
 const service = ref(null)
+
+const handleBookService = () => {
+  if (!isAuthenticated.value) {
+    // Redirect to login with return URL
+    router.push(`/login?redirect=${route.fullPath}`)
+    return
+  }
+  // TODO: Implement actual booking logic
+  alert('Booking service...')
+}
+
+const handleContactProvider = () => {
+  if (!isAuthenticated.value) {
+    // Redirect to login with return URL
+    router.push(`/login?redirect=${route.fullPath}`)
+    return
+  }
+  // TODO: Implement actual contact logic (e.g., navigate to messages)
+  router.push('/messages')
+}
 
 onMounted(async () => {
   const id = parseInt(route.params.id as string)
