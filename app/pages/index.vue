@@ -251,7 +251,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer p-10 bg-base-200 text-base-content container mx-auto">
+    <footer class="footer sm:footer-horizontal bg-base-300 text-base-content p-10">
       <nav>
         <h6 class="footer-title">{{ $t('home.footer.about') }}</h6>
         <p class="text-base-content/70 max-w-xs">{{ $t('home.footer.aboutDesc') }}</p>
