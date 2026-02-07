@@ -26,7 +26,8 @@
     "provider": "Service Provider",
     "price": "Price",
     "rating": "Rating",
-    "bookNow": "Book Now"
+    "bookNow": "Book Now",
+    "contactProvider": "Contact Provider"
   },
   "messages": {
     "title": "Messages",

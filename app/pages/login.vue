@@ -102,12 +102,16 @@ definePageMeta({
 
 const { login, loginWithGoogle, loginWithGithub } = useAuth()
 const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
 
 const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const error = ref('')
+
+// Get redirect URL from query params or default to dashboard
+const redirectTo = computed(() => route.query.redirect as string || '/')
 
 const handleLogin = async () => {
   loading.value = true
@@ -116,7 +120,7 @@ const handleLogin = async () => {
   const result = await login(email.value, password.value)
   
   if (result.success) {
-    router.push('/')
+    router.push(redirectTo.value)
   } else {
     error.value = result.error || t('auth.loginError')
   }
@@ -131,7 +135,7 @@ const handleGoogleLogin = async () => {
   const result = await loginWithGoogle()
   
   if (result.success) {
-    router.push('/')
+    router.push(redirectTo.value)
   } else {
     error.value = result.error || t('auth.loginError')
   }
@@ -146,7 +150,7 @@ const handleGithubLogin = async () => {
   const result = await loginWithGithub()
   
   if (result.success) {
-    router.push('/')
+    router.push(redirectTo.value)
   } else {
     error.value = result.error || t('auth.loginError')
   }

@@ -1,3 +1,6 @@
+import { useState } from '#app'
+import { computed } from 'vue'
+
 export const useAuth = () => {
   const user = useState<any>('user', () => null)
   const isAuthenticated = computed(() => !!user.value)

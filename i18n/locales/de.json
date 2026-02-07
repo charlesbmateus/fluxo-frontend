@@ -26,7 +26,8 @@
     "provider": "Dienstleister",
     "price": "Preis",
     "rating": "Bewertung",
-    "bookNow": "Jetzt buchen"
+    "bookNow": "Jetzt buchen",
+    "contactProvider": "Anbieter kontaktieren"
   },
   "messages": {
     "title": "Nachrichten",

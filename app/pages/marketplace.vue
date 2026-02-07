@@ -89,10 +89,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Service } from '~/types'
+
 const { fetchServices } = useApi()
 const router = useRouter()
 
-const services = ref([])
+const services = ref<Service[]>([])
 const searchQuery = ref('')
 const selectedCategory = ref('')
 const loading = ref(true)
