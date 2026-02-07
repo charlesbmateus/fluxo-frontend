@@ -2,7 +2,7 @@
   <div class="min-h-screen">
     <!-- Simplified Navbar for Home Page -->
     <div class="navbar bg-base-100 shadow-md">
-      <div class="container mx-auto">
+      <div class="container mx-auto flex">
         <div class="flex-1">
           <NuxtLink to="/" class="btn btn-ghost text-xl">
             <span class="text-primary">Fluxo</span>
