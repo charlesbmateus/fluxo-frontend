@@ -94,7 +94,9 @@
 <script lang="ts" setup>
 const {locale, locales, setLocale} = useI18n()
 const colorMode = useColorMode()
-const {user, isAuthenticated, logout} = useAuth()
+const authStore = useAuthStore()
+const user = computed(() => authStore.user)
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 const router = useRouter()
 
 const isDrawerOpen = ref(true)
@@ -121,7 +123,7 @@ const toggleDrawer = () => {
 }
 
 const handleLogout = async () => {
-  await logout()
+  await authStore.logout()
   router.push('/login')
 }
 </script>

@@ -145,7 +145,8 @@ import type { Service } from '~/types'
 const route = useRoute()
 const router = useRouter()
 const { fetchServices } = useApi()
-const { isAuthenticated } = useAuth()
+const authStore = useAuthStore()
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const service = ref<Service | null>(null)
 

@@ -17,15 +17,12 @@
 </template>
 
 <script setup lang="ts">
-const {user, logout} = useAuth()
+const authStore = useAuthStore()
+const user = computed(() => authStore.user)
 const router = useRouter()
-//
-// function logout(): void {
-//   useAuthStore().logout()
-// }
 
 const handleLogout = async () => {
-  await logout()
+  await authStore.logout()
   router.push('/login')
 }
 </script>
