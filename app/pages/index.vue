@@ -340,7 +340,7 @@ onMounted(async () => {
   loading.value = true
   try {
     const data = await fetchServices()
-    featuredServices.value = data.data.slice(0, 3)
+    featuredServices.value = data.slice(0, 3)
   } finally {
     loading.value = false
   }

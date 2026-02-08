@@ -153,7 +153,7 @@ onMounted(async () => {
   try {
     financialData.value = await fetchFinancialData()
     const servicesData = await fetchServices()
-    recentServices.value = servicesData.data.slice(0, 3)
+    recentServices.value = servicesData.slice(0, 3)
   } finally {
     loading.value = false
   }

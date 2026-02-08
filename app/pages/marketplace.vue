@@ -15,7 +15,6 @@ const searchQuery = ref('')
 const selectedCategory = ref<string | null>(null)
 
 const filteredServices = computed<Service[]>(() => {
-  console.log(categories.value)
   const query = searchQuery.value.trim().toLowerCase()
   const selectedSlug = selectedCategory.value
 
