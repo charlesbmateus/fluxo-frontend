@@ -1,19 +1,23 @@
 <script setup lang="ts">
 import { useServicesStore } from '~/stores/services'
+import { useCategoriesStore } from '~/stores/categories'
 import { storeToRefs } from 'pinia'
 import type { Service } from '~/types/service'
 
 const router = useRouter()
 
-const store = useServicesStore()
-const { items: services, loading } = storeToRefs(store)
+const serviceStore = useServicesStore()
+const categoriesStore = useCategoriesStore()
+const { items: services, loading } = storeToRefs(serviceStore)
+const { items: categories } = storeToRefs(categoriesStore)
 
 const searchQuery = ref('')
-const selectedCategory = ref('')
+const selectedCategory = ref<string | null>(null)
 
 const filteredServices = computed<Service[]>(() => {
+  console.log(categories.value)
   const query = searchQuery.value.trim().toLowerCase()
-  const category = selectedCategory.value
+  const selectedSlug = selectedCategory.value
 
   return services.value.filter(service => {
     const matchesSearch =
@@ -22,7 +26,7 @@ const filteredServices = computed<Service[]>(() => {
         service.description.toLowerCase().includes(query)
 
     const matchesCategory =
-        !category || service.category.name === category
+        !selectedSlug || service.category.slug === selectedSlug
 
     return matchesSearch && matchesCategory
   })
@@ -33,7 +37,8 @@ const goToService = (id: number) => {
 }
 
 onMounted(() => {
-  store.fetchServices()
+  serviceStore.fetchServices()
+  categoriesStore.fetchCategories()
 })
 </script>
 
@@ -59,12 +64,17 @@ onMounted(() => {
               />
             </div>
             <select class="select select-bordered" v-model="selectedCategory">
-              <option value="">{{ $t('marketplace.filterAll') }}</option>
-              <option value="Development">Development</option>
-              <option value="Design">Design</option>
-              <option value="Writing">Writing</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Video">Video</option>
+              <option :value="null">
+                {{ $t('marketplace.filterAll') }}
+              </option>
+
+              <option
+                  v-for="category in categories"
+                  :key="category.id"
+                  :value="category.slug"
+              >
+                {{ category.name }}
+              </option>
             </select>
           </div>
         </div>
@@ -83,7 +93,7 @@ onMounted(() => {
             @click="goToService(service.id)"
           >
             <figure class="h-48">
-              <img :src="service.image" :alt="service.name" class="w-full h-full object-cover" />
+              <img :src="service.thumbnail || 'undefined'" :alt="service.title" class="w-full h-full object-cover" />
             </figure>
             <div class="card-body">
               <div class="flex justify-between items-start">
