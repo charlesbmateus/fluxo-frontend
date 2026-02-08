@@ -1,3 +1,67 @@
+<script setup lang="ts">
+definePageMeta({
+  layout: false
+})
+
+const { login, loginWithGoogle, loginWithGithub } = useAuth()
+const router = useRouter()
+const route = useRoute()
+const { t } = useI18n()
+
+const email = ref('')
+const password = ref('')
+const loading = ref(false)
+const error = ref('')
+
+// Get redirect URL from query params or default to dashboard
+const redirectTo = computed(() => route.query.redirect as string || '/')
+
+const handleLogin = async () => {
+  loading.value = true
+  error.value = ''
+
+  const result = await login(email.value, password.value)
+
+  if (result.success) {
+    router.push(redirectTo.value)
+  } else {
+    error.value = result.error || t('auth.loginError')
+  }
+
+  loading.value = false
+}
+
+const handleGoogleLogin = async () => {
+  loading.value = true
+  error.value = ''
+
+  const result = await loginWithGoogle()
+
+  if (result.success) {
+    router.push(redirectTo.value)
+  } else {
+    error.value = result.error || t('auth.loginError')
+  }
+
+  loading.value = false
+}
+
+const handleGithubLogin = async () => {
+  loading.value = true
+  error.value = ''
+
+  const result = await loginWithGithub()
+
+  if (result.success) {
+    router.push(redirectTo.value)
+  } else {
+    error.value = result.error || t('auth.loginError')
+  }
+
+  loading.value = false
+}
+</script>
+
 <template>
   <NuxtLayout name="auth">
     <div class="card bg-base-100 shadow-2xl">
@@ -94,67 +158,3 @@
     </div>
   </NuxtLayout>
 </template>
-
-<script setup lang="ts">
-definePageMeta({
-  layout: false
-})
-
-const { login, loginWithGoogle, loginWithGithub } = useAuth()
-const router = useRouter()
-const route = useRoute()
-const { t } = useI18n()
-
-const email = ref('')
-const password = ref('')
-const loading = ref(false)
-const error = ref('')
-
-// Get redirect URL from query params or default to dashboard
-const redirectTo = computed(() => route.query.redirect as string || '/')
-
-const handleLogin = async () => {
-  loading.value = true
-  error.value = ''
-  
-  const result = await login(email.value, password.value)
-  
-  if (result.success) {
-    router.push(redirectTo.value)
-  } else {
-    error.value = result.error || t('auth.loginError')
-  }
-  
-  loading.value = false
-}
-
-const handleGoogleLogin = async () => {
-  loading.value = true
-  error.value = ''
-  
-  const result = await loginWithGoogle()
-  
-  if (result.success) {
-    router.push(redirectTo.value)
-  } else {
-    error.value = result.error || t('auth.loginError')
-  }
-  
-  loading.value = false
-}
-
-const handleGithubLogin = async () => {
-  loading.value = true
-  error.value = ''
-  
-  const result = await loginWithGithub()
-  
-  if (result.success) {
-    router.push(redirectTo.value)
-  } else {
-    error.value = result.error || t('auth.loginError')
-  }
-  
-  loading.value = false
-}
-</script>

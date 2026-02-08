@@ -1,26 +1,97 @@
 // composables/useApi.ts
-import type { ApiResponse, PaginatedResponse } from '~/types/api'
-import type { Service } from '~/types/service'
-import type { Category } from '~/types/category'
+import type {ApiResponse, PaginatedResponse} from '~/types/api'
+import type {Service} from '~/types/service'
+import type {Category} from '~/types/category'
+import type {User} from '~/types/auth'
+import type {LoginResponse} from '~/types/auth'
+
+interface AuthPayload {
+    email: string
+    password: string
+}
+
+interface AuthData {
+    token: string
+    user: User
+}
 
 export const useApi = () => {
-  const config = useRuntimeConfig()
+    const config = useRuntimeConfig()
 
-  const baseURL: string =
-      (config.public.apiBase as string) || 'http://localhost:8000/api'
+    const baseURL: string =
+        (config.public.apiBase as string) || 'http://localhost:8000/api'
 
-  const fetchServices = async (
-      page = 1
-  ): Promise<ApiResponse<PaginatedResponse<Service>>> => {
-    return await $fetch(`/services?page=${page}`, { baseURL })
-  }
+    // ───────── SERVICES ─────────
+    const fetchServices = async (
+        page = 1
+    ): Promise<ApiResponse<PaginatedResponse<Service>>> => {
+        return await $fetch(`/services?page=${page}`, {baseURL})
+    }
 
-  const fetchCategories = async (): Promise<ApiResponse<Category[]>> => {
-    return await $fetch('/categories', { baseURL })
-  }
+    // ───────── CATEGORIES ─────────
+    const fetchCategories = async (): Promise<ApiResponse<Category[]>> => {
+        return await $fetch('/categories', {baseURL})
+    }
 
-  return {
-    fetchServices,
-    fetchCategories,
-  }
+    // ───────── AUTH ─────────
+    const login = async (
+        email: string,
+        password: string
+    ): Promise<LoginResponse> => {
+        return await $fetch('/login', {
+            method: 'POST',
+            body: {email, password},
+            baseURL,
+        })
+    }
+
+    const register = async (payload: {
+        name: string
+        email: string
+        password: string
+        password_confirmation: string
+    }): Promise<LoginResponse> => {
+        return await $fetch('/register', {
+            method: 'POST',
+            body: payload,
+            baseURL,
+        })
+    }
+
+    const fetchMe = async (token: string): Promise<User> => {
+        const response = await $fetch<{
+            success: boolean
+            message: string
+            data: User
+        }>('/v1/me', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        return response.data
+    }
+
+    const logout = async (token: string): Promise<void> => {
+        await $fetch('/logout', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    }
+
+    return {
+        // data
+        fetchServices,
+        fetchCategories,
+
+        // auth
+        login,
+        register,
+        fetchMe,
+        logout,
+    }
 }

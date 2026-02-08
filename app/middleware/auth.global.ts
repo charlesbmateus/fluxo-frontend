@@ -1,25 +1,34 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-  const { isAuthenticated } = useAuth()
-  
-  // Public routes that don't require authentication
-  const publicRoutes = ['/', '/login', '/register', '/marketplace', '/service']
-  
-  // Check if the current route is public
+export default defineNuxtRouteMiddleware((to) => {
+  const auth = useAuthStore()
+
+  if (!auth.initialized) {
+    return
+  }
+
+  const publicRoutes = [
+    '/',
+    '/login',
+    '/register',
+    '/marketplace',
+    '/service',
+  ]
+
   const isPublicRoute = publicRoutes.some(route => {
-    // Exact match for home page
     if (route === '/' && to.path === '/') return true
-    // Starts with for other routes
     if (route !== '/' && to.path.startsWith(route)) return true
     return false
   })
-  
-  // If user is not authenticated and trying to access a protected route
-  if (!isAuthenticated.value && !isPublicRoute) {
+
+  // PROTECTED ROUTE
+  if (!auth.isAuthenticated && !isPublicRoute) {
     return navigateTo('/login')
   }
-  
-  // If user is authenticated and trying to access login/register/home, redirect to dashboard
-  if (isAuthenticated.value && (to.path === '/login' || to.path === '/register' || to.path === '/')) {
+
+  // LOGGED USER
+  if (
+      auth.isAuthenticated &&
+      (to.path === '/login' || to.path === '/register')
+  ) {
     return navigateTo('/dashboard')
   }
 })
