@@ -63,6 +63,20 @@
     "loginError": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten.",
     "registerError": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "loginWith": "Anmelden mit",
-    "or": "oder"
+    "or": "oder",
+    "welcomeBack": "Willkommen zurück",
+    "loginSubtitle": "Melden Sie sich an, um auf Ihren Marktplatz zuzugreifen",
+    "registerSubtitle": "Treten Sie Fluxo bei und entdecken Sie neue Möglichkeiten",
+    "createAccount": "Konto erstellen",
+    "continueGoogle": "Weiter mit Google",
+    "continueFacebook": "Weiter mit Facebook",
+    "continueApple": "Weiter mit Apple",
+    "orEmail": "Oder weiter mit E-Mail",
+    "emailPlaceholder": "name{'@'}beispiel.de",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "Max Mustermann",
+    "rememberMe": "Angemeldet bleiben",
+    "passwordsDontMatch": "Passwörter stimmen nicht überein",
+    "alreadyHaveAccount": "Bereits ein Konto?"
   }
 }

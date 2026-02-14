@@ -63,7 +63,21 @@
     "loginError": "Login failed. Please check your credentials.",
     "registerError": "Registration failed. Please try again.",
     "loginWith": "Sign in with",
-    "or": "or"
+    "or": "or",
+    "welcomeBack": "Welcome back",
+    "loginSubtitle": "Log in to access your marketplace",
+    "registerSubtitle": "Join Fluxo and start exploring",
+    "createAccount": "Create Account",
+    "continueGoogle": "Continue with Google",
+    "continueFacebook": "Continue with Facebook",
+    "continueApple": "Continue with Apple",
+    "orEmail": "Or continue with email",
+    "emailPlaceholder": "you{'@'}example.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "John Doe",
+    "rememberMe": "Remember me",
+    "passwordsDontMatch": "Passwords do not match",
+    "alreadyHaveAccount": "Already have an account?"
   },
   "home": {
     "hero": {

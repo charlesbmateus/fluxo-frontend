@@ -63,6 +63,20 @@
     "loginError": "Échec de la connexion. Veuillez vérifier vos identifiants.",
     "registerError": "Échec de l'inscription. Veuillez réessayer.",
     "loginWith": "Se connecter avec",
-    "or": "ou"
+    "or": "ou",
+    "welcomeBack": "Bon retour",
+    "loginSubtitle": "Connectez-vous pour accéder à votre marketplace",
+    "registerSubtitle": "Rejoignez Fluxo et commencez à explorer",
+    "createAccount": "Créer un compte",
+    "continueGoogle": "Continuer avec Google",
+    "continueFacebook": "Continuer avec Facebook",
+    "continueApple": "Continuer avec Apple",
+    "orEmail": "Ou continuer avec un e-mail",
+    "emailPlaceholder": "vous{'@'}exemple.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "Jean Dupont",
+    "rememberMe": "Se souvenir de moi",
+    "passwordsDontMatch": "Les mots de passe ne correspondent pas",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?"
   }
 }

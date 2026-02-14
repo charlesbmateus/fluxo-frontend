@@ -6,7 +6,7 @@ definePageMeta({
 const {login, loginWithGoogle, loginWithGithub} = useAuth()
 const router = useRouter()
 const route = useRoute()
-const {locale, locales, setLocale} = useI18n()
+const {locale, locales, setLocale, t} = useI18n()
 const colorMode = useColorMode()
 
 const email = ref('')
