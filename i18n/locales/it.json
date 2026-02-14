@@ -63,6 +63,20 @@
     "loginError": "Accesso fallito. Controlla le tue credenziali.",
     "registerError": "Registrazione fallita. Riprova.",
     "loginWith": "Accedi con",
-    "or": "o"
+    "or": "o",
+    "welcomeBack": "Bentornato",
+    "loginSubtitle": "Accedi per entrare nel tuo marketplace",
+    "registerSubtitle": "Unisciti a Fluxo e inizia a esplorare",
+    "createAccount": "Crea un account",
+    "continueGoogle": "Continua con Google",
+    "continueFacebook": "Continua con Facebook",
+    "continueApple": "Continua con Apple",
+    "orEmail": "Oppure continua con e-mail",
+    "emailPlaceholder": "tu{'@'}esempio.com",
+    "passwordPlaceholder": "••••••••",
+    "namePlaceholder": "Mario Rossi",
+    "rememberMe": "Ricordami",
+    "passwordsDontMatch": "Le password non corrispondono",
+    "alreadyHaveAccount": "Hai già un account?"
   }
 }
