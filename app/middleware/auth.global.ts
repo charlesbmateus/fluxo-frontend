@@ -27,7 +27,7 @@ export default defineNuxtRouteMiddleware((to) => {
   // LOGGED USER
   if (
       auth.isAuthenticated &&
-      (to.path === '/login' || to.path === '/register')
+      (to.path === '/' || to.path === '/login' || to.path === '/register')
   ) {
     return navigateTo('/dashboard')
   }
