@@ -1,3 +1,38 @@
+<script setup lang="ts">
+const { locale, locales, setLocale } = useI18n()
+const colorMode = useColorMode()
+const { user, isAuthenticated, logout } = useAuth()
+const router = useRouter()
+
+const isDrawerOpen = ref(true)
+
+const containerClasses = computed(() => [
+  'min-h-screen',
+  isAuthenticated.value ? 'drawer lg:drawer-open' : '',
+  {
+    'is-drawer-open': isDrawerOpen.value && isAuthenticated.value,
+    'is-drawer-close': !isDrawerOpen.value && isAuthenticated.value
+  }
+])
+
+const availableLocales = computed(() => {
+  return locales.value
+})
+
+const toggleTheme = () => {
+  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
+}
+
+const toggleDrawer = () => {
+  isDrawerOpen.value = !isDrawerOpen.value
+}
+
+const handleLogout = async () => {
+  await logout()
+  await router.push('/login')
+}
+</script>
+
 <template>
   <div :class="containerClasses">
     <input v-if="isAuthenticated" id="main-drawer" type="checkbox" class="drawer-toggle" />
@@ -12,6 +47,7 @@
             </svg>
           </label>
         </div>
+        <!-- Toggle drawer btn -->
         <div v-if="isAuthenticated" class="flex-none hidden lg:flex">
           <button @click="toggleDrawer" class="btn btn-square btn-ghost">
             <svg v-if="isDrawerOpen" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -23,10 +59,12 @@
           </button>
         </div>
         <div class="flex-1">
-          <a class="btn btn-ghost text-xl">
-            <span class="text-primary">Fluxo</span>
-            <span class="text-secondary">Marketplace</span>
-          </a>
+          <!-- Logo -->
+          <NuxtLink :to="isAuthenticated ? '/dashboard' : '/'" class="flex items-center gap-2">
+            <h1 class="text-xl font-bold bg-gradient-to-r from-purple-600  to-yellow-500 bg-clip-text text-transparent">
+              Fluxo Marketplace
+            </h1>
+          </NuxtLink>
         </div>
         <div class="flex-none gap-2">
           <!-- Notifications with Indicator -->
@@ -174,7 +212,7 @@
           <div class="flex items-center justify-center py-4">
             <div class="text-center">
               <h2 class="text-2xl font-bold" v-if="isDrawerOpen">
-                <span class="text-primary">Fluxo</span>
+                <span class="bg-gradient-to-r from-purple-600 to-yellow-500 bg-clip-text text-transparent font-bold">Fluxo</span>
               </h2>
               <h2 class="text-2xl font-bold" v-else>
                 <span class="text-primary">F</span>
@@ -185,7 +223,7 @@
         </div>
         <ul class="menu p-4 space-y-2">
           <li>
-            <NuxtLink to="/" class="flex items-center" :class="isDrawerOpen ? 'gap-3' : 'justify-center tooltip tooltip-right'" :data-tip="isDrawerOpen ? '' : $t('nav.dashboard')">
+            <NuxtLink :to="isAuthenticated ? '/dashboard' : '/'" class="flex items-center" :class="isDrawerOpen ? 'gap-3' : 'justify-center tooltip tooltip-right'" :data-tip="isDrawerOpen ? '' : $t('nav.dashboard')">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
               </svg>
@@ -222,38 +260,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-const { locale, locales, setLocale } = useI18n()
-const colorMode = useColorMode()
-const { user, isAuthenticated, logout } = useAuth()
-const router = useRouter()
-
-const isDrawerOpen = ref(true)
-
-const containerClasses = computed(() => [
-  'min-h-screen',
-  isAuthenticated.value ? 'drawer lg:drawer-open' : '',
-  { 
-    'is-drawer-open': isDrawerOpen.value && isAuthenticated.value, 
-    'is-drawer-close': !isDrawerOpen.value && isAuthenticated.value 
-  }
-])
-
-const availableLocales = computed(() => {
-  return locales.value
-})
-
-const toggleTheme = () => {
-  colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'
-}
-
-const toggleDrawer = () => {
-  isDrawerOpen.value = !isDrawerOpen.value
-}
-
-const handleLogout = async () => {
-  await logout()
-  router.push('/login')
-}
-</script>

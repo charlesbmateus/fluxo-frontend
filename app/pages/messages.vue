@@ -155,7 +155,7 @@ const handleScroll = async () => {
         <!-- Conversations Sidebar - Hidden on mobile when chat is open -->
         <div
             :class="{ 'hidden lg:flex': showMobileChat }"
-            class="lg:col-span-4 xl:col-span-3 border-r border-base-300 flex flex-col h-full"
+            class="lg:col-span-4 xl:col-span-3 border-r border-base-300 flex flex-col h-full transition-all duration-300"
         >
           <!-- Search Bar -->
           <div class="p-4 border-b border-base-300 bg-base-100 flex-shrink-0">

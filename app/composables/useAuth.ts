@@ -9,6 +9,7 @@ export const useAuth = () => {
     user,
     isAuthenticated,
     login: store.login,
+    logout: store.logout,
     register: store.register,
 
     // placeholders para el futuro

@@ -2,51 +2,58 @@
   <div class="min-h-screen">
     <!-- Simplified Navbar for Home Page -->
     <div class="navbar bg-base-100 shadow-md">
-      <div class="container mx-auto flex">
-        <div class="flex-1">
-          <NuxtLink to="/" class="btn btn-ghost text-xl">
-            <span class="text-primary">Fluxo</span>
-            <span class="text-secondary font-light">Marketplace</span>
-          </NuxtLink>
-        </div>
-        <div class="flex-none gap-2">
-          <NuxtLink to="/marketplace" class="btn btn-ghost font-normal">
-            {{ $t('nav.marketplace') }}
-          </NuxtLink>
-          <NuxtLink to="/dashboard" class="btn btn-ghost font-normal">
-            {{ $t('nav.dashboard') }}
-          </NuxtLink>
+      <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+        <!-- Logo -->
+        <NuxtLink to="/" class="flex items-center gap-2">
+          <h1 class="text-xl font-bold bg-gradient-to-r from-purple-600  to-yellow-500 bg-clip-text text-transparent">
+            Fluxo Marketplace
+          </h1>
+        </NuxtLink>
 
+        <!-- Language & Theme Controls -->
+        <div class="flex items-center gap-3">
           <!-- Language Selector -->
           <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost btn-circle">
+            <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
               </svg>
             </label>
-            <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-32">
-              <li v-for="locale in availableLocales" :key="locale.code">
-                <a @click="setLocale(locale.code)">{{ locale.name }}</a>
+            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-white dark:bg-gray-800 rounded-xl w-52 mt-3 border border-gray-200 dark:border-gray-700">
+              <li v-for="loc in locales" :key="loc.code">
+                <a
+                    @click="locale = loc.code"
+                    :class="{ 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400': locale === loc.code }"
+                    class="flex items-center gap-2"
+                >
+                  <span class="text-xl">{{ loc.flag }}</span>
+                  <span>{{ loc.name }}</span>
+                  <svg v-if="locale === loc.code" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-auto">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  </svg>
+                </a>
               </li>
             </ul>
           </div>
 
           <!-- Theme Toggle -->
-          <label class="swap swap-rotate btn btn-ghost btn-circle">
-            <input type="checkbox" @change="toggleTheme" :checked="colorMode.preference === 'dark'" />
-            <svg class="swap-on fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13Zm-9.5,6.69A8.14,8.14,0,0,1,7.08,5.22v.27A10.15,10.15,0,0,0,17.22,15.63a9.79,9.79,0,0,0,2.1-.22A8.11,8.11,0,0,1,12.14,19.73Z"/>
+          <button
+              @click="toggleTheme" :checked="colorMode.preference === 'dark'"
+              class="btn btn-ghost btn-sm btn-circle"
+              :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+          >
+            <!-- Sun icon for light mode -->
+            <svg v-if="colorMode.value === 'dark'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
             </svg>
-            <svg class="swap-off fill-current w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z"/>
+            <!-- Moon icon for dark mode -->
+            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
             </svg>
-          </label>
+          </button>
 
           <NuxtLink to="/login" class="btn btn-ghost btn-sm">
             {{ $t('auth.login') }}
-          </NuxtLink>
-          <NuxtLink to="/register" class="btn btn-primary btn-sm">
-            {{ $t('auth.register') }}
           </NuxtLink>
         </div>
       </div>
@@ -212,7 +219,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-r from-primary to-secondary">
+    <section class="py-20 bg-gradient-to-r from-purple-600 to-yellow-500">
       <div class="container mx-auto px-4">
         <div class="text-center text-white">
           <h2 class="text-4xl font-bold mb-4">{{ $t('home.cta.title') }}</h2>

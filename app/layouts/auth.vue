@@ -38,6 +38,21 @@
           </svg>
         </label>
       </div>
+
+      <!-- Footer Links -->
+      <div class="text-center mt-8 text-sm text-gray-500 dark:text-gray-500 space-x-4">
+        <NuxtLink class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors" to="/privacy">
+          {{ $t('common.privacy') || 'Privacy' }}
+        </NuxtLink>
+        <span>•</span>
+        <NuxtLink class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors" to="/terms">
+          {{ $t('common.terms') || 'Terms' }}
+        </NuxtLink>
+        <span>•</span>
+        <NuxtLink class="hover:text-purple-600 dark:hover:text-purple-400 transition-colors" to="/help">
+          {{ $t('common.help') || 'Help' }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
