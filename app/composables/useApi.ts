@@ -4,6 +4,7 @@ import type {Service} from '~/types/service'
 import type {Category} from '~/types/category'
 import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
+import type { Conversation, Message } from '~/types/chat'
 
 interface AuthPayload {
     email: string
@@ -83,6 +84,63 @@ export const useApi = () => {
         })
     }
 
+    /* ───────── CHAT ───────── */
+    const fetchConversations = async (
+        token: string,
+        page = 1
+    ) => {
+        return await $fetch(`/v1/conversations?page=${page}`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    }
+
+    const fetchConversation = async (
+        token: string,
+        conversationId: number,
+        page = 1
+    ) => {
+        return await $fetch(`/v1/conversations/${conversationId}?page=${page}`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+    }
+
+    const sendMessage = async (
+        conversationId: number,
+        content: string
+    ): Promise<Message> => {
+        const auth = useAuthStore()
+
+        const response = await $fetch<{
+            success: boolean
+            data: Message
+        }>(`/v1/conversations/${conversationId}/messages`, {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${auth.token}`,
+                Accept: 'application/json',
+            },
+            body: { content },
+        })
+
+        return response.data
+    }
+
+    const markConversationAsRead = async (
+        conversationId: number
+    ): Promise<void> => {
+        await $fetch(`/v1/conversations/${conversationId}/read`, {
+            method: 'PATCH',
+            baseURL,
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -93,5 +151,11 @@ export const useApi = () => {
         register,
         fetchMe,
         logout,
+
+        //chat
+        fetchConversations,
+        fetchConversation,
+        sendMessage,
+        markConversationAsRead,
     }
 }

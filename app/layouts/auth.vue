@@ -3,9 +3,8 @@
     <div class="w-full max-w-md px-4">
       <div class="text-center mb-8">
         <NuxtLink to="/" class="inline-block">
-          <h1 class="text-4xl font-bold">
-            <span class="text-primary">Fluxo</span>
-            <span class="text-secondary">Marketplace</span>
+          <h1 class="text-3xl font-bold bg-gradient-to-r from-purple-600 to-yellow-500 bg-clip-text text-transparent">
+            Fluxo Marketplace
           </h1>
         </NuxtLink>
       </div>

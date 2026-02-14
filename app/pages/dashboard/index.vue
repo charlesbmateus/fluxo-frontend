@@ -142,7 +142,7 @@
 <script setup lang="ts">
 import type { FinancialData, Service } from '~/types'
 
-const { fetchFinancialData, fetchServices } = useApi()
+const { /*fetchFinancialData, */ fetchServices } = useApi()
 
 const financialData = ref<FinancialData | null>(null)
 const recentServices = ref<Service[]>([])
@@ -151,7 +151,7 @@ const loading = ref(true)
 onMounted(async () => {
   loading.value = true
   try {
-    financialData.value = await fetchFinancialData()
+    // financialData.value = await fetchFinancialData()
     const servicesData = await fetchServices()
     recentServices.value = servicesData.slice(0, 3)
   } finally {
