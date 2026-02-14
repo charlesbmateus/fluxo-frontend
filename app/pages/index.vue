@@ -4,7 +4,7 @@
     <div class="navbar bg-base-100 shadow-md">
       <div class="container mx-auto px-4 py-3 flex items-center justify-between">
         <!-- Logo -->
-        <NuxtLink to="/" class="flex items-center gap-2">
+        <NuxtLink class="flex items-center gap-2" to="/">
           <h1 class="text-xl font-bold bg-gradient-to-r from-purple-600  to-yellow-500 bg-clip-text text-transparent">
             Fluxo Marketplace
           </h1>
@@ -14,22 +14,26 @@
         <div class="flex items-center gap-3">
           <!-- Language Selector -->
           <div class="dropdown dropdown-end">
-            <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+            <label class="btn btn-ghost btn-sm btn-circle" tabindex="0">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" stroke-linecap="round"
+                      stroke-linejoin="round"/>
               </svg>
             </label>
-            <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-white dark:bg-gray-800 rounded-xl w-52 mt-3 border border-gray-200 dark:border-gray-700">
+            <ul class="dropdown-content z-[1] menu p-2 shadow-lg bg-white dark:bg-gray-800 rounded-xl w-52 mt-3 border border-gray-200 dark:border-gray-700"
+                tabindex="0">
               <li v-for="loc in locales" :key="loc.code">
                 <a
-                    @click="locale = loc.code"
                     :class="{ 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400': locale === loc.code }"
                     class="flex items-center gap-2"
+                    @click="locale = loc.code"
                 >
                   <span class="text-xl">{{ loc.flag }}</span>
                   <span>{{ loc.name }}</span>
-                  <svg v-if="locale === loc.code" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 ml-auto">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                  <svg v-if="locale === loc.code" class="w-4 h-4 ml-auto" fill="none" stroke="currentColor"
+                       stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="m4.5 12.75 6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </a>
               </li>
@@ -38,21 +42,25 @@
 
           <!-- Theme Toggle -->
           <button
-              @click="toggleTheme" :checked="colorMode.preference === 'dark'"
+              :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" :checked="colorMode.preference === 'dark'"
               class="btn btn-ghost btn-sm btn-circle"
-              :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
+              @click="toggleTheme"
           >
             <!-- Sun icon for light mode -->
-            <svg v-if="colorMode.value === 'dark'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+            <svg v-if="colorMode.value === 'dark'" class="w-5 h-5" fill="none" stroke="currentColor"
+                 stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" stroke-linecap="round"
+                    stroke-linejoin="round"/>
             </svg>
             <!-- Moon icon for dark mode -->
-            <svg v-else xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+            <svg v-else class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5"
+                 viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" stroke-linecap="round"
+                    stroke-linejoin="round"/>
             </svg>
           </button>
 
-          <NuxtLink to="/login" class="btn btn-ghost btn-sm">
+          <NuxtLink class="btn btn-ghost btn-sm" to="/login">
             {{ $t('auth.login') }}
           </NuxtLink>
         </div>
@@ -60,10 +68,14 @@
     </div>
 
     <!-- Hero Section -->
-    <section class="hero min-h-[600px] bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10">
+    <section
+        class="hero min-h-[600px] bg-gradient-to-br from-primary/10 via-base-100 to-secondary/10"
+        style="background-image: url(https://img.daisyui.com/images/stock/photo-1507358522600-9f71e620c44e.webp);"
+    >
+      <div class="hero-overlay"></div>
       <div class="hero-content text-center max-w-6xl px-4">
         <div>
-          <h1 class="text-3xl md:text-5xl font-normal mb-6 leading-tight flex flex-col items-center">
+          <h1 class="text-3xl md:text-5xl font-normal mb-6 leading-tight flex flex-col items-center text-white">
             <span class="text-rotate duration-6000 whitespace-break-spaces leading-[1.5]">
               <span class="justify-items-center">
                 <span>{{ $t('home.hero.title1') }}</span>
@@ -74,17 +86,19 @@
             </span>
             <span class="text-primary mt-2">{{ $t('home.hero.titleHighlight') }}</span>
           </h1>
-          <p class="text-xl md:text-2xl text-base-content/70 mb-8 max-w-3xl mx-auto">
+          <p class="text-xl md:text-2xl text-base-content/70 mb-8 max-w-3xl mx-auto text-white">
             {{ $t('home.hero.subtitle') }}
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink to="/marketplace" class="btn btn-primary btn-lg text-white">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" />
+          <div class="flex flex-col sm:flex-row gap-4 justify-center text-white">
+            <NuxtLink class="btn btn-primary btn-lg text-white" to="/marketplace">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.5"
+                   viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.75.75 0 00.75-.75V13.5a.75.75 0 00-.75-.75H6.75a.75.75 0 00-.75.75v3.75c0 .415.336.75.75.75z" stroke-linecap="round"
+                      stroke-linejoin="round"/>
               </svg>
               {{ $t('home.hero.browseServices') }}
             </NuxtLink>
-            <NuxtLink to="/register" class="btn btn-outline btn-lg">
+            <NuxtLink class="btn btn-outline btn-lg bg-transparent" to="/register">
               {{ $t('home.hero.getStarted') }}
             </NuxtLink>
           </div>
@@ -101,10 +115,10 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div
-            v-for="category in categories"
-            :key="category.name"
-            class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer border border-base-300"
-            @click="goToCategory(category.slug)"
+              v-for="category in categories"
+              :key="category.name"
+              class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer border border-base-300"
+              @click="goToCategory(category.slug)"
           >
             <div class="card-body items-center text-center">
               <div class="mb-4" v-html="category.icon"></div>
@@ -126,17 +140,17 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <template v-if="loading">
-            <SkeletonsServiceCardSkeleton v-for="i in 3" :key="i" />
+            <SkeletonsServiceCardSkeleton v-for="i in 3" :key="i"/>
           </template>
           <template v-else>
             <div
-              v-for="service in featuredServices"
-              :key="service.id"
-              class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer"
-              @click="goToService(service.id)"
+                v-for="service in featuredServices"
+                :key="service.id"
+                class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all cursor-pointer"
+                @click="goToService(service.id)"
             >
               <figure class="h-48">
-                <img :src="service.image" :alt="service.name" class="w-full h-full object-cover" />
+                <img :alt="service.name" :src="service.image" class="w-full h-full object-cover"/>
               </figure>
               <div class="card-body">
                 <div class="flex justify-between items-start">
@@ -154,8 +168,11 @@
                 </div>
                 <div class="card-actions justify-between items-center mt-4">
                   <div class="flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-secondary">
-                      <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+                    <svg class="w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 24 24"
+                         xmlns="http://www.w3.org/2000/svg">
+                      <path clip-rule="evenodd"
+                            d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                            fill-rule="evenodd"/>
                     </svg>
                     <span class="font-semibold">{{ service.rating }}</span>
                   </div>
@@ -166,7 +183,7 @@
           </template>
         </div>
         <div class="text-center mt-8">
-          <NuxtLink to="/marketplace" class="btn btn-primary text-white">
+          <NuxtLink class="btn btn-primary text-white" to="/marketplace">
             {{ $t('home.featured.viewAll') }}
           </NuxtLink>
         </div>
@@ -195,7 +212,8 @@
           <div class="text-center">
             <div class="mb-4 flex justify-center">
               <div class="avatar placeholder">
-                <div class="bg-secondary text-secondary-content rounded-full w-20 flex justify-center place-items-center">
+                <div
+                    class="bg-secondary text-secondary-content rounded-full w-20 flex justify-center place-items-center">
                   <span class="text-3xl">2</span>
                 </div>
               </div>
@@ -225,10 +243,11 @@
           <h2 class="text-4xl font-bold mb-4">{{ $t('home.cta.title') }}</h2>
           <p class="text-xl mb-8 opacity-90">{{ $t('home.cta.subtitle') }}</p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink to="/register" class="btn btn-lg bg-white text-primary hover:bg-base-200">
+            <NuxtLink class="btn btn-lg bg-white text-primary hover:bg-base-200" to="/register">
               {{ $t('home.cta.joinNow') }}
             </NuxtLink>
-            <NuxtLink to="/marketplace" class="btn btn-lg btn-outline border-white text-white hover:bg-white hover:text-primary">
+            <NuxtLink class="btn btn-lg btn-outline border-white text-white hover:bg-white hover:text-primary"
+                      to="/marketplace">
               {{ $t('home.cta.learnMore') }}
             </NuxtLink>
           </div>
@@ -271,12 +290,12 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import type { Service } from '~/types'
+<script lang="ts" setup>
+import type {Service} from '~/types'
 
-const { locale, locales, setLocale } = useI18n()
+const {locale, locales, setLocale} = useI18n()
 const colorMode = useColorMode()
-const { fetchServices } = useApi()
+const {fetchServices} = useApi()
 const router = useRouter()
 
 const featuredServices = ref<Service[]>([])

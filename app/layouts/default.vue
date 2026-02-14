@@ -189,11 +189,10 @@ const handleLogout = async () => {
               <li><a @click="handleLogout">{{ $t('auth.logout') }}</a></li>
             </ul>
           </div>
-          
+
           <!-- Login/Register Buttons -->
           <div v-else class="flex gap-2">
             <NuxtLink to="/login" class="btn btn-ghost btn-sm">{{ $t('auth.login') }}</NuxtLink>
-            <NuxtLink to="/register" class="btn btn-primary btn-sm">{{ $t('auth.register') }}</NuxtLink>
           </div>
         </div>
       </div>
