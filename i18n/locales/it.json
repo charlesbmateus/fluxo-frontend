@@ -64,5 +64,84 @@
     "registerError": "Registrazione fallita. Riprova.",
     "loginWith": "Accedi con",
     "or": "o"
+  },
+  "home": {
+    "hero": {
+      "title1": "Scopri talenti e servizi su",
+      "title2": "Connettiti con professionisti affidabili su",
+      "title3": "Impara, insegna e cresci insieme su",
+      "title4": "Trova l'esperto giusto per te su",
+      "titleHighlight": "Fluxo",
+      "subtitle": "Connettiti con professionisti di talento e accedi a migliaia di servizi per far crescere la tua attività",
+      "browseServices": "Sfoglia i servizi",
+      "getStarted": "Inizia ora"
+    },
+    "stats": {
+      "services": "Servizi disponibili",
+      "servicesDesc": "Da tutte le categorie",
+      "providers": "Fornitori di servizi",
+      "providersDesc": "Professionisti verificati",
+      "transactions": "Transazioni completate",
+      "transactionsDesc": "E in crescita ogni giorno",
+      "satisfaction": "Soddisfazione del cliente",
+      "satisfactionDesc": "Valutazione media"
+    },
+    "categories": {
+      "title": "Esplora le categorie",
+      "subtitle": "Trova il servizio perfetto per le tue esigenze",
+      "services": "servizi",
+      "development": "Sviluppo",
+      "developmentDesc": "Crea applicazioni web, app mobili e soluzioni software",
+      "design": "Design",
+      "designDesc": "Crea grafiche, loghi e interfacce utente straordinarie",
+      "writing": "Scrittura & Contenuti",
+      "writingDesc": "Servizi professionali di scrittura di contenuti e copywriting",
+      "marketing": "Marketing",
+      "marketingDesc": "Marketing digitale, SEO e strategie per i social media",
+      "video": "Video & Animazione",
+      "videoDesc": "Montaggio video, motion graphics e animazione 3D",
+      "business": "Servizi aziendali",
+      "businessDesc": "Consulenza, assistenza virtuale e supporto aziendale"
+    },
+    "featured": {
+      "title": "Servizi in evidenza",
+      "subtitle": "I servizi più apprezzati del nostro marketplace",
+      "viewAll": "Vedi tutti i servizi"
+    },
+    "howItWorks": {
+      "title": "Come funziona",
+      "subtitle": "Inizia a lavorare con i professionisti in tre semplici passaggi",
+      "step1Title": "Sfoglia i servizi",
+      "step1Desc": "Esplora migliaia di servizi in molteplici categorie",
+      "step2Title": "Scegli & Contatta",
+      "step2Desc": "Seleziona il fornitore di servizi perfetto e discuti il tuo progetto",
+      "step3Title": "Ottieni il lavoro fatto",
+      "step3Desc": "Ricevi lavoro di alta qualità consegnato in tempo"
+    },
+    "cta": {
+      "title": "Pronto per iniziare?",
+      "subtitle": "Unisciti a migliaia di clienti soddisfatti e avvia il tuo progetto oggi",
+      "joinNow": "Iscriviti ora",
+      "learnMore": "Scopri di più"
+    },
+    "footer": {
+      "about": "Chi siamo",
+      "aboutDesc": "Fluxo Marketplace connette professionisti di talento con aziende in tutto il mondo.",
+      "services": "Servizi",
+      "development": "Sviluppo",
+      "design": "Design",
+      "marketing": "Marketing",
+      "writing": "Scrittura",
+      "company": "Azienda",
+      "aboutUs": "Chi siamo",
+      "contact": "Contatti",
+      "careers": "Carriere",
+      "blog": "Blog",
+      "legal": "Note legali",
+      "terms": "Termini di servizio",
+      "privacy": "Informativa sulla privacy",
+      "cookies": "Politica dei cookie",
+      "copyright": "Tutti i diritti riservati."
+    }
   }
 }

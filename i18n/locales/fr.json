@@ -64,5 +64,84 @@
     "registerError": "Échec de l'inscription. Veuillez réessayer.",
     "loginWith": "Se connecter avec",
     "or": "ou"
+  },
+  "home": {
+    "hero": {
+      "title1": "Découvrez des talents et des services sur",
+      "title2": "Connectez-vous avec des professionnels de confiance sur",
+      "title3": "Apprenez, enseignez et grandissez ensemble sur",
+      "title4": "Trouvez le bon expert pour vous sur",
+      "titleHighlight": "Fluxo",
+      "subtitle": "Connectez-vous avec des professionnels talentueux et accédez à des milliers de services pour développer votre entreprise",
+      "browseServices": "Parcourir les services",
+      "getStarted": "Commencer"
+    },
+    "stats": {
+      "services": "Services disponibles",
+      "servicesDesc": "De toutes les catégories",
+      "providers": "Fournisseurs de services",
+      "providersDesc": "Professionnels vérifiés",
+      "transactions": "Transactions réalisées",
+      "transactionsDesc": "Et en croissance quotidienne",
+      "satisfaction": "Satisfaction client",
+      "satisfactionDesc": "Note moyenne"
+    },
+    "categories": {
+      "title": "Explorer les catégories",
+      "subtitle": "Trouvez le service parfait pour vos besoins",
+      "services": "services",
+      "development": "Développement",
+      "developmentDesc": "Créez des applications web, mobiles et des solutions logicielles",
+      "design": "Design",
+      "designDesc": "Créez des graphiques, logos et interfaces utilisateur époustouflants",
+      "writing": "Rédaction & Contenu",
+      "writingDesc": "Services professionnels de rédaction de contenu et de copywriting",
+      "marketing": "Marketing",
+      "marketingDesc": "Marketing digital, SEO et stratégies de réseaux sociaux",
+      "video": "Vidéo & Animation",
+      "videoDesc": "Montage vidéo, motion graphics et animation 3D",
+      "business": "Services aux entreprises",
+      "businessDesc": "Conseil, assistance virtuelle et soutien aux entreprises"
+    },
+    "featured": {
+      "title": "Services en vedette",
+      "subtitle": "Les services les mieux notés de notre marketplace",
+      "viewAll": "Voir tous les services"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "subtitle": "Commencez à travailler avec des professionnels en trois étapes simples",
+      "step1Title": "Parcourir les services",
+      "step1Desc": "Explorez des milliers de services dans plusieurs catégories",
+      "step2Title": "Choisir & Contacter",
+      "step2Desc": "Sélectionnez le fournisseur de services idéal et discutez de votre projet",
+      "step3Title": "Obtenir le travail fait",
+      "step3Desc": "Recevez un travail de haute qualité livré dans les délais"
+    },
+    "cta": {
+      "title": "Prêt à commencer ?",
+      "subtitle": "Rejoignez des milliers de clients satisfaits et lancez votre projet dès aujourd'hui",
+      "joinNow": "Rejoindre maintenant",
+      "learnMore": "En savoir plus"
+    },
+    "footer": {
+      "about": "À propos",
+      "aboutDesc": "Fluxo Marketplace connecte des professionnels talentueux avec des entreprises du monde entier.",
+      "services": "Services",
+      "development": "Développement",
+      "design": "Design",
+      "marketing": "Marketing",
+      "writing": "Rédaction",
+      "company": "Entreprise",
+      "aboutUs": "À propos de nous",
+      "contact": "Contact",
+      "careers": "Carrières",
+      "blog": "Blog",
+      "legal": "Mentions légales",
+      "terms": "Conditions d'utilisation",
+      "privacy": "Politique de confidentialité",
+      "cookies": "Politique de cookies",
+      "copyright": "Tous droits réservés."
+    }
   }
 }

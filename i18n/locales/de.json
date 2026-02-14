@@ -64,5 +64,84 @@
     "registerError": "Registrierung fehlgeschlagen. Bitte versuchen Sie es erneut.",
     "loginWith": "Anmelden mit",
     "or": "oder"
+  },
+  "home": {
+    "hero": {
+      "title1": "Entdecken Sie Talente und Dienstleistungen auf",
+      "title2": "Verbinden Sie sich mit vertrauenswürdigen Fachleuten auf",
+      "title3": "Lernen, Lehren und gemeinsam Wachsen auf",
+      "title4": "Finden Sie den richtigen Experten für Sie auf",
+      "titleHighlight": "Fluxo",
+      "subtitle": "Verbinden Sie sich mit talentierten Fachleuten und greifen Sie auf Tausende von Dienstleistungen zu, um Ihr Geschäft auszubauen",
+      "browseServices": "Dienstleistungen durchsuchen",
+      "getStarted": "Jetzt starten"
+    },
+    "stats": {
+      "services": "Verfügbare Dienstleistungen",
+      "servicesDesc": "Aus allen Kategorien",
+      "providers": "Dienstleister",
+      "providersDesc": "Verifizierte Fachleute",
+      "transactions": "Abgeschlossene Transaktionen",
+      "transactionsDesc": "Und täglich wachsend",
+      "satisfaction": "Kundenzufriedenheit",
+      "satisfactionDesc": "Durchschnittliche Bewertung"
+    },
+    "categories": {
+      "title": "Kategorien entdecken",
+      "subtitle": "Finden Sie die perfekte Dienstleistung für Ihre Bedürfnisse",
+      "services": "Dienstleistungen",
+      "development": "Entwicklung",
+      "developmentDesc": "Erstellen Sie Web-Apps, mobile Apps und Softwarelösungen",
+      "design": "Design",
+      "designDesc": "Erstellen Sie beeindruckende Grafiken, Logos und Benutzeroberflächen",
+      "writing": "Texte & Inhalte",
+      "writingDesc": "Professionelle Texterstellung und Copywriting-Dienstleistungen",
+      "marketing": "Marketing",
+      "marketingDesc": "Digitales Marketing, SEO und Social-Media-Strategien",
+      "video": "Video & Animation",
+      "videoDesc": "Videobearbeitung, Motion Graphics und 3D-Animation",
+      "business": "Geschäftsdienstleistungen",
+      "businessDesc": "Beratung, virtuelle Assistenz und Geschäftsunterstützung"
+    },
+    "featured": {
+      "title": "Empfohlene Dienstleistungen",
+      "subtitle": "Bestbewertete Dienstleistungen aus unserem Marktplatz",
+      "viewAll": "Alle Dienstleistungen anzeigen"
+    },
+    "howItWorks": {
+      "title": "So funktioniert es",
+      "subtitle": "Beginnen Sie in drei einfachen Schritten mit Fachleuten zu arbeiten",
+      "step1Title": "Dienstleistungen durchsuchen",
+      "step1Desc": "Entdecken Sie Tausende von Dienstleistungen in mehreren Kategorien",
+      "step2Title": "Auswählen & Kontaktieren",
+      "step2Desc": "Wählen Sie den perfekten Dienstleister und besprechen Sie Ihr Projekt",
+      "step3Title": "Arbeit erledigen lassen",
+      "step3Desc": "Erhalten Sie hochwertige Arbeit pünktlich geliefert"
+    },
+    "cta": {
+      "title": "Bereit loszulegen?",
+      "subtitle": "Schließen Sie sich Tausenden zufriedener Kunden an und starten Sie Ihr Projekt noch heute",
+      "joinNow": "Jetzt beitreten",
+      "learnMore": "Mehr erfahren"
+    },
+    "footer": {
+      "about": "Über uns",
+      "aboutDesc": "Fluxo Marketplace verbindet talentierte Fachleute mit Unternehmen weltweit.",
+      "services": "Dienstleistungen",
+      "development": "Entwicklung",
+      "design": "Design",
+      "marketing": "Marketing",
+      "writing": "Texte",
+      "company": "Unternehmen",
+      "aboutUs": "Über uns",
+      "contact": "Kontakt",
+      "careers": "Karriere",
+      "blog": "Blog",
+      "legal": "Rechtliches",
+      "terms": "Nutzungsbedingungen",
+      "privacy": "Datenschutzrichtlinie",
+      "cookies": "Cookie-Richtlinie",
+      "copyright": "Alle Rechte vorbehalten."
+    }
   }
 }
