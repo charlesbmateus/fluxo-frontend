@@ -75,7 +75,7 @@ onMounted(async () => {
             </div>
           </div>
 
-          <div class="stat bg-gradient-to-br from-primary to-secondary rounded-lg shadow text-white">
+          <div class="stat bg-gradient-to-r from-purple-600 to-yellow-500 rounded-lg shadow text-white">
             <div class="stat-title text-white/80">Total Value</div>
             <div class="stat-value">$58K</div>
             <div class="stat-desc text-white/80">↗︎ 15.3% this month</div>
