@@ -5,6 +5,7 @@ import type {Category} from '~/types/category'
 import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
+import type { Notification } from '~/types/notification'
 
 interface AuthPayload {
     email: string
@@ -84,7 +85,7 @@ export const useApi = () => {
         })
     }
 
-    /* ───────── CHAT ───────── */
+    // ───────── CHAT ─────────
     const fetchConversations = async (
         token: string,
         page = 1
@@ -141,6 +142,51 @@ export const useApi = () => {
         })
     }
 
+    // ───────── NOTIFICATIONS ─────────
+    const fetchNotifications = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Notification[]
+        }>('/v1/notifications', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const markNotificationAsRead = async (token: string, notificationId: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Notification
+        }>(`/v1/notifications/${notificationId}/read`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const markAllNotificationsAsRead = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: { updated: number }
+        }>('/v1/notifications/mark-all-read', {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -152,10 +198,15 @@ export const useApi = () => {
         fetchMe,
         logout,
 
-        //chat
+        // chat
         fetchConversations,
         fetchConversation,
         sendMessage,
         markConversationAsRead,
+
+        // notifications
+        fetchNotifications,
+        markNotificationAsRead,
+        markAllNotificationsAsRead,
     }
 }

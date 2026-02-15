@@ -4,6 +4,18 @@ const colorMode = useColorMode()
 const { user, isAuthenticated, logout } = useAuth()
 const router = useRouter()
 
+// Notifications
+const {
+  recentNotifications,
+  unreadCount,
+  hasUnread,
+  fetchNotifications,
+  markAsRead,
+  markAllAsRead,
+  formatNotificationTime,
+  getNotificationIcon
+} = useNotifications()
+
 const props = defineProps<{
   showDrawerToggle?: boolean
   isDrawerOpen?: boolean
@@ -25,6 +37,24 @@ const handleLogout = async () => {
   await logout()
   await router.push('/login')
 }
+
+// Fetch notifications on mount
+onMounted(() => {
+  if (isAuthenticated.value) {
+    fetchNotifications()
+  }
+})
+
+// Handle notification click
+const handleNotificationClick = async (notificationId: number) => {
+  await markAsRead(notificationId)
+  // You can add navigation logic here based on notification type
+}
+
+// Handle mark all as read
+const handleMarkAllAsRead = async () => {
+  await markAllAsRead()
+}
 </script>
 
 <template>
@@ -43,48 +73,73 @@ const handleLogout = async () => {
       </div>
 
       <!-- Logo -->
-      <NuxtLink class="flex items-center gap-2" to="/">
-        <h1 class="text-xl font-bold bg-gradient-to-r from-purple-600  to-yellow-500 bg-clip-text text-transparent">
-          Fluxo Marketplace
+      <NuxtLink :to="isAuthenticated ? '/dashboard' : '/'" class="flex items-center gap-2">
+        <h1 class="text-xl font-bold bg-gradient-to-r from-purple-600 to-yellow-500 bg-clip-text text-transparent">
+          Fluxo
         </h1>
       </NuxtLink>
 
       <!-- Language & Theme Controls -->
       <div class="flex items-center gap-1">
-        <!-- Notifications with Indicator -->
+        <!-- Notifications with Real Data -->
         <div v-if="isAuthenticated" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
               </svg>
-              <span class="badge badge-xs badge-primary indicator-item">3</span>
+              <span v-if="hasUnread" class="badge badge-xs badge-primary indicator-item">{{ unreadCount }}</span>
             </div>
           </label>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-80">
-            <li class="menu-title">
-              <span>Notifications</span>
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-96">
+            <!-- Header -->
+            <li class="menu-title flex flex-row items-center justify-between px-4 py-2">
+              <span class="text-base font-semibold">Notifications</span>
+              <button
+                  v-if="hasUnread"
+                  @click="handleMarkAllAsRead"
+                  class="text-xs text-primary hover:underline"
+              >
+                Mark all as read
+              </button>
             </li>
-            <li>
-              <a class="flex flex-col items-start">
-                <span class="font-semibold">New service request</span>
-                <span class="text-xs opacity-50">John Doe requested your service</span>
-              </a>
-            </li>
-            <li>
-              <a class="flex flex-col items-start">
-                <span class="font-semibold">Payment received</span>
-                <span class="text-xs opacity-50">You received $150 for Web Development</span>
-              </a>
-            </li>
-            <li>
-              <a class="flex flex-col items-start">
-                <span class="font-semibold">Review posted</span>
-                <span class="text-xs opacity-50">Jane Smith left you a 5-star review</span>
-              </a>
-            </li>
-            <li class="mt-2">
-              <a href="#" class="btn btn-sm btn-block">View All</a>
+
+            <!-- Notifications List -->
+            <div class="max-h-96 overflow-y-auto">
+              <li v-for="notification in recentNotifications" :key="notification.id">
+                <a
+                    @click="handleNotificationClick(notification.id)"
+                    class="flex flex-col items-start p-3 hover:bg-base-200 rounded-lg transition-colors"
+                    :class="{ 'bg-primary/5': !notification.read }"
+                >
+                  <div class="flex items-start gap-3 w-full">
+                    <span class="text-2xl flex-shrink-0">{{ getNotificationIcon(notification.type) }}</span>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between mb-1">
+                        <span class="font-semibold text-sm truncate">{{ notification.title }}</span>
+                        <span v-if="!notification.read" class="w-2 h-2 bg-primary rounded-full flex-shrink-0 ml-2"></span>
+                      </div>
+                      <p class="text-xs opacity-70 line-clamp-2">{{ notification.message }}</p>
+                      <span class="text-xs opacity-50 mt-1">{{ formatNotificationTime(notification.created_at) }}</span>
+                    </div>
+                  </div>
+                </a>
+              </li>
+
+              <!-- Empty State -->
+              <li v-if="recentNotifications.length === 0" class="p-8 text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto opacity-30 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                </svg>
+                <p class="text-sm opacity-60">No notifications yet</p>
+              </li>
+            </div>
+
+            <!-- Footer -->
+            <li v-if="recentNotifications.length > 0" class="mt-2">
+              <NuxtLink to="/notifications" class="btn btn-sm btn-block btn-ghost">
+                View All Notifications
+              </NuxtLink>
             </li>
           </ul>
         </div>
@@ -134,6 +189,7 @@ const handleLogout = async () => {
             </li>
           </ul>
         </div>
+
         <!-- Language Selector -->
         <div class="dropdown dropdown-end">
           <label class="btn btn-ghost btn-sm btn-circle" tabindex="0">
@@ -146,25 +202,24 @@ const handleLogout = async () => {
           <ul class="dropdown-content z-[1] menu p-2 shadow-lg bg-white dark:bg-gray-800 rounded-xl w-52 mt-3 border border-gray-200 dark:border-gray-700"
               tabindex="0">
             <li v-for="loc in locales" :key="loc.code">
-              <a
-                  :class="{ 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400': locale === loc.code }"
-                  class="flex items-center gap-2"
-                  @click="locale = loc.code"
+
+              :class="{ 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400': locale === loc.code }"
+              class="flex items-center gap-2"
+              @click="locale = loc.code"
               >
-                <span class="text-xl">{{ loc.flag }}</span>
-                <span>{{ loc.name }}</span>
-                <svg v-if="locale === loc.code" class="w-4 h-4 ml-auto" fill="none" stroke="currentColor"
-                     stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path d="m4.5 12.75 6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </a>
+              <span class="text-xl">{{ loc.flag }}</span>
+              <span>{{ loc.name }}</span>
+              <svg v-if="locale === loc.code" class="w-4 h-4 ml-auto" fill="none" stroke="currentColor"
+                   stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="m4.5 12.75 6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </li>
           </ul>
         </div>
 
         <!-- Theme Toggle -->
         <button
-            :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'" :checked="colorMode.preference === 'dark'"
+            :aria-label="colorMode.value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'"
             class="btn btn-ghost btn-sm btn-circle"
             @click="toggleTheme"
         >
@@ -185,12 +240,12 @@ const handleLogout = async () => {
         <!-- User Menu -->
         <div v-if="isAuthenticated" class="dropdown dropdown-end">
           <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-10 rounded-full bg-primary text-white flex items-center justify-center">
-              <span>{{ user?.name?.charAt(0) || 'U' }}</span>
+            <div class="w-10 rounded-full bg-gradient-to-br from-purple-500 to-purple-700 text-white flex items-center justify-center font-semibold">
+              <span>{{ user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
             </div>
           </label>
           <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-            <li><a>Profile</a></li>
+            <li><NuxtLink to="/profile">Profile</NuxtLink></li>
             <li><NuxtLink to="/settings">Settings</NuxtLink></li>
             <li><a @click="handleLogout">{{ $t('auth.logout') }}</a></li>
           </ul>
