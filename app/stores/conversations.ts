@@ -15,6 +15,33 @@ export const useConversationsStore = defineStore('conversations', {
         loadingMessages: false,
     }),
 
+    getters: {
+        // Get unread conversations count
+        unreadConversationsCount: (state) => {
+            return state.conversations.filter(conv =>
+                conv.messages.some(msg => !msg.read_at && msg.sender.id !== useAuthStore().user?.id)
+            ).length
+        },
+
+        // Check if there are unread conversations
+        hasUnreadConversations: (state) => {
+            return state.conversations.some(conv =>
+                conv.messages.some(msg => !msg.read_at && msg.sender.id !== useAuthStore().user?.id)
+            )
+        },
+
+        // Get recent conversations (first 5)
+        recentConversations: (state) => {
+            return state.conversations.slice(0, 5)
+        },
+
+        // Get last message of a conversation
+        getLastMessage: (state) => (conversationId: number) => {
+            const conversation = state.conversations.find(c => c.id === conversationId)
+            return conversation?.messages[conversation.messages.length - 1]
+        }
+    },
+
     actions: {
         async fetchConversations(page = 1) {
             const auth = useAuthStore()
@@ -112,6 +139,27 @@ export const useConversationsStore = defineStore('conversations', {
             )
 
             this.messages.push(message)
+        },
+
+        async markConversationAsRead(conversationId: number) {
+            const auth = useAuthStore()
+            if (!auth.token) return
+
+            try {
+                await useApi().markConversationAsRead(conversationId)
+
+                // Update conversation in store
+                const conversation = this.conversations.find(c => c.id === conversationId)
+                if (conversation) {
+                    conversation.messages = conversation.messages.map(msg => ({
+                        ...msg,
+                        read_at: new Date().toISOString()
+                    }))
+                }
+            } catch (error: any) {
+                console.error('Error marking conversation as read:', error)
+                throw error
+            }
         },
 
         async resetConversations() {
