@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { locale, locales } = useI18n()
+const { locale, locales, setLocale } = useI18n()
 const colorMode = useColorMode()
 const { user, isAuthenticated, logout } = useAuth()
 const router = useRouter()
@@ -256,18 +256,9 @@ const handleConversationClick = async (conversationId: number) => {
               <path d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </label>
-          <ul class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-xl w-52 mt-3 border border-base-300" tabindex="0">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-32">
             <li v-for="loc in locales" :key="loc.code">
-
-              :class="{ 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400': locale === loc.code }"
-              class="flex items-center gap-2"
-              @click="locale = loc.code"
-              >
-              <span class="text-xl">{{ loc.flag }}</span>
-              <span>{{ loc.name }}</span>
-              <svg v-if="locale === loc.code" class="w-4 h-4 ml-auto" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="m4.5 12.75 6 6 9-13.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <a @click="setLocale(loc.code)">{{ loc.name }}</a>
             </li>
           </ul>
         </div>
