@@ -284,7 +284,7 @@ const handleConversationClick = async (conversationId: number) => {
               <span>{{ user?.name?.charAt(0).toUpperCase() || 'U' }}</span>
             </div>
           </label>
-          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[40] p-2 shadow bg-base-100 rounded-box w-52">
             <li><NuxtLink to="/profile">{{ $t('nav.profile') || 'Profile' }}</NuxtLink></li>
             <li><NuxtLink to="/settings">{{ $t('nav.settings') || 'Settings' }}</NuxtLink></li>
             <li><a @click="handleLogout">{{ $t('auth.logout') || 'Logout' }}</a></li>

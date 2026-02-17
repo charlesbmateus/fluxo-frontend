@@ -316,9 +316,8 @@ const greeting = computed(() => {
     <!-- Provider Dashboard -->
     <div v-else class="space-y-6">
       <!-- Welcome Section with gradient -->
-        <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
         <div class="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
-        <div class="relative z-10">
+        <div class="relative z-1">
           <h1 class="text-3xl font-bold mb-2">{{ greeting }}, {{ user?.name || 'there' }}! 👋</h1>
           <p>Here's what's happening with your marketplace today</p>
         </div>
