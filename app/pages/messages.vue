@@ -366,14 +366,14 @@ const handleScroll = async () => {
                         <!-- Read receipt for sent messages -->
                         <svg
                             v-if="message.sender.id === user?.id && message.read_at"
-                            class="h-4 w-4 text-blue-300"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
                             xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4 text-blue-300"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
                         >
-                          <path clip-rule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                fill-rule="evenodd"/>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 13l4 4L19 7"/>
                         </svg>
                       </div>
                     </div>
@@ -430,13 +430,14 @@ const handleScroll = async () => {
                     type="submit"
                 >
                   <svg
+                      xmlns="http://www.w3.org/2000/svg"
                       class="w-5 h-5"
-                      fill="currentColor"
+                      fill="none"
                       viewBox="0 0 24 24"
+                      stroke="currentColor"
                   >
-                    <path
-                        d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z"
-                    />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
                   </svg>
                 </button>
               </form>
