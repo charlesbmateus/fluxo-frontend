@@ -6,7 +6,7 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData} from "~/types/dashboard";
+import type {DashboardData, ClientDashboardData} from "~/types/dashboard";
 
 interface AuthPayload {
     email: string
@@ -203,6 +203,20 @@ export const useApi = () => {
         })
     }
 
+    const fetchClientDashboardData = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: ClientDashboardData
+        }>('/v1/dashboard/client', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -226,6 +240,7 @@ export const useApi = () => {
         markAllNotificationsAsRead,
 
         // dashboard
-        fetchDashboardData
+        fetchDashboardData,
+        fetchClientDashboardData
     }
 }

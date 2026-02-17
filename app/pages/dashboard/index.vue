@@ -9,6 +9,8 @@ const dashboard = useDashboard()
 const { user } = useAuth()
 const colorMode = useColorMode()
 
+const isClient = computed(() => user.value?.role === 'client')
+
 const financialData = computed<FinancialData | null>(() => {
   const data = dashboard.data.value
   if (!data) return null
@@ -308,7 +310,11 @@ const greeting = computed(() => {
 
 <template>
   <NuxtLayout name="default">
-    <div class="space-y-6">
+    <!-- Client Dashboard -->
+    <ClientDashboard v-if="isClient" />
+
+    <!-- Provider Dashboard -->
+    <div v-else class="space-y-6">
       <!-- Welcome Section with gradient -->
         <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
         <div class="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-white/10 blur-3xl"></div>
