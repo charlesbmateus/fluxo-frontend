@@ -84,10 +84,10 @@ const prevImage = () => {
 
 const handleBookService = () => {
   if (!isAuthenticated.value) {
-    router.push(`/login?redirect=${route.fullPath}`)
+    router.push(`/login?redirect=/book/${route.params.id}`)
     return
   }
-  alert('Booking service...')
+  router.push(`/book/${route.params.id}`)
 }
 
 const handleContactProvider = () => {

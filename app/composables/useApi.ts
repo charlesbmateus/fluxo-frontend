@@ -6,7 +6,7 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData, ClientDashboardData} from "~/types/dashboard";
+import type {DashboardData, ClientDashboardData, BookingRequest, BookingResponse} from "~/types/dashboard";
 
 interface AuthPayload {
     email: string
@@ -217,6 +217,26 @@ export const useApi = () => {
         })
     }
 
+    // ───────── BOOKINGS ─────────
+    const createBooking = async (
+        token: string,
+        payload: BookingRequest
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: BookingResponse
+        }>('/v1/bookings', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: payload,
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -241,6 +261,9 @@ export const useApi = () => {
 
         // dashboard
         fetchDashboardData,
-        fetchClientDashboardData
+        fetchClientDashboardData,
+
+        // bookings
+        createBooking
     }
 }

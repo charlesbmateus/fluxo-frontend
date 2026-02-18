@@ -73,3 +73,20 @@ export interface ClientDashboardState {
     loading: boolean
     error: string | null
 }
+
+export interface BookingRequest {
+    service_id: number
+    date: string
+    time: string
+    notes: string
+}
+
+export interface BookingResponse {
+    id: number
+    service_id: number
+    date: string
+    time: string
+    notes: string
+    status: 'pending'
+    price: number
+}
