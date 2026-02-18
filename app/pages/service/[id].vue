@@ -203,7 +203,7 @@ onMounted(async () => {
           <div class="flex items-center justify-between">
             <div>
               <h2 class="text-xl font-semibold">
-                {{ $t('service.provider') }}: {{ service.provider?.name }}
+                {{ $t('service.provider') }}: <NuxtLink :to="`/provider/${service.provider?.id}`" class="hover:underline text-primary">{{ service.provider?.name }}</NuxtLink>
               </h2>
               <div class="flex flex-wrap items-center gap-3 mt-1 text-sm text-base-content/60">
                 <span class="flex items-center gap-1">
@@ -351,6 +351,9 @@ onMounted(async () => {
                         <p class="text-base-content/60">{{ $t('service.yearsExperience') }}</p>
                       </div>
                     </div>
+                    <NuxtLink :to="`/provider/${service.provider?.id}`" class="btn btn-outline btn-sm mt-4">
+                      {{ $t('service.viewProfile') }}
+                    </NuxtLink>
                   </div>
                 </div>
               </div>

@@ -1,6 +1,6 @@
 // composables/useApi.ts
 import type {ApiResponse, PaginatedResponse} from '~/types/api'
-import type {Service} from '~/types/service'
+import type {Service, ProviderProfile} from '~/types/service'
 import type {Category} from '~/types/category'
 import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
@@ -29,6 +29,13 @@ export const useApi = () => {
         page = 1
     ): Promise<ApiResponse<PaginatedResponse<Service>>> => {
         return await $fetch(`/services?page=${page}`, {baseURL})
+    }
+
+    // ───────── PROVIDERS ─────────
+    const fetchProviderProfile = async (
+        providerId: number
+    ): Promise<{ success: boolean; data: ProviderProfile }> => {
+        return await $fetch(`/providers/${providerId}`, {baseURL})
     }
 
     // ───────── CATEGORIES ─────────
@@ -221,6 +228,7 @@ export const useApi = () => {
         // data
         fetchServices,
         fetchCategories,
+        fetchProviderProfile,
 
         // auth
         login,
