@@ -31,3 +31,45 @@ export interface DashboardData {
         }[]
     }
 }
+
+export interface DashboardState {
+    data: DashboardData | null
+    loading: boolean
+    error: string | null
+}
+
+export interface ClientBooking {
+    id: number
+    service_id: number
+    service_title: string
+    service_image: string | null
+    provider_name: string
+    provider_avatar: string | null
+    date: string
+    status: 'pending' | 'confirmed' | 'completed' | 'cancelled'
+    price: number
+}
+
+export interface ClientDashboardData {
+    bookings: ClientBooking[]
+    wallet: {
+        balance: number
+        currency: string
+    }
+    top_services: {
+        id: number
+        title: string
+        description: string
+        price: string
+        rating: number
+        image: string | null
+        provider_name: string
+        category_name: string
+    }[]
+}
+
+export interface ClientDashboardState {
+    data: ClientDashboardData | null
+    loading: boolean
+    error: string | null
+}
