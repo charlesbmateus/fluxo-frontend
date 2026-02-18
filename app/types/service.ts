@@ -5,6 +5,31 @@ export interface Provider {
     avatar: string | null
 }
 
+export interface ProviderProfile {
+    id: number
+    name: string
+    role: string
+    avatar: string | null
+    bio: string | null
+    city: string | null
+    country: string | null
+    joined_at: string | null
+    rating: number
+    reviews_count: number
+    completed_services: number
+    years_experience: number
+    response_time: string
+    services: Service[]
+    reviews: ServiceReview[]
+    portfolio_images: ServiceImage[]
+    availability: ProviderAvailability[]
+}
+
+export interface ProviderAvailability {
+    date: string
+    available: boolean
+}
+
 export interface Category {
     id: number
     name: string

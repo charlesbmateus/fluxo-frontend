@@ -11,6 +11,7 @@ export default defineNuxtRouteMiddleware((to) => {
     '/register',
     '/marketplace',
     '/service',
+    '/provider',
   ]
 
   const isPublicRoute = publicRoutes.some(route => {
