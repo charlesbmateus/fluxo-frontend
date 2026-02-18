@@ -12,6 +12,21 @@ export interface Category {
     icon: string | null
 }
 
+export interface ServiceImage {
+    id: number
+    url: string
+    alt: string | null
+}
+
+export interface ServiceReview {
+    id: number
+    author: string
+    avatar: string | null
+    rating: number
+    comment: string
+    date: string
+}
+
 export interface Service {
     id: number
     title: string
@@ -25,4 +40,10 @@ export interface Service {
     status: string
     category: Category
     provider: Provider
+    images?: ServiceImage[]
+    rating?: number
+    reviews_count?: number
+    reviews?: ServiceReview[]
+    years_experience?: number
+    response_time?: string
 }
