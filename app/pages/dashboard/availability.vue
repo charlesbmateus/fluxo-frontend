@@ -253,7 +253,8 @@ const selectedDayAvailable = computed(() => {
                     class="aspect-square flex flex-col items-center justify-center rounded-xl text-sm relative cursor-pointer transition-colors"
                     :class="{
                       'text-base-content/30': !day.isCurrentMonth,
-                      'bg-primary/10 font-bold text-primary ring-2 ring-primary/30': isToday(day.date) && !isDayAvailable(day.dateKey),
+                      'bg-primary/10 font-bold text-primary ring-2 ring-primary/30': isToday(day.date) && !(isProvider && isDayAvailable(day.dateKey)),
+                      'font-bold text-primary': isToday(day.date) && isProvider && isDayAvailable(day.dateKey),
                       'hover:bg-base-200': day.isCurrentMonth && !isProvider,
                       'hover:bg-success/20': day.isCurrentMonth && isProvider && !isDayAvailable(day.dateKey),
                       'hover:bg-error/20': day.isCurrentMonth && isProvider && isDayAvailable(day.dateKey),
