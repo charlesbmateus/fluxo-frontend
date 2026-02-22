@@ -3,17 +3,11 @@ import type { Transaction } from '~/types/dashboard'
 import VChart from 'vue-echarts'
 import type { EChartsOption } from 'echarts'
 
-const { user } = useAuth()
 const dashboard = useDashboard()
 const colorMode = useColorMode()
 const { t } = useI18n()
 
 const loading = ref(true)
-const showAddMoneyModal = ref(false)
-const addMoneyAmount = ref('')
-const addMoneyMethod = ref('credit_card')
-const addMoneyProcessing = ref(false)
-const addMoneySuccess = ref(false)
 
 // Mock transactions data (would come from API in production)
 const transactions = ref<Transaction[]>([
@@ -332,40 +326,6 @@ const statusBadge = (status: string) => {
     default: return 'badge-ghost'
   }
 }
-
-const handleAddMoney = async () => {
-  const amount = parseFloat(addMoneyAmount.value)
-  if (!amount || amount <= 0) return
-
-  addMoneyProcessing.value = true
-  try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500))
-
-    // Add deposit transaction
-    transactions.value.unshift({
-      id: Date.now(),
-      type: 'deposit',
-      amount: amount,
-      currency: 'USD',
-      status: 'completed',
-      description: `Wallet top-up via ${addMoneyMethod.value === 'credit_card' ? 'credit card' : 'bank transfer'}`,
-      counterparty: { name: user.value?.name || 'You', role: 'client', avatar: null },
-      service_title: null,
-      created_at: new Date().toISOString()
-    })
-
-    addMoneySuccess.value = true
-    setTimeout(() => {
-      addMoneySuccess.value = false
-      showAddMoneyModal.value = false
-      addMoneyAmount.value = ''
-      addMoneyMethod.value = 'credit_card'
-    }, 2000)
-  } finally {
-    addMoneyProcessing.value = false
-  }
-}
 </script>
 
 <template>
@@ -377,12 +337,6 @@ const handleAddMoney = async () => {
           <h1 class="text-3xl font-bold">{{ $t('finance.title') }}</h1>
           <p class="text-base-content/60">{{ $t('finance.subtitle') }}</p>
         </div>
-        <button class="btn btn-primary gap-2" @click="showAddMoneyModal = true">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-          </svg>
-          {{ $t('finance.addMoney') }}
-        </button>
       </div>
 
       <!-- Stats Cards -->
@@ -629,87 +583,5 @@ const handleAddMoney = async () => {
         </div>
       </div>
     </div>
-
-    <!-- Add Money Modal -->
-    <dialog class="modal" :class="{ 'modal-open': showAddMoneyModal }">
-      <div class="modal-box">
-        <h3 class="font-bold text-lg mb-4">{{ $t('finance.addFunds') }}</h3>
-
-        <!-- Success State -->
-        <div v-if="addMoneySuccess" class="flex flex-col items-center py-8">
-          <div class="w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <p class="text-lg font-semibold text-green-600">{{ $t('finance.successMessage') }}</p>
-        </div>
-
-        <!-- Form -->
-        <div v-else>
-          <div class="form-control mb-4">
-            <label class="label">
-              <span class="label-text font-medium">{{ $t('finance.amount') }}</span>
-            </label>
-            <label class="input input-bordered flex items-center gap-2">
-              <span class="text-base-content/60 font-semibold">$</span>
-              <input
-                v-model="addMoneyAmount"
-                type="number"
-                min="1"
-                step="0.01"
-                :placeholder="$t('finance.enterAmount')"
-                class="grow"
-              />
-            </label>
-          </div>
-
-          <!-- Quick amount buttons -->
-          <div class="flex gap-2 mb-4">
-            <button v-for="amount in [50, 100, 250, 500]" :key="amount"
-              class="btn btn-outline btn-sm flex-1"
-              @click="addMoneyAmount = String(amount)">
-              ${{ amount }}
-            </button>
-          </div>
-
-          <div class="form-control mb-6">
-            <label class="label">
-              <span class="label-text font-medium">{{ $t('finance.paymentMethod') }}</span>
-            </label>
-            <div class="space-y-2">
-              <label class="flex items-center gap-3 p-3 rounded-xl border border-base-300 cursor-pointer hover:bg-base-200 transition-colors" :class="{ 'border-primary bg-primary/5': addMoneyMethod === 'credit_card' }">
-                <input v-model="addMoneyMethod" type="radio" name="payment-method" value="credit_card" class="radio radio-primary radio-sm" />
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-base-content/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-                <span class="text-sm font-medium">{{ $t('finance.creditCard') }}</span>
-              </label>
-              <label class="flex items-center gap-3 p-3 rounded-xl border border-base-300 cursor-pointer hover:bg-base-200 transition-colors" :class="{ 'border-primary bg-primary/5': addMoneyMethod === 'bank_transfer' }">
-                <input v-model="addMoneyMethod" type="radio" name="payment-method" value="bank_transfer" class="radio radio-primary radio-sm" />
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-base-content/60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-                <span class="text-sm font-medium">{{ $t('finance.bankTransfer') }}</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="modal-action">
-            <button class="btn btn-ghost" @click="showAddMoneyModal = false">{{ $t('common.cancel') }}</button>
-            <button
-              class="btn btn-primary"
-              :disabled="!addMoneyAmount || parseFloat(addMoneyAmount) <= 0 || addMoneyProcessing"
-              @click="handleAddMoney">
-              <span v-if="addMoneyProcessing" class="loading loading-spinner loading-sm"></span>
-              {{ addMoneyProcessing ? $t('finance.processing') : $t('finance.confirm') }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <form method="dialog" class="modal-backdrop">
-        <button @click="showAddMoneyModal = false">close</button>
-      </form>
-    </dialog>
   </NuxtLayout>
 </template>
