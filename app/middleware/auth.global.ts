@@ -24,6 +24,13 @@ export default defineNuxtRouteMiddleware((to) => {
     return navigateTo('/login')
   }
 
+  // PROVIDER-ONLY ROUTES
+  const providerOnlyRoutes = ['/dashboard/availability']
+  const isProviderOnlyRoute = providerOnlyRoutes.some(route => to.path.startsWith(route))
+  if (auth.isAuthenticated && isProviderOnlyRoute && auth.user?.role !== 'provider' && auth.user?.role !== 'admin') {
+    return navigateTo('/dashboard')
+  }
+
   // LOGGED USER
   if (
       auth.isAuthenticated &&
