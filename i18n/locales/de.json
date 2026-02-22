@@ -119,6 +119,18 @@
     "sendMessage": "Nachricht senden",
     "typeMessage": "Nachricht eingeben..."
   },
+  "availability": {
+    "title": "Verfügbarkeit verwalten",
+    "subtitle": "Legen Sie Ihre verfügbaren Zeitfenster fest, damit Kunden Termine buchen können",
+    "addSlot": "Zeitfenster hinzufügen",
+    "editSlot": "Zeitfenster bearbeiten",
+    "startTime": "Startzeit",
+    "endTime": "Endzeit",
+    "available": "Verfügbar",
+    "booked": "Gebucht",
+    "noSlots": "Keine Zeitfenster für diesen Tag",
+    "selectDate": "Wählen Sie ein Datum im Kalender, um die Verfügbarkeit zu verwalten"
+  },
   "common": {
     "loading": "Laden...",
     "error": "Ein Fehler ist aufgetreten",

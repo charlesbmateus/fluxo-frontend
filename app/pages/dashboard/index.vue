@@ -475,6 +475,9 @@ const greeting = computed(() => {
         </template>
       </div>
 
+      <!-- Provider Availability Calendar -->
+      <ProviderAvailability />
+
       <!-- Orders Bar Chart & Recent Services -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <template v-if="loading">

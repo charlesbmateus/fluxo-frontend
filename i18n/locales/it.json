@@ -119,6 +119,18 @@
     "sendMessage": "Invia messaggio",
     "typeMessage": "Scrivi il tuo messaggio..."
   },
+  "availability": {
+    "title": "Gestisci disponibilità",
+    "subtitle": "Imposta i tuoi orari disponibili in modo che i clienti possano prenotare",
+    "addSlot": "Aggiungi fascia oraria",
+    "editSlot": "Modifica fascia oraria",
+    "startTime": "Ora di inizio",
+    "endTime": "Ora di fine",
+    "available": "Disponibile",
+    "booked": "Prenotato",
+    "noSlots": "Nessuna fascia oraria per questa data",
+    "selectDate": "Seleziona una data nel calendario per gestire la disponibilità"
+  },
   "common": {
     "loading": "Caricamento...",
     "error": "Si è verificato un errore",
