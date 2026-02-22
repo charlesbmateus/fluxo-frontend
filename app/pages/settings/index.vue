@@ -32,7 +32,7 @@ watchEffect(() => {
 
 /* ───── Actions (placeholder for API later) ───── */
 const saveProfile = async () => {
-  // TODO: llamar API /profile update
+  // TODO: call API /profile update
   console.log('Saving profile:', profileForm)
 }
 </script>
