@@ -4,6 +4,7 @@
     "marketplace": "Marketplace",
     "services": "Services",
     "messages": "Messages",
+    "calendar": "Calendar",
     "finance": "Finance",
     "settings": "Settings"
   },
@@ -38,6 +39,14 @@
     "stayUpdated": "Stay up to date",
     "settings": "Settings",
     "manageAccount": "Manage your account"
+  },
+  "availability": {
+    "subtitle": "View and manage your bookings calendar",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "noUpcoming": "No upcoming bookings"
   },
   "finance": {
     "title": "Finance",

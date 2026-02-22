@@ -4,6 +4,7 @@
     "marketplace": "Mercato",
     "services": "Servizi",
     "messages": "Messaggi",
+    "calendar": "Calendario",
     "finance": "Finanze",
     "settings": "Impostazioni"
   },
@@ -38,6 +39,14 @@
     "stayUpdated": "Resta aggiornato",
     "settings": "Impostazioni",
     "manageAccount": "Gestisci il tuo account"
+  },
+  "availability": {
+    "subtitle": "Visualizza e gestisci il tuo calendario delle prenotazioni",
+    "pending": "In attesa",
+    "confirmed": "Confermato",
+    "completed": "Completato",
+    "cancelled": "Annullato",
+    "noUpcoming": "Nessuna prenotazione in programma"
   },
   "finance": {
     "title": "Finanze",

@@ -4,6 +4,7 @@
     "marketplace": "Marktplatz",
     "services": "Dienstleistungen",
     "messages": "Nachrichten",
+    "calendar": "Kalender",
     "finance": "Finanzen",
     "settings": "Einstellungen"
   },
@@ -38,6 +39,14 @@
     "stayUpdated": "Auf dem Laufenden bleiben",
     "settings": "Einstellungen",
     "manageAccount": "Konto verwalten"
+  },
+  "availability": {
+    "subtitle": "Buchungskalender anzeigen und verwalten",
+    "pending": "Ausstehend",
+    "confirmed": "Bestätigt",
+    "completed": "Abgeschlossen",
+    "cancelled": "Storniert",
+    "noUpcoming": "Keine anstehenden Buchungen"
   },
   "finance": {
     "title": "Finanzen",

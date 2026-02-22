@@ -4,6 +4,7 @@
     "marketplace": "Place de marché",
     "services": "Prestations",
     "messages": "Messagerie",
+    "calendar": "Calendrier",
     "finance": "Finances",
     "settings": "Paramètres"
   },
@@ -38,6 +39,14 @@
     "stayUpdated": "Rester informé",
     "settings": "Paramètres",
     "manageAccount": "Gérer votre compte"
+  },
+  "availability": {
+    "subtitle": "Consultez et gérez votre calendrier de réservations",
+    "pending": "En attente",
+    "confirmed": "Confirmé",
+    "completed": "Terminé",
+    "cancelled": "Annulé",
+    "noUpcoming": "Aucune réservation à venir"
   },
   "finance": {
     "title": "Finances",
