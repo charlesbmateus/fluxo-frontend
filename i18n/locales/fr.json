@@ -119,6 +119,18 @@
     "sendMessage": "Envoyer un message",
     "typeMessage": "Tapez votre message..."
   },
+  "availability": {
+    "title": "Gérer la disponibilité",
+    "subtitle": "Définissez vos créneaux horaires disponibles pour que les clients puissent réserver",
+    "addSlot": "Ajouter un créneau",
+    "editSlot": "Modifier le créneau",
+    "startTime": "Heure de début",
+    "endTime": "Heure de fin",
+    "available": "Disponible",
+    "booked": "Réservé",
+    "noSlots": "Aucun créneau pour cette date",
+    "selectDate": "Sélectionnez une date dans le calendrier pour gérer la disponibilité"
+  },
   "common": {
     "loading": "Chargement...",
     "error": "Une erreur s'est produite",

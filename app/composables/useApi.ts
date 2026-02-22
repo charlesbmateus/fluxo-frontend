@@ -7,6 +7,7 @@ import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
 import type {DashboardData, ClientDashboardData} from "~/types/dashboard";
+import type {AvailabilitySlot} from "~/types/availability";
 
 interface AuthPayload {
     email: string
@@ -217,6 +218,74 @@ export const useApi = () => {
         })
     }
 
+    // ───────── AVAILABILITY ─────────
+    const fetchAvailability = async (token: string, month: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot[]
+        }>(`/v1/availability?month=${month}`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const createAvailability = async (
+        token: string,
+        payload: { date: string; start_time: string; end_time: string }
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot
+        }>('/v1/availability', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: payload,
+        })
+    }
+
+    const updateAvailability = async (
+        token: string,
+        id: number,
+        payload: { start_time: string; end_time: string }
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot
+        }>(`/v1/availability/${id}`, {
+            method: 'PUT',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: payload,
+        })
+    }
+
+    const deleteAvailability = async (token: string, id: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+        }>(`/v1/availability/${id}`, {
+            method: 'DELETE',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -241,6 +310,12 @@ export const useApi = () => {
 
         // dashboard
         fetchDashboardData,
-        fetchClientDashboardData
+        fetchClientDashboardData,
+
+        // availability
+        fetchAvailability,
+        createAvailability,
+        updateAvailability,
+        deleteAvailability
     }
 }

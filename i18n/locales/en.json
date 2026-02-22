@@ -119,6 +119,18 @@
     "sendMessage": "Send message",
     "typeMessage": "Type your message..."
   },
+  "availability": {
+    "title": "Manage Availability",
+    "subtitle": "Set your available time slots so clients can book appointments",
+    "addSlot": "Add Slot",
+    "editSlot": "Edit Slot",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "available": "Available",
+    "booked": "Booked",
+    "noSlots": "No time slots for this date",
+    "selectDate": "Select a date on the calendar to manage availability"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
