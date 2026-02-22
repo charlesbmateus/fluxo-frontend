@@ -73,3 +73,19 @@ export interface ClientDashboardState {
     loading: boolean
     error: string | null
 }
+
+export interface Transaction {
+    id: number
+    type: 'payment' | 'deposit' | 'withdrawal' | 'refund'
+    amount: number
+    currency: string
+    status: 'completed' | 'pending' | 'failed'
+    description: string
+    counterparty: {
+        name: string
+        role: 'client' | 'provider'
+        avatar: string | null
+    }
+    service_title: string | null
+    created_at: string
+}
