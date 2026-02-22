@@ -2,7 +2,7 @@
 import { useAvailabilityStore } from '~/stores/availability'
 import type { AvailabilitySlot } from '~/types/availability'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const store = useAvailabilityStore()
 
 const today = new Date()
@@ -116,6 +116,7 @@ function closeModal() {
 
 async function saveSlot() {
   if (!selectedDate.value) return
+  if (newSlot.value.start_time >= newSlot.value.end_time) return
 
   try {
     if (editingSlot.value) {
@@ -231,7 +232,7 @@ watch(monthParam, (val) => {
       <div v-if="selectedDate" class="mt-6">
         <div class="flex items-center justify-between mb-3">
           <h3 class="font-semibold">
-            {{ new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }}
+            {{ new Date(selectedDate + 'T00:00:00').toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric' }) }}
           </h3>
           <button class="btn btn-primary btn-sm gap-1" :disabled="store.saving" @click="openAddModal">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -326,7 +327,7 @@ watch(monthParam, (val) => {
         <button class="btn btn-ghost" @click="closeModal">{{ t('common.cancel') }}</button>
         <button
           class="btn btn-primary"
-          :disabled="store.saving || !newSlot.start_time || !newSlot.end_time"
+          :disabled="store.saving || !newSlot.start_time || !newSlot.end_time || newSlot.start_time >= newSlot.end_time"
           @click="saveSlot"
         >
           <span v-if="store.saving" class="loading loading-spinner loading-sm"></span>
