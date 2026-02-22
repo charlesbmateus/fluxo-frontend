@@ -2,6 +2,7 @@
 import { useClientDashboardStore } from '~/stores/clientDashboard'
 
 const { user } = useAuth()
+const { locale } = useI18n()
 const store = useClientDashboardStore()
 
 const loading = ref(true)
@@ -18,7 +19,7 @@ onMounted(async () => {
 })
 
 const formatDate = (dateStr: string) => {
-  return new Date(dateStr).toLocaleDateString('en-US', {
+  return new Date(dateStr).toLocaleDateString(locale.value, {
     weekday: 'short',
     month: 'short',
     day: 'numeric'
@@ -26,7 +27,7 @@ const formatDate = (dateStr: string) => {
 }
 
 const formatTime = (dateStr: string) => {
-  return new Date(dateStr).toLocaleTimeString('en-US', {
+  return new Date(dateStr).toLocaleTimeString(locale.value, {
     hour: '2-digit',
     minute: '2-digit'
   })
@@ -83,7 +84,7 @@ const calendarDays = computed(() => {
 })
 
 const monthLabel = computed(() => {
-  return currentMonth.value.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
+  return currentMonth.value.toLocaleDateString(locale.value, { month: 'long', year: 'numeric' })
 })
 
 const prevMonth = () => {
