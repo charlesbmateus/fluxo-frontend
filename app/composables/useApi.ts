@@ -6,7 +6,7 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData, ClientDashboardData} from "~/types/dashboard";
+import type {DashboardData, ClientDashboardData, AvailabilitySlot} from "~/types/dashboard";
 
 interface AuthPayload {
     email: string
@@ -217,6 +217,37 @@ export const useApi = () => {
         })
     }
 
+    // ───────── AVAILABILITY ─────────
+    const fetchAvailability = async (token: string, month: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot[]
+        }>(`/v1/availability?month=${month}`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const saveAvailability = async (token: string, slots: AvailabilitySlot[]) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot[]
+        }>('/v1/availability', {
+            method: 'PUT',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: { slots },
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -241,6 +272,10 @@ export const useApi = () => {
 
         // dashboard
         fetchDashboardData,
-        fetchClientDashboardData
+        fetchClientDashboardData,
+
+        // availability
+        fetchAvailability,
+        saveAvailability
     }
 }

@@ -74,6 +74,24 @@ export interface ClientDashboardState {
     error: string | null
 }
 
+export interface TimeSlot {
+    start: string // HH:mm format
+    end: string   // HH:mm format
+}
+
+export interface AvailabilitySlot {
+    date: string       // YYYY-MM-DD format
+    available: boolean
+    time_slots: TimeSlot[]
+}
+
+export interface AvailabilityState {
+    slots: Record<string, AvailabilitySlot>
+    loading: boolean
+    saving: boolean
+    error: string | null
+}
+
 export interface Transaction {
     id: number
     type: 'payment' | 'deposit' | 'withdrawal' | 'refund'
