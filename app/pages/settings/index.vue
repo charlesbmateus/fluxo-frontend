@@ -46,30 +46,30 @@ const saveProfile = async () => {
           {{ $t('nav.settings') }}
         </h1>
         <p class="text-base-content/60 mt-2 text-lg">
-          {{ $t('settings.subtitle') || 'Manage your account settings and preferences' }}
+          {{ $t('settings.subtitle') }}
         </p>
       </div>
 
-      <!-- Tabs de navegación (visual, sin funcionalidad adicional) -->
+      <!-- Tabs de navegación -->
       <div class="tabs tabs-boxed bg-base-200 p-1 rounded-xl inline-flex">
-        <a class="tab tab-active gap-2">
+        <NuxtLink to="/settings" class="tab tab-active gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
-          {{ $t('settings.general') || 'General' }}
-        </a>
-        <a class="tab gap-2 opacity-50">
+          {{ $t('settings.general') }}
+        </NuxtLink>
+        <NuxtLink to="/settings/security" class="tab gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-          {{ $t('settings.security') || 'Security' }}
-        </a>
-        <a class="tab gap-2 opacity-50">
+          {{ $t('settings.security') }}
+        </NuxtLink>
+        <NuxtLink to="/settings/notifications" class="tab gap-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
-          {{ $t('settings.notifications') || 'Notifications' }}
-        </a>
+          {{ $t('settings.notifications') }}
+        </NuxtLink>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -84,7 +84,7 @@ const saveProfile = async () => {
               </div>
               <div>
                 <h2 class="card-title text-xl">{{ $t('settings.profile') }}</h2>
-                <p class="text-sm text-base-content/60">{{ $t('settings.profileDescription') || 'Update your personal information' }}</p>
+                <p class="text-sm text-base-content/60">{{ $t('settings.profileDescription') }}</p>
               </div>
             </div>
 
@@ -146,7 +146,7 @@ const saveProfile = async () => {
               </div>
               <div>
                 <h2 class="card-title text-lg">{{ $t('settings.appearance') }}</h2>
-                <p class="text-xs text-base-content/60">{{ $t('settings.appearanceDescription') || 'Customize your experience' }}</p>
+                <p class="text-xs text-base-content/60">{{ $t('settings.appearanceDescription') }}</p>
               </div>
             </div>
 
@@ -208,7 +208,7 @@ const saveProfile = async () => {
               </div>
               <div>
                 <h2 class="card-title text-xl">{{ $t('settings.preferences') }}</h2>
-                <p class="text-sm text-base-content/60">{{ $t('settings.preferencesDescription') || 'Manage your notification settings' }}</p>
+                <p class="text-sm text-base-content/60">{{ $t('settings.preferencesDescription') }}</p>
               </div>
             </div>
 
@@ -222,8 +222,8 @@ const saveProfile = async () => {
                       </svg>
                     </div>
                     <div>
-                      <span class="label-text font-semibold">Email notifications</span>
-                      <p class="text-xs text-base-content/60">Receive updates about your account</p>
+                      <span class="label-text font-semibold">{{ $t('settings.emailNotifications') }}</span>
+                      <p class="text-xs text-base-content/60">{{ $t('settings.emailNotificationsDesc') }}</p>
                     </div>
                   </div>
                   <input type="checkbox" class="toggle toggle-primary" checked />
@@ -239,8 +239,8 @@ const saveProfile = async () => {
                       </svg>
                     </div>
                     <div>
-                      <span class="label-text font-semibold">Marketing emails</span>
-                      <p class="text-xs text-base-content/60">Get the latest news and offers</p>
+                      <span class="label-text font-semibold">{{ $t('settings.marketingEmails') }}</span>
+                      <p class="text-xs text-base-content/60">{{ $t('settings.marketingEmailsDesc') }}</p>
                     </div>
                   </div>
                   <input type="checkbox" class="toggle toggle-primary" />
@@ -261,7 +261,7 @@ const saveProfile = async () => {
               </div>
               <div>
                 <h2 class="card-title text-lg">{{ $t('settings.account') }}</h2>
-                <p class="text-xs text-base-content/60">{{ $t('settings.accountDescription') || 'Security and account actions' }}</p>
+                <p class="text-xs text-base-content/60">{{ $t('settings.accountDescription') }}</p>
               </div>
             </div>
 
@@ -272,7 +272,7 @@ const saveProfile = async () => {
                 </svg>
                 <div class="text-left">
                   <div class="font-semibold">{{ $t('settings.changePassword') }}</div>
-                  <div class="text-xs opacity-60">Update your password</div>
+                  <div class="text-xs opacity-60">{{ $t('settings.changePasswordDesc') }}</div>
                 </div>
               </button>
 
@@ -282,7 +282,7 @@ const saveProfile = async () => {
                 <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
-                <span class="text-xs">This action cannot be undone</span>
+                <span class="text-xs">{{ $t('settings.actionCannotBeUndone') }}</span>
               </div>
 
               <button class="btn btn-outline btn-error rounded-xl w-full justify-start gap-3 h-auto py-3 hover:bg-error hover:text-error-content">
@@ -291,7 +291,7 @@ const saveProfile = async () => {
                 </svg>
                 <div class="text-left">
                   <div class="font-semibold">{{ $t('settings.deleteAccount') }}</div>
-                  <div class="text-xs opacity-60">Permanently delete your account</div>
+                  <div class="text-xs opacity-60">{{ $t('settings.deleteAccountDesc') }}</div>
                 </div>
               </button>
             </div>
