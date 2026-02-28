@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   build: {
-    transpile: ['vue-echarts', 'echarts', 'zrender', 'tslib', 'resize-detector']
+    transpile: ['vue-echarts', 'echarts', 'zrender', 'tslib', 'resize-detector', '@fullcalendar/vue3']
   },
 
   runtimeConfig: {

@@ -297,8 +297,7 @@ export const useApi = () => {
 
         // availability
         fetchAvailability,
-        saveAvailability
-        fetchClientDashboardData,
+        saveAvailability,
 
         // bookings
         createBooking
