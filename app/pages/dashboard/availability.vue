@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import FullCalendar from '@fullcalendar/vue3'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import type { CalendarOptions, DateClickArg, DatesSetArg, EventInput } from '@fullcalendar/core'
 import { useClientDashboardStore } from '~/stores/clientDashboard'
 import { useAvailabilityStore } from '~/stores/availability'
 
@@ -12,6 +16,9 @@ const isProvider = computed(() => user.value?.role === 'provider')
 const loading = ref(true)
 const saveSuccess = ref(false)
 const saveError = ref(false)
+const calendarRef = ref<InstanceType<typeof FullCalendar> | null>(null)
+
+const currentMonth = ref(new Date())
 
 onMounted(async () => {
   loading.value = true
@@ -54,97 +61,122 @@ const statusColor = (status: string) => {
   }
 }
 
-// Calendar logic
-const currentMonth = ref(new Date())
-
-const getDateKey = (year: number, month: number, day: number) => {
-  return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+const statusEventColor = (status: string) => {
+  switch (status) {
+    case 'confirmed': return '#36D399'
+    case 'pending': return '#FBBD23'
+    case 'completed': return '#3ABFF8'
+    case 'cancelled': return '#F87272'
+    default: return '#8B5CF6'
+  }
 }
 
-const calendarDays = computed(() => {
-  const year = currentMonth.value.getFullYear()
-  const month = currentMonth.value.getMonth()
-  const firstDay = new Date(year, month, 1)
-  const lastDay = new Date(year, month + 1, 0)
-  const startPad = firstDay.getDay()
-  const days: { date: Date; isCurrentMonth: boolean; bookings: any[]; dateKey: string }[] = []
+// FullCalendar locale mapping
+const fcLocale = computed(() => {
+  const map: Record<string, string> = { en: 'en', de: 'de', it: 'it', fr: 'fr' }
+  return map[locale.value] || 'en'
+})
 
-  // Previous month padding
-  for (let i = startPad - 1; i >= 0; i--) {
-    const d = new Date(year, month, -i)
-    days.push({ date: d, isCurrentMonth: false, bookings: [], dateKey: '' })
-  }
+// Selected day state
+const selectedDay = ref<{ dateKey: string; date: Date; bookings: any[] } | null>(null)
 
-  // Current month
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const date = new Date(year, month, d)
-    const dateKey = getDateKey(year, month, d)
-    days.push({
-      date,
-      isCurrentMonth: true,
-      bookings: clientStore.bookingsByDate[dateKey] || [],
-      dateKey
-    })
-  }
-
-  // Next month padding to complete the grid
-  const remaining = 7 - (days.length % 7)
-  if (remaining < 7) {
-    for (let d = 1; d <= remaining; d++) {
-      const date = new Date(year, month + 1, d)
-      days.push({ date, isCurrentMonth: false, bookings: [], dateKey: '' })
+// Provider: calendar events from availability store
+const providerEvents = computed<EventInput[]>(() => {
+  const events: EventInput[] = []
+  for (const [dateKey, slot] of Object.entries(availabilityStore.slots)) {
+    if (slot.available) {
+      events.push({
+        id: `avail-${dateKey}`,
+        start: dateKey,
+        allDay: true,
+        display: 'background',
+        backgroundColor: '#36D399',
+        classNames: ['fc-available-day']
+      })
+      // Show time slots as small events
+      for (const ts of slot.time_slots) {
+        events.push({
+          id: `slot-${dateKey}-${ts.start}`,
+          title: `${ts.start} – ${ts.end}`,
+          start: `${dateKey}T${ts.start}`,
+          end: `${dateKey}T${ts.end}`,
+          backgroundColor: '#8B5CF6',
+          borderColor: '#8B5CF6',
+          classNames: ['fc-slot-event']
+        })
+      }
     }
   }
-
-  return days
+  return events
 })
 
-const monthLabel = computed(() => {
-  return currentMonth.value.toLocaleDateString(locale.value, { month: 'long', year: 'numeric' })
+// Client: calendar events from bookings
+const clientEvents = computed<EventInput[]>(() => {
+  const events: EventInput[] = []
+  if (!clientStore.bookingsByDate) return events
+  for (const [dateKey, bookings] of Object.entries(clientStore.bookingsByDate)) {
+    for (const booking of bookings as any[]) {
+      events.push({
+        id: `booking-${booking.id}`,
+        title: booking.service_title,
+        start: booking.date,
+        backgroundColor: statusEventColor(booking.status),
+        borderColor: statusEventColor(booking.status),
+        extendedProps: { status: booking.status }
+      })
+    }
+  }
+  return events
 })
 
-const prevMonth = () => {
-  const d = new Date(currentMonth.value)
-  d.setMonth(d.getMonth() - 1)
-  currentMonth.value = d
+const calendarEvents = computed(() => {
+  return isProvider.value ? providerEvents.value : clientEvents.value
+})
+
+// Handle date click
+const handleDateClick = (info: DateClickArg) => {
+  const dateKey = info.dateStr
   if (isProvider.value) {
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    availabilityStore.toggleDay(dateKey)
+    selectedDay.value = { dateKey, date: info.date, bookings: [] }
+  } else {
+    const bookings = clientStore.bookingsByDate?.[dateKey] || []
+    selectedDay.value = { dateKey, date: info.date, bookings }
+  }
+}
+
+// Handle month navigation
+const handleDatesSet = (info: DatesSetArg) => {
+  const viewStart = info.view.currentStart
+  currentMonth.value = viewStart
+  if (isProvider.value) {
+    const monthKey = `${viewStart.getFullYear()}-${String(viewStart.getMonth() + 1).padStart(2, '0')}`
     availabilityStore.fetchAvailability(monthKey).catch(() => {})
   }
 }
 
-const nextMonth = () => {
-  const d = new Date(currentMonth.value)
-  d.setMonth(d.getMonth() + 1)
-  currentMonth.value = d
-  if (isProvider.value) {
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    availabilityStore.fetchAvailability(monthKey).catch(() => {})
-  }
-}
-
-const isToday = (date: Date) => {
-  const today = new Date()
-  return date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()
-}
-
-const selectedDay = ref<{ date: Date; isCurrentMonth: boolean; bookings: any[]; dateKey: string } | null>(null)
-
-const selectDay = (day: { date: Date; isCurrentMonth: boolean; bookings: any[]; dateKey: string }) => {
-  if (day.isCurrentMonth) {
-    selectedDay.value = day
-  }
-}
+// FullCalendar options
+const calendarOptions = computed<CalendarOptions>(() => ({
+  plugins: [dayGridPlugin, interactionPlugin],
+  initialView: 'dayGridMonth',
+  locale: fcLocale.value,
+  headerToolbar: {
+    left: 'prev,next today',
+    center: 'title',
+    right: ''
+  },
+  events: calendarEvents.value,
+  dateClick: handleDateClick,
+  datesSet: handleDatesSet,
+  height: 'auto',
+  dayMaxEvents: 3,
+  fixedWeekCount: false,
+  nowIndicator: true,
+  selectable: false,
+  editable: false
+}))
 
 // Provider availability logic
-const toggleDayAvailability = (day: { date: Date; isCurrentMonth: boolean; dateKey: string }) => {
-  if (!day.isCurrentMonth || !isProvider.value) return
-  availabilityStore.toggleDay(day.dateKey)
-  selectedDay.value = { ...day, bookings: [] }
-}
-
 const addNewTimeSlot = () => {
   if (!selectedDay.value) return
   availabilityStore.addTimeSlot(selectedDay.value.dateKey, { start: '09:00', end: '10:00' })
@@ -177,10 +209,6 @@ const saveAvailability = async () => {
     saveError.value = true
     setTimeout(() => { saveError.value = false }, 3000)
   }
-}
-
-const isDayAvailable = (dateKey: string) => {
-  return availabilityStore.isAvailable(dateKey)
 }
 
 const selectedDayTimeSlots = computed(() => {
@@ -218,75 +246,13 @@ const selectedDayAvailable = computed(() => {
           </template>
           <template v-else>
             <div class="card bg-base-100 shadow-xl border border-base-300">
-              <div class="card-body">
-                <div class="flex items-center justify-between mb-4">
-                  <h2 class="card-title text-xl">{{ monthLabel }}</h2>
-                  <div class="flex gap-1">
-                    <button @click="prevMonth" class="btn btn-ghost btn-sm btn-circle">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                      </svg>
-                    </button>
-                    <button @click="nextMonth" class="btn btn-ghost btn-sm btn-circle">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-
+              <div class="card-body fc-themed">
                 <!-- Provider hint -->
                 <p v-if="isProvider" class="text-sm text-base-content/50 mb-3">
                   {{ $t('availability.clickToToggle') }}
                 </p>
 
-                <!-- Day headers -->
-                <div class="grid grid-cols-7 gap-1 text-center text-sm font-medium text-base-content/60 mb-2">
-                  <div v-for="day in ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']" :key="day">{{ day }}</div>
-                </div>
-
-                <!-- Calendar grid -->
-                <div class="grid grid-cols-7 gap-1">
-                  <div
-                    v-for="(day, idx) in calendarDays"
-                    :key="idx"
-                    class="aspect-square flex flex-col items-center justify-center rounded-xl text-sm relative cursor-pointer transition-colors"
-                    :class="{
-                      'text-base-content/30': !day.isCurrentMonth,
-                      'bg-primary/10 font-bold text-primary ring-2 ring-primary/30': isToday(day.date) && !(isProvider && isDayAvailable(day.dateKey)),
-                      'font-bold text-primary': isToday(day.date) && isProvider && isDayAvailable(day.dateKey),
-                      'hover:bg-base-200': day.isCurrentMonth && !isProvider,
-                      'hover:bg-success/20': day.isCurrentMonth && isProvider && !isDayAvailable(day.dateKey),
-                      'hover:bg-error/20': day.isCurrentMonth && isProvider && isDayAvailable(day.dateKey),
-                      'bg-base-200 ring-2 ring-primary': selectedDay?.date.getTime() === day.date.getTime() && day.isCurrentMonth && !isProvider,
-                      'bg-success/15 text-success-content ring-2 ring-success/40': isProvider && day.isCurrentMonth && isDayAvailable(day.dateKey),
-                      'ring-2 ring-primary': isProvider && selectedDay?.dateKey === day.dateKey && day.isCurrentMonth
-                    }"
-                    @click="isProvider ? toggleDayAvailability(day) : selectDay(day)"
-                  >
-                    <span>{{ day.date.getDate() }}</span>
-                    <!-- Client: booking indicators -->
-                    <div v-if="!isProvider && day.bookings.length > 0" class="absolute bottom-1 flex gap-0.5">
-                      <span
-                        v-for="(b, bi) in day.bookings.slice(0, 3)"
-                        :key="bi"
-                        class="w-1.5 h-1.5 rounded-full"
-                        :class="{
-                          'bg-warning': b.status === 'pending',
-                          'bg-success': b.status === 'confirmed',
-                          'bg-info': b.status === 'completed',
-                          'bg-error': b.status === 'cancelled'
-                        }"
-                      ></span>
-                    </div>
-                    <!-- Provider: availability indicator -->
-                    <div v-if="isProvider && day.isCurrentMonth && isDayAvailable(day.dateKey)" class="absolute bottom-1">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+                <FullCalendar ref="calendarRef" :options="calendarOptions" />
 
                 <!-- Legend -->
                 <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-base-300">
@@ -493,3 +459,156 @@ const selectedDayAvailable = computed(() => {
     </div>
   </NuxtLayout>
 </template>
+
+<style>
+/* FullCalendar theme integration with DaisyUI light/dark mode */
+.fc-themed {
+  --fc-border-color: oklch(var(--bc) / 0.15);
+  --fc-button-bg-color: #8B5CF6;
+  --fc-button-border-color: #8B5CF6;
+  --fc-button-hover-bg-color: #7C3AED;
+  --fc-button-hover-border-color: #7C3AED;
+  --fc-button-active-bg-color: #6D28D9;
+  --fc-button-active-border-color: #6D28D9;
+  --fc-today-bg-color: oklch(var(--p) / 0.08);
+  --fc-neutral-bg-color: oklch(var(--b2, var(--b1)) / 1);
+  --fc-page-bg-color: transparent;
+  --fc-event-border-color: #8B5CF6;
+  --fc-event-bg-color: #8B5CF6;
+  --fc-event-text-color: #fff;
+}
+
+/* Calendar header toolbar */
+.fc-themed .fc-toolbar-title {
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  color: oklch(var(--bc));
+}
+
+.fc-themed .fc-button {
+  border-radius: 0.5rem !important;
+  font-weight: 500 !important;
+  text-transform: capitalize !important;
+  padding: 0.4rem 1rem !important;
+  font-size: 0.875rem !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.fc-themed .fc-button:focus {
+  box-shadow: 0 0 0 3px oklch(var(--p) / 0.3) !important;
+}
+
+.fc-themed .fc-prev-button,
+.fc-themed .fc-next-button {
+  padding: 0.4rem 0.6rem !important;
+}
+
+.fc-themed .fc-toolbar.fc-header-toolbar {
+  margin-bottom: 1.25rem !important;
+}
+
+/* Day grid cells */
+.fc-themed .fc-daygrid-day {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+
+.fc-themed .fc-daygrid-day:hover {
+  background-color: oklch(var(--p) / 0.06) !important;
+}
+
+.fc-themed .fc-daygrid-day-number {
+  color: oklch(var(--bc));
+  font-weight: 500;
+  padding: 0.5rem !important;
+}
+
+.fc-themed .fc-day-other .fc-daygrid-day-number {
+  color: oklch(var(--bc) / 0.35);
+}
+
+/* Today highlight */
+.fc-themed .fc-day-today {
+  background-color: oklch(var(--p) / 0.08) !important;
+}
+
+.fc-themed .fc-day-today .fc-daygrid-day-number {
+  background-color: #8B5CF6;
+  color: #fff !important;
+  border-radius: 0.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+/* Column headers (day names) */
+.fc-themed .fc-col-header-cell {
+  padding: 0.75rem 0 !important;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: oklch(var(--bc) / 0.5);
+  border-bottom: 2px solid oklch(var(--bc) / 0.1);
+  background: transparent;
+}
+
+.fc-themed .fc-col-header-cell-cushion {
+  color: oklch(var(--bc) / 0.5);
+  text-decoration: none !important;
+}
+
+/* Table borders */
+.fc-themed .fc-scrollgrid {
+  border: none !important;
+}
+
+.fc-themed .fc-scrollgrid td,
+.fc-themed .fc-scrollgrid th {
+  border-color: oklch(var(--bc) / 0.08) !important;
+}
+
+/* Event styling */
+.fc-themed .fc-daygrid-event {
+  border-radius: 0.375rem !important;
+  font-size: 0.7rem !important;
+  padding: 1px 4px !important;
+  font-weight: 500;
+  border: none !important;
+}
+
+.fc-themed .fc-daygrid-dot-event {
+  padding: 2px 4px !important;
+}
+
+.fc-themed .fc-daygrid-dot-event .fc-event-title {
+  font-weight: 500;
+}
+
+/* Available day background */
+.fc-themed .fc-available-day {
+  opacity: 0.25 !important;
+  border-radius: 0 !important;
+}
+
+/* Slot events */
+.fc-themed .fc-slot-event {
+  border-radius: 0.375rem !important;
+  font-size: 0.7rem !important;
+}
+
+/* More link */
+.fc-themed .fc-daygrid-more-link {
+  color: #8B5CF6 !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+/* Remove default FullCalendar focus outlines for cleaner look */
+.fc-themed .fc-daygrid-day-frame {
+  min-height: 5rem;
+}
+</style>
