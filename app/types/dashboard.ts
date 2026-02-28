@@ -107,3 +107,20 @@ export interface Transaction {
     service_title: string | null
     created_at: string
 }
+
+export interface BookingRequest {
+    service_id: number
+    date: string
+    time: string
+    notes: string
+}
+
+export interface BookingResponse {
+    id: number
+    service_id: number
+    date: string
+    time: string
+    notes: string
+    status: 'pending'
+    price: number
+}

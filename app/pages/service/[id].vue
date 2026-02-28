@@ -22,8 +22,8 @@ const service = computed(() => {
 const galleryImages = computed(() => {
   if (!service.value) return []
   // Use images array if available, otherwise create gallery from thumbnail
-  if (service.value.images && service.value.images.length > 0) {
-    return service.value.images.map(img => img.url)
+  if (service.value.gallery && service.value.gallery.length > 0) {
+    return service.value.gallery.map(img => img.url)
   }
   // Fallback: use thumbnail repeated for demo grid
   const thumb = service.value.thumbnail
@@ -84,10 +84,10 @@ const prevImage = () => {
 
 const handleBookService = () => {
   if (!isAuthenticated.value) {
-    router.push(`/login?redirect=${route.fullPath}`)
+    router.push(`/login?redirect=/book/${route.params.id}`)
     return
   }
-  alert('Booking service...')
+  router.push(`/book/${route.params.id}`)
 }
 
 const handleContactProvider = () => {

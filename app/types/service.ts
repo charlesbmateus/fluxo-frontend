@@ -40,7 +40,7 @@ export interface Service {
     status: string
     category: Category
     provider: Provider
-    images?: ServiceImage[]
+    gallery?: ServiceImage[]
     rating?: number
     reviews_count?: number
     reviews?: ServiceReview[]
