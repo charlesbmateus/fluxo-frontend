@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import type { CalendarOptions, DateClickArg, DatesSetArg, EventInput } from '@fullcalendar/core'
 import { useClientDashboardStore } from '~/stores/clientDashboard'
 import { useAvailabilityStore } from '~/stores/availability'
 import type { ClientBooking } from '~/types/dashboard'
+
+const FullCalendar = defineAsyncComponent(() => import('@fullcalendar/vue3').then(m => m.default || m))
 
 const { user } = useAuth()
 const { locale, t } = useI18n()
@@ -253,7 +254,9 @@ const selectedDayAvailable = computed(() => {
                   {{ $t('availability.clickToToggle') }}
                 </p>
 
-                <FullCalendar ref="calendarRef" :options="calendarOptions" />
+                <ClientOnly>
+                  <FullCalendar ref="calendarRef" :options="calendarOptions" />
+                </ClientOnly>
 
                 <!-- Legend -->
                 <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-base-300">

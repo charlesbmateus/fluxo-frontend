@@ -6,8 +6,7 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData, ClientDashboardData, AvailabilitySlot} from "~/types/dashboard";
-import type {DashboardData, ClientDashboardData, BookingRequest, BookingResponse} from "~/types/dashboard";
+import type {DashboardData, ClientDashboardData, AvailabilitySlot, BookingRequest, BookingResponse} from "~/types/dashboard";
 
 interface AuthPayload {
     email: string
