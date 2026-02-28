@@ -5,6 +5,7 @@ import interactionPlugin from '@fullcalendar/interaction'
 import type { CalendarOptions, DateClickArg, DatesSetArg, EventInput } from '@fullcalendar/core'
 import { useClientDashboardStore } from '~/stores/clientDashboard'
 import { useAvailabilityStore } from '~/stores/availability'
+import type { ClientBooking } from '~/types/dashboard'
 
 const { user } = useAuth()
 const { locale, t } = useI18n()
@@ -78,7 +79,7 @@ const fcLocale = computed(() => {
 })
 
 // Selected day state
-const selectedDay = ref<{ dateKey: string; date: Date; bookings: any[] } | null>(null)
+const selectedDay = ref<{ dateKey: string; date: Date; bookings: ClientBooking[] } | null>(null)
 
 // Provider: calendar events from availability store
 const providerEvents = computed<EventInput[]>(() => {
@@ -115,7 +116,7 @@ const clientEvents = computed<EventInput[]>(() => {
   const events: EventInput[] = []
   if (!clientStore.bookingsByDate) return events
   for (const [dateKey, bookings] of Object.entries(clientStore.bookingsByDate)) {
-    for (const booking of bookings as any[]) {
+    for (const booking of bookings as ClientBooking[]) {
       events.push({
         id: `booking-${booking.id}`,
         title: booking.service_title,
