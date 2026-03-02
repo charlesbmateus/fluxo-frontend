@@ -247,7 +247,18 @@
     "date": "Date",
     "time": "Time",
     "viewBookings": "View My Bookings",
-    "browseMore": "Browse More Services"
+    "browseMore": "Browse More Services",
+    "proceedToPayment": "Proceed to Payment",
+    "securePayment": "Secure payment powered by Stripe"
+  },
+  "checkout": {
+    "successTitle": "Payment successful!",
+    "successMessage": "Your payment has been processed and your booking is confirmed. You will receive a confirmation email shortly.",
+    "cancelTitle": "Payment cancelled",
+    "cancelMessage": "Your payment was not completed. Your booking has not been confirmed. You can try again or browse other services.",
+    "viewBookings": "View My Bookings",
+    "browseMore": "Browse More Services",
+    "backToMarketplace": "Back to Marketplace"
   },
   "auth": {
     "login": "Login",

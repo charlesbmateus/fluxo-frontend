@@ -247,7 +247,18 @@
     "date": "Data",
     "time": "Ora",
     "viewBookings": "Vedi le mie prenotazioni",
-    "browseMore": "Scopri altri servizi"
+    "browseMore": "Scopri altri servizi",
+    "proceedToPayment": "Procedi al pagamento",
+    "securePayment": "Pagamento sicuro tramite Stripe"
+  },
+  "checkout": {
+    "successTitle": "Pagamento riuscito!",
+    "successMessage": "Il pagamento è stato elaborato e la prenotazione è confermata. Riceverai un'e-mail di conferma a breve.",
+    "cancelTitle": "Pagamento annullato",
+    "cancelMessage": "Il pagamento non è stato completato. La prenotazione non è stata confermata. Puoi riprovare o esplorare altri servizi.",
+    "viewBookings": "Vedi le mie prenotazioni",
+    "browseMore": "Scopri altri servizi",
+    "backToMarketplace": "Torna al marketplace"
   },
   "auth": {
     "login": "Accedi",
