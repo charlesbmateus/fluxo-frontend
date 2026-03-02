@@ -1,9 +1,6 @@
 <script setup lang="ts">
 const router = useRouter()
-const route = useRoute()
 const { t } = useI18n()
-
-const sessionId = computed(() => route.query.session_id as string || '')
 </script>
 
 <template>

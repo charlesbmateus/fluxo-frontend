@@ -143,6 +143,7 @@ const handleConfirmBooking = async () => {
     await redirectToCheckout(checkoutResponse.data.session_id)
   } catch (error: any) {
     bookingError.value = error?.data?.message || error?.message || t('booking.errorGeneric')
+  } finally {
     submitting.value = false
   }
 }
