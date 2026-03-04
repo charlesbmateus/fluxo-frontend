@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { FinancialData, Service } from '~/types'
-import VChart from 'vue-echarts'
 import type { EChartsOption } from 'echarts'
+
+const VChart = defineAsyncComponent(() => import('vue-echarts'))
 import { useDashboard } from '~/composables/useDashboard'
 
 const { /*fetchFinancialData, */ fetchServices } = useApi()

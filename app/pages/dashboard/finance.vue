@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Transaction } from '~/types/dashboard'
-import VChart from 'vue-echarts'
 import type { EChartsOption } from 'echarts'
+
+const VChart = defineAsyncComponent(() => import('vue-echarts'))
 
 const dashboard = useDashboard()
 const colorMode = useColorMode()
