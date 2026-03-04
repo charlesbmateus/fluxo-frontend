@@ -44,7 +44,7 @@ export const useServicesStore = defineStore('services', {
                 this.currentService = response.data
                 return response.data
             } catch {
-                this.error = 'Failed to load service'
+                this.error = `Failed to load service ${serviceId}`
             } finally {
                 this.loading = false
             }
@@ -57,7 +57,7 @@ export const useServicesStore = defineStore('services', {
                 const response = await api.fetchServiceAvailability(serviceId)
                 return response.data
             } catch {
-                this.error = 'Failed to load service availability'
+                this.error = `Failed to load availability for service ${serviceId}`
                 return []
             }
         },
@@ -74,7 +74,7 @@ export const useServicesStore = defineStore('services', {
                 const response = await api.fetchProviderServices(auth.token, providerId)
                 this.providerServices = response.data
             } catch {
-                this.error = 'Failed to load provider services'
+                this.error = `Failed to load services for provider ${providerId}`
             } finally {
                 this.loading = false
             }

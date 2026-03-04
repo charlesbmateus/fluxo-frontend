@@ -148,7 +148,9 @@ const handleConfirmBooking = async () => {
       },
     })
 
-    if (error) throw error
+    if (error) {
+      throw new Error(error.message || t('booking.errorGeneric'))
+    }
   } catch (error: any) {
     bookingError.value = error?.data?.message || error?.message || t('booking.errorGeneric')
   } finally {

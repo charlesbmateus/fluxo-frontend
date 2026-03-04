@@ -14,7 +14,8 @@ const saveError = ref(false)
 onMounted(async () => {
   loading.value = true
   try {
-    // Availability is now fetched per service via /v1/services/{service}/availability
+    // TODO: Availability is now fetched per service via GET /v1/services/{service}/availability.
+    // Update this page to select a service and fetch its availability.
   } catch {
     // silent fail
   } finally {
@@ -154,10 +155,10 @@ const updateSlotTime = (index: number, field: 'start' | 'end', value: string) =>
 const saveAvailability = async () => {
   saveSuccess.value = false
   saveError.value = false
-  // Save availability is no longer available through the API.
-  // Availability is managed per service via /v1/services/{service}/availability
-  saveSuccess.value = true
-  setTimeout(() => { saveSuccess.value = false }, 3000)
+  // TODO: Availability management has been moved to service-level endpoints.
+  // This function needs to be updated once the save endpoint is available.
+  saveError.value = true
+  setTimeout(() => { saveError.value = false }, 3000)
 }
 
 const isDayAvailable = (dateKey: string) => {

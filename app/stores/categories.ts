@@ -43,7 +43,7 @@ export const useCategoriesStore = defineStore('categories', {
                 this.currentCategory = response.data
                 return response.data
             } catch {
-                this.error = 'Failed to load category'
+                this.error = `Failed to load category '${slug}'`
             } finally {
                 this.loading = false
             }
