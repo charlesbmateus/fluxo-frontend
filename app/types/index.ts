@@ -22,9 +22,15 @@ export interface FinancialData {
     current: number
     change: number
   }
-  totalValue: {
-    current: number
-    change: number
+  chartData: {
+    labels: string[]
+    datasets: {
+      label: string
+      data: number[]
+      borderColor: string
+      backgroundColor: string
+      tension: number
+    }[]
   }
 }
 

@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import type { Transaction } from '~/types/dashboard'
+import type { EChartsOption } from 'echarts'
+
+const VChart = defineAsyncComponent(() => import('vue-echarts'))
 
 const dashboard = useDashboard()
+const colorMode = useColorMode()
 const { t } = useI18n()
 
 const loading = ref(true)
@@ -132,6 +136,154 @@ onMounted(async () => {
     loading.value = false
   }
 })
+
+const isDark = computed(() => colorMode.value === 'dark')
+
+// Revenue & Expenses Line Chart
+const revenueExpensesChartOptions = computed<EChartsOption>(() => {
+  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+  let revenueData = [4200, 5100, 4800, 6200, 5900, 7100, 6800]
+  const expensesData = [2800, 3200, 2900, 3800, 3500, 4200, 3900]
+
+  if (dashboard.data.value?.charts?.monthly_revenue) {
+    const chartData = dashboard.data.value.charts.monthly_revenue
+    if (chartData.length > 0) {
+      revenueData = chartData.map(m => m.total)
+    }
+  }
+
+  return {
+    tooltip: {
+      trigger: 'axis',
+      backgroundColor: isDark.value ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+      borderColor: isDark.value ? '#374151' : '#e5e7eb',
+      textStyle: { color: isDark.value ? '#f3f4f6' : '#1f2937' },
+      formatter: (params: any) => {
+        let result = `<strong>${params[0].name}</strong><br/>`
+        params.forEach((p: any) => {
+          result += `${p.marker} ${p.seriesName}: <strong>$${p.value.toLocaleString()}</strong><br/>`
+        })
+        return result
+      }
+    },
+    legend: {
+      data: [t('finance.revenue'), t('finance.expensesLabel')],
+      bottom: '0%',
+      textStyle: { color: isDark.value ? '#9ca3af' : '#6b7280' }
+    },
+    grid: { left: '3%', right: '4%', bottom: '12%', top: '3%', containLabel: true },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: months,
+      axisLine: { lineStyle: { color: isDark.value ? '#374151' : '#e5e7eb' } },
+      axisLabel: { color: isDark.value ? '#9ca3af' : '#6b7280' }
+    },
+    yAxis: {
+      type: 'value',
+      axisLine: { show: false },
+      axisTick: { show: false },
+      splitLine: { lineStyle: { color: isDark.value ? '#374151' : '#f3f4f6' } },
+      axisLabel: {
+        color: isDark.value ? '#9ca3af' : '#6b7280',
+        formatter: (value: number) => `$${(value / 1000).toFixed(0)}k`
+      }
+    },
+    series: [
+      {
+        name: t('finance.revenue'),
+        type: 'line',
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        data: revenueData,
+        lineStyle: {
+          width: 3,
+          color: '#8b5cf6'
+        },
+        itemStyle: { color: '#8b5cf6', borderWidth: 2, borderColor: isDark.value ? '#1f2937' : '#fff' },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(139, 92, 246, 0.3)' },
+              { offset: 1, color: 'rgba(139, 92, 246, 0.05)' }
+            ]
+          }
+        }
+      },
+      {
+        name: t('finance.expensesLabel'),
+        type: 'line',
+        smooth: true,
+        symbol: 'circle',
+        symbolSize: 8,
+        data: expensesData,
+        lineStyle: {
+          width: 3,
+          color: '#f59e0b'
+        },
+        itemStyle: { color: '#f59e0b', borderWidth: 2, borderColor: isDark.value ? '#1f2937' : '#fff' },
+        areaStyle: {
+          color: {
+            type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
+            colorStops: [
+              { offset: 0, color: 'rgba(245, 158, 11, 0.2)' },
+              { offset: 1, color: 'rgba(245, 158, 11, 0.02)' }
+            ]
+          }
+        }
+      }
+    ]
+  }
+})
+
+// Spending Breakdown Donut Chart
+const spendingChartOptions = computed<EChartsOption>(() => ({
+  tooltip: {
+    trigger: 'item',
+    backgroundColor: isDark.value ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
+    borderColor: isDark.value ? '#374151' : '#e5e7eb',
+    textStyle: { color: isDark.value ? '#f3f4f6' : '#1f2937' },
+    formatter: (params: any) => `${params.name}<br/><strong>$${params.value.toLocaleString()}</strong> (${params.percent}%)`
+  },
+  legend: {
+    bottom: '5%',
+    left: 'center',
+    textStyle: { color: isDark.value ? '#9ca3af' : '#6b7280' }
+  },
+  series: [
+    {
+      name: 'Spending',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      center: ['50%', '42%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: isDark.value ? '#1f2937' : '#fff',
+        borderWidth: 2
+      },
+      label: { show: false },
+      emphasis: {
+        label: {
+          show: true,
+          fontSize: 14,
+          fontWeight: 'bold',
+          color: isDark.value ? '#f3f4f6' : '#1f2937'
+        }
+      },
+      labelLine: { show: false },
+      data: [
+        { value: 450, name: 'Development', itemStyle: { color: '#8b5cf6' } },
+        { value: 300, name: 'Design', itemStyle: { color: '#fbbf24' } },
+        { value: 200, name: 'Marketing', itemStyle: { color: '#22c55e' } },
+        { value: 150, name: 'Consulting', itemStyle: { color: '#3b82f6' } },
+        { value: 100, name: 'Other', itemStyle: { color: '#ef4444' } }
+      ]
+    }
+  ]
+}))
 
 const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-US', {
@@ -279,7 +431,7 @@ const statusBadge = (status: string) => {
           <SkeletonsChartSkeleton />
         </template>
         <template v-else>
-          <!-- Revenue & Expenses Chart Placeholder -->
+          <!-- Revenue & Expenses Chart -->
           <div class="lg:col-span-2 card bg-base-100 shadow-xl border border-base-300">
             <div class="card-body">
               <div class="flex items-center justify-between mb-4">
@@ -288,22 +440,30 @@ const statusBadge = (status: string) => {
                   <p class="text-sm text-base-content/60">{{ $t('finance.monthlyOverview') }}</p>
                 </div>
               </div>
-              <div class="h-72 w-full flex items-center justify-center text-base-content/40">
-                <p>Charts coming soon</p>
-              </div>
+              <ClientOnly>
+                <VChart
+                  :option="revenueExpensesChartOptions"
+                  class="h-72 w-full"
+                  autoresize
+                />
+              </ClientOnly>
             </div>
           </div>
 
-          <!-- Spending Breakdown Placeholder -->
+          <!-- Spending Breakdown -->
           <div class="card bg-base-100 shadow-xl border border-base-300">
             <div class="card-body">
               <div>
                 <h2 class="card-title text-xl">{{ $t('finance.spendingBreakdown') }}</h2>
                 <p class="text-sm text-base-content/60">{{ $t('finance.byCategory') }}</p>
               </div>
-              <div class="h-72 w-full flex items-center justify-center text-base-content/40">
-                <p>Charts coming soon</p>
-              </div>
+              <ClientOnly>
+                <VChart
+                  :option="spendingChartOptions"
+                  class="h-72 w-full"
+                  autoresize
+                />
+              </ClientOnly>
             </div>
           </div>
         </template>
