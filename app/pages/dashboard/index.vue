@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import type { FinancialData, Service } from '~/types'
-import type { EChartsOption } from 'echarts'
-
-const VChart = defineAsyncComponent(() => import('vue-echarts'))
 import { useDashboard } from '~/composables/useDashboard'
 
 const { /*fetchFinancialData, */ fetchServices } = useApi()
 const dashboard = useDashboard()
 const { user } = useAuth()
-const colorMode = useColorMode()
-
 const isClient = computed(() => user.value?.role === 'client')
 
 const financialData = computed<FinancialData | null>(() => {
@@ -32,26 +27,9 @@ const financialData = computed<FinancialData | null>(() => {
     totalValue: {
       current: data.finance.total_earned,
       change: dashboard.earningsGrowth.value
-    },
-    chartData: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      revenue: data.finance.monthly_chart.map(m => m.total),
-      orders: data.bookings.monthly_chart.map(m => m.total)
     }
   }
 })
-
-// const mockFinancialData = {
-//   revenue: { current: 45230, change: 12.5 },
-//   orders: { current: 156, change: 8.3 },
-//   services: { current: 24, change: 5.2 },
-//   totalValue: { current: 58000, change: 15.3 },
-//   chartData: {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-//     revenue: [12000, 19000, 15000, 25000, 22000, 30000, 28000],
-//     orders: [45, 62, 58, 78, 65, 85, 82]
-//   }
-// }
 
 const recentServices = ref<Service[]>([])
 const loading = ref(true)
@@ -66,240 +44,6 @@ onMounted(async () => {
     loading.value = false
   }
 })
-
-// Detect theme changes
-const isDark = computed(() => colorMode.value === 'dark')
-
-// Revenue Line Chart Options
-const revenueChartOptions = computed<EChartsOption>(() => ({
-  tooltip: {
-    trigger: 'axis',
-    backgroundColor: isDark.value ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    borderColor: isDark.value ? '#374151' : '#e5e7eb',
-    textStyle: {
-      color: isDark.value ? '#f3f4f6' : '#1f2937'
-    },
-    formatter: (params: any) => {
-      const data = params[0]
-      return `${data.name}<br/>${data.seriesName}: <strong>$${data.value.toLocaleString()}</strong>`
-    }
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    top: '3%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    boundaryGap: false,
-    data: financialData.value?.chartData.labels || [],
-    axisLine: {
-      lineStyle: {
-        color: isDark.value ? '#374151' : '#e5e7eb'
-      }
-    },
-    axisLabel: {
-      color: isDark.value ? '#9ca3af' : '#6b7280'
-    }
-  },
-  yAxis: {
-    type: 'value',
-    axisLine: {
-      show: false
-    },
-    axisTick: {
-      show: false
-    },
-    splitLine: {
-      lineStyle: {
-        color: isDark.value ? '#374151' : '#f3f4f6'
-      }
-    },
-    axisLabel: {
-      color: isDark.value ? '#9ca3af' : '#6b7280',
-      formatter: (value: number) => `$${(value / 1000).toFixed(0)}k`
-    }
-  },
-  series: [
-    {
-      name: 'Revenue',
-      type: 'line',
-      smooth: true,
-      symbol: 'circle',
-      symbolSize: 8,
-      data: financialData.value?.chartData.revenue || [],
-      lineStyle: {
-        width: 3,
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [
-            { offset: 0, color: '#8b5cf6' },
-            { offset: 1, color: '#fbbf24' }
-          ]
-        }
-      },
-      itemStyle: {
-        color: '#8b5cf6',
-        borderWidth: 2,
-        borderColor: '#fff'
-      },
-      areaStyle: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: 'rgba(139, 92, 246, 0.3)' },
-            { offset: 1, color: 'rgba(139, 92, 246, 0.05)' }
-          ]
-        }
-      }
-    }
-  ]
-}))
-
-// Orders Bar Chart Options
-const ordersChartOptions = computed<EChartsOption>(() => ({
-  tooltip: {
-    trigger: 'axis',
-    backgroundColor: isDark.value ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    borderColor: isDark.value ? '#374151' : '#e5e7eb',
-    textStyle: {
-      color: isDark.value ? '#f3f4f6' : '#1f2937'
-    },
-    formatter: (params: any) => {
-      const data = params[0]
-      return `${data.name}<br/>${data.seriesName}: <strong>${data.value}</strong> orders`
-    }
-  },
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    top: '3%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'category',
-    data: financialData.value?.chartData.labels || [],
-    axisLine: {
-      lineStyle: {
-        color: isDark.value ? '#374151' : '#e5e7eb'
-      }
-    },
-    axisLabel: {
-      color: isDark.value ? '#9ca3af' : '#6b7280'
-    }
-  },
-  yAxis: {
-    type: 'value',
-    axisLine: {
-      show: false
-    },
-    axisTick: {
-      show: false
-    },
-    splitLine: {
-      lineStyle: {
-        color: isDark.value ? '#374151' : '#f3f4f6'
-      }
-    },
-    axisLabel: {
-      color: isDark.value ? '#9ca3af' : '#6b7280'
-    }
-  },
-  series: [
-    {
-      name: 'Orders',
-      type: 'bar',
-      data: financialData.value?.chartData.orders || [],
-      itemStyle: {
-        borderRadius: [8, 8, 0, 0],
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: '#fbbf24' },
-            { offset: 1, color: '#f59e0b' }
-          ]
-        }
-      },
-      barWidth: '50%'
-    }
-  ]
-}))
-
-// Services Distribution Pie Chart Options
-const servicesChartOptions = computed<EChartsOption>(() => ({
-  tooltip: {
-    trigger: 'item',
-    backgroundColor: isDark.value ? 'rgba(0, 0, 0, 0.9)' : 'rgba(255, 255, 255, 0.9)',
-    borderColor: isDark.value ? '#374151' : '#e5e7eb',
-    textStyle: {
-      color: isDark.value ? '#f3f4f6' : '#1f2937'
-    },
-    formatter: (params: any) => {
-      return `${params.name}<br/><strong>${params.value}</strong> (${params.percent}%)`
-    }
-  },
-  legend: {
-    bottom: '5%',
-    left: 'center',
-    textStyle: {
-      color: isDark.value ? '#9ca3af' : '#6b7280'
-    }
-  },
-  series: [
-    {
-      name: 'Services',
-      type: 'pie',
-      radius: ['40%', '70%'],
-      center: ['50%', '45%'],
-      avoidLabelOverlap: false,
-      itemStyle: {
-        borderRadius: 10,
-        borderColor: isDark.value ? '#1f2937' : '#fff',
-        borderWidth: 2
-      },
-      label: {
-        show: false
-      },
-      emphasis: {
-        label: {
-          show: true,
-          fontSize: 16,
-          fontWeight: 'bold',
-          color: isDark.value ? '#f3f4f6' : '#1f2937'
-        },
-        itemStyle: {
-          shadowBlur: 10,
-          shadowOffsetX: 0,
-          shadowColor: 'rgba(0, 0, 0, 0.5)'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 65, name: 'Active', itemStyle: { color: '#8b5cf6' } },
-        { value: 20, name: 'Pending', itemStyle: { color: '#fbbf24' } },
-        { value: 10, name: 'Completed', itemStyle: { color: '#22c55e' } },
-        { value: 5, name: 'Cancelled', itemStyle: { color: '#ef4444' } }
-      ]
-    }
-  ]
-}))
 
 const greeting = computed(() => {
   const hour = new Date().getHours()
@@ -421,7 +165,7 @@ const greeting = computed(() => {
         </template>
       </div>
 
-      <!-- Charts Section with ECharts -->
+      <!-- Charts Section -->
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <template v-if="loading">
           <SkeletonsChartSkeleton />
@@ -429,7 +173,7 @@ const greeting = computed(() => {
           <SkeletonsChartSkeleton />
         </template>
         <template v-else>
-          <!-- Revenue Chart -->
+          <!-- Revenue Chart Placeholder -->
           <div class="lg:col-span-2 card bg-base-100 shadow-xl border border-base-300">
             <div class="card-body">
               <div class="flex items-center justify-between mb-4">
@@ -437,46 +181,26 @@ const greeting = computed(() => {
                   <h2 class="card-title text-xl">Revenue Overview</h2>
                   <p class="text-sm text-base-content/60">Monthly revenue trends</p>
                 </div>
-                <div class="dropdown dropdown-end">
-                  <label tabindex="0" class="btn btn-ghost btn-sm btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                    </svg>
-                  </label>
-                  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><a>Last 7 days</a></li>
-                    <li><a>Last 30 days</a></li>
-                    <li><a>Last 90 days</a></li>
-                  </ul>
-                </div>
               </div>
-              <ClientOnly>
-                <VChart
-                    :option="revenueChartOptions"
-                    class="h-64 w-full"
-                    autoresize
-                />
-              </ClientOnly>
+              <div class="h-64 w-full flex items-center justify-center text-base-content/40">
+                <p>Charts coming soon</p>
+              </div>
             </div>
           </div>
 
-          <!-- Services Distribution Pie Chart -->
+          <!-- Services Status Placeholder -->
           <div class="card bg-base-100 shadow-xl border border-base-300">
             <div class="card-body">
               <h2 class="card-title text-xl mb-4">Services Status</h2>
-              <ClientOnly>
-                <VChart
-                    :option="servicesChartOptions"
-                    class="h-64 w-full"
-                    autoresize
-                />
-              </ClientOnly>
+              <div class="h-64 w-full flex items-center justify-center text-base-content/40">
+                <p>Charts coming soon</p>
+              </div>
             </div>
           </div>
         </template>
       </div>
 
-      <!-- Orders Bar Chart & Recent Services -->
+      <!-- Orders & Recent Services -->
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <template v-if="loading">
           <SkeletonsChartSkeleton />
@@ -490,17 +214,13 @@ const greeting = computed(() => {
           </div>
         </template>
         <template v-else>
-          <!-- Orders Chart -->
+          <!-- Orders Chart Placeholder -->
           <div class="card bg-base-100 shadow-xl border border-base-300">
             <div class="card-body">
               <h2 class="card-title text-xl mb-4">Orders Activity</h2>
-              <ClientOnly>
-                <VChart
-                    :option="ordersChartOptions"
-                    class="h-64 w-full"
-                    autoresize
-                />
-              </ClientOnly>
+              <div class="h-64 w-full flex items-center justify-center text-base-content/40">
+                <p>Charts coming soon</p>
+              </div>
             </div>
           </div>
 
