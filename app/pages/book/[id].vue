@@ -124,7 +124,6 @@ const handleConfirmBooking = async () => {
     if (!auth.token) throw new Error('Not authenticated')
 
     const api = useApi()
-    const { redirectToCheckout } = useStripe()
 
     // 1. Create the booking
     const bookingResponse = await api.createBooking(auth.token, {
@@ -134,13 +133,22 @@ const handleConfirmBooking = async () => {
       notes: notes.value,
     })
 
-    // 2. Create Stripe Checkout session for this booking
-    const checkoutResponse = await api.createCheckoutSession(auth.token, {
-      booking_id: bookingResponse.data.id,
+    // 2. Create Stripe payment intent for this booking
+    const paymentIntentResponse = await api.createPaymentIntent(auth.token, bookingResponse.data.id)
+
+    // 3. Handle payment with the client secret
+    const { getStripe } = useStripe()
+    const stripe = await getStripe()
+    if (!stripe) throw new Error('Stripe not initialized')
+
+    const { error } = await stripe.confirmPayment({
+      clientSecret: paymentIntentResponse.data.client_secret,
+      confirmParams: {
+        return_url: `${window.location.origin}/checkout/success`,
+      },
     })
 
-    // 3. Redirect to Stripe Checkout
-    await redirectToCheckout(checkoutResponse.data.session_id)
+    if (error) throw error
   } catch (error: any) {
     bookingError.value = error?.data?.message || error?.message || t('booking.errorGeneric')
   } finally {

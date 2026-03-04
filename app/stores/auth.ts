@@ -86,5 +86,20 @@ export const useAuthStore = defineStore('auth', {
             this.token = null
             localStorage.removeItem('auth_token')
         },
+
+        async fetchProfile() {
+            if (!this.token) return
+
+            const api = useApi()
+
+            try {
+                const user = await api.fetchProfile(this.token)
+                this.user = user
+                return user
+            } catch (error: any) {
+                console.error('Error fetching profile:', error)
+                throw error
+            }
+        },
     },
 })

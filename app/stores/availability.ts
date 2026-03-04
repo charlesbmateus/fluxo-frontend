@@ -76,15 +76,12 @@ export const useAvailabilityStore = defineStore('availability', {
             }
         },
 
-        async fetchAvailability(month: string) {
-            const auth = useAuthStore()
-            if (!auth.token) return
-
+        async fetchAvailability(serviceId: number) {
             this.loading = true
             this.error = null
 
             try {
-                const response = await useApi().fetchAvailability(auth.token, month)
+                const response = await useApi().fetchServiceAvailability(serviceId)
                 const slotsMap: Record<string, AvailabilitySlot> = {}
                 for (const slot of response.data) {
                     slotsMap[slot.date] = slot
@@ -95,25 +92,6 @@ export const useAvailabilityStore = defineStore('availability', {
                 console.error('Error fetching availability:', error)
             } finally {
                 this.loading = false
-            }
-        },
-
-        async saveAvailability() {
-            const auth = useAuthStore()
-            if (!auth.token) return
-
-            this.saving = true
-            this.error = null
-
-            try {
-                const slots = Object.values(this.slots)
-                await useApi().saveAvailability(auth.token, slots)
-            } catch (error: any) {
-                this.error = error.message || 'Failed to save availability'
-                console.error('Error saving availability:', error)
-                throw error
-            } finally {
-                this.saving = false
             }
         },
 

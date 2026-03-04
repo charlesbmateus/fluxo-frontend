@@ -133,3 +133,12 @@ export interface CheckoutSessionResponse {
     session_id: string
     url: string
 }
+
+export interface PaymentIntentResponse {
+    client_secret: string
+    payment_intent_id: string
+}
+
+export interface StripeConnectResponse {
+    url: string
+}

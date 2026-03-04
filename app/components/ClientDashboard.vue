@@ -11,24 +11,13 @@ const fallbackServices = ref<any[]>([])
 onMounted(async () => {
   loading.value = true
   try {
-    await store.fetchClientDashboardData()
-    // If no bookings, fetch top services from marketplace as fallback
-    if (!store.hasBookings && store.topServices.length === 0) {
-      const servicesData = await fetchServices()
-      fallbackServices.value = servicesData.data.data
-        .sort((a: any, b: any) => (b.rating ?? 0) - (a.rating ?? 0))
-        .slice(0, 6)
-    }
+    // Fetch top services from marketplace as fallback
+    const servicesData = await fetchServices()
+    fallbackServices.value = servicesData.data.data
+      .sort((a: any, b: any) => (b.rating ?? 0) - (a.rating ?? 0))
+      .slice(0, 6)
   } catch {
-    // If the client endpoint fails, load marketplace services as fallback
-    try {
-      const servicesData = await fetchServices()
-      fallbackServices.value = servicesData.data.data
-        .sort((a: any, b: any) => (b.rating ?? 0) - (a.rating ?? 0))
-        .slice(0, 6)
-    } catch {
-      // silent fail
-    }
+    // silent fail
   } finally {
     loading.value = false
   }
