@@ -247,7 +247,18 @@
     "date": "Datum",
     "time": "Uhrzeit",
     "viewBookings": "Meine Buchungen ansehen",
-    "browseMore": "Weitere Dienste durchsuchen"
+    "browseMore": "Weitere Dienste durchsuchen",
+    "proceedToPayment": "Weiter zur Zahlung",
+    "securePayment": "Sichere Zahlung über Stripe"
+  },
+  "checkout": {
+    "successTitle": "Zahlung erfolgreich!",
+    "successMessage": "Ihre Zahlung wurde verarbeitet und Ihre Buchung ist bestätigt. Sie erhalten in Kürze eine Bestätigungs-E-Mail.",
+    "cancelTitle": "Zahlung abgebrochen",
+    "cancelMessage": "Ihre Zahlung wurde nicht abgeschlossen. Ihre Buchung wurde nicht bestätigt. Sie können es erneut versuchen oder andere Dienste durchsuchen.",
+    "viewBookings": "Meine Buchungen ansehen",
+    "browseMore": "Weitere Dienste durchsuchen",
+    "backToMarketplace": "Zurück zum Marktplatz"
   },
   "auth": {
     "login": "Anmelden",

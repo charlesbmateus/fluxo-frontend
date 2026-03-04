@@ -6,8 +6,7 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData, ClientDashboardData, AvailabilitySlot} from "~/types/dashboard";
-import type {DashboardData, ClientDashboardData, BookingRequest, BookingResponse} from "~/types/dashboard";
+import type {DashboardData, ClientDashboardData, AvailabilitySlot, BookingRequest, BookingResponse, CheckoutSessionRequest, CheckoutSessionResponse} from "~/types/dashboard";
 
 interface AuthPayload {
     email: string
@@ -269,6 +268,26 @@ export const useApi = () => {
         })
     }
 
+    // ───────── STRIPE CHECKOUT ─────────
+    const createCheckoutSession = async (
+        token: string,
+        payload: CheckoutSessionRequest
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: CheckoutSessionResponse
+        }>('/v1/checkout/session', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: payload,
+        })
+    }
+
     return {
         // data
         fetchServices,
@@ -298,9 +317,11 @@ export const useApi = () => {
         // availability
         fetchAvailability,
         saveAvailability,
-        fetchClientDashboardData,
 
         // bookings
-        createBooking
+        createBooking,
+
+        // stripe checkout
+        createCheckoutSession
     }
 }

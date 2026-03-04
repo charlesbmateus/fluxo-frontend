@@ -124,3 +124,12 @@ export interface BookingResponse {
     status: 'pending'
     price: number
 }
+
+export interface CheckoutSessionRequest {
+    booking_id: number
+}
+
+export interface CheckoutSessionResponse {
+    session_id: string
+    url: string
+}

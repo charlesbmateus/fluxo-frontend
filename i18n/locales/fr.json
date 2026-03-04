@@ -247,7 +247,18 @@
     "date": "Date",
     "time": "Heure",
     "viewBookings": "Voir mes réservations",
-    "browseMore": "Découvrir plus de services"
+    "browseMore": "Découvrir plus de services",
+    "proceedToPayment": "Procéder au paiement",
+    "securePayment": "Paiement sécurisé par Stripe"
+  },
+  "checkout": {
+    "successTitle": "Paiement réussi !",
+    "successMessage": "Votre paiement a été traité et votre réservation est confirmée. Vous recevrez un e-mail de confirmation sous peu.",
+    "cancelTitle": "Paiement annulé",
+    "cancelMessage": "Votre paiement n'a pas été finalisé. Votre réservation n'a pas été confirmée. Vous pouvez réessayer ou parcourir d'autres services.",
+    "viewBookings": "Voir mes réservations",
+    "browseMore": "Découvrir plus de services",
+    "backToMarketplace": "Retour au marché"
   },
   "auth": {
     "login": "Connexion",

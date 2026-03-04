@@ -124,14 +124,23 @@ const handleConfirmBooking = async () => {
     if (!auth.token) throw new Error('Not authenticated')
 
     const api = useApi()
-    await api.createBooking(auth.token, {
+    const { redirectToCheckout } = useStripe()
+
+    // 1. Create the booking
+    const bookingResponse = await api.createBooking(auth.token, {
       service_id: service.value.id,
       date: selectedDate.value,
       time: selectedTime.value,
       notes: notes.value,
     })
 
-    bookingSuccess.value = true
+    // 2. Create Stripe Checkout session for this booking
+    const checkoutResponse = await api.createCheckoutSession(auth.token, {
+      booking_id: bookingResponse.data.id,
+    })
+
+    // 3. Redirect to Stripe Checkout
+    await redirectToCheckout(checkoutResponse.data.session_id)
   } catch (error: any) {
     bookingError.value = error?.data?.message || error?.message || t('booking.errorGeneric')
   } finally {
@@ -365,8 +374,14 @@ onMounted(async () => {
             <div class="mt-8">
               <button @click="handleConfirmBooking" class="btn btn-primary btn-block btn-lg" :disabled="submitting">
                 <span v-if="submitting" class="loading loading-spinner loading-sm"></span>
-                {{ submitting ? t('booking.processing') : t('booking.confirmAndPay') }}
+                {{ submitting ? t('booking.processing') : t('booking.proceedToPayment') }}
               </button>
+              <p class="text-center text-xs text-base-content/50 mt-3 flex items-center justify-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                {{ t('booking.securePayment') }}
+              </p>
             </div>
           </div>
 
