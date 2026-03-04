@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { useAvailabilityStore } from '~/stores/availability'
+import { useClientDashboardStore } from '~/stores/clientDashboard'
 
 const { user } = useAuth()
 const { locale, t } = useI18n()
 const availabilityStore = useAvailabilityStore()
+const clientStore = useClientDashboardStore()
 
 const isProvider = computed(() => user.value?.role === 'provider')
 
