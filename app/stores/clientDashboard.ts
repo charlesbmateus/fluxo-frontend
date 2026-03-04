@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import type { ClientDashboardData, ClientDashboardState } from '~/types/dashboard'
-import { useApi } from '~/composables/useApi'
 
 export const useClientDashboardStore = defineStore('clientDashboard', {
     state: (): ClientDashboardState => ({
@@ -37,23 +36,8 @@ export const useClientDashboardStore = defineStore('clientDashboard', {
     },
 
     actions: {
-        async fetchClientDashboardData() {
-            const auth = useAuthStore()
-            if (!auth.token) return
-            if (this.loading) return
-
-            this.loading = true
-            this.error = null
-
-            try {
-                const response = await useApi().fetchClientDashboardData(auth.token)
-                this.data = response.data
-            } catch (error: any) {
-                this.error = error.message || 'Failed to fetch client dashboard data'
-                console.error('Error fetching client dashboard data:', error)
-            } finally {
-                this.loading = false
-            }
+        setData(data: ClientDashboardData) {
+            this.data = data
         },
 
         clearDashboard() {

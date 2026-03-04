@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useClientDashboardStore } from '~/stores/clientDashboard'
 import { useAvailabilityStore } from '~/stores/availability'
+import { useClientDashboardStore } from '~/stores/clientDashboard'
 
 const { user } = useAuth()
 const { locale, t } = useI18n()
-const clientStore = useClientDashboardStore()
 const availabilityStore = useAvailabilityStore()
+const clientStore = useClientDashboardStore()
 
 const isProvider = computed(() => user.value?.role === 'provider')
 
@@ -16,12 +16,8 @@ const saveError = ref(false)
 onMounted(async () => {
   loading.value = true
   try {
-    if (isProvider.value) {
-      const monthKey = `${currentMonth.value.getFullYear()}-${String(currentMonth.value.getMonth() + 1).padStart(2, '0')}`
-      await availabilityStore.fetchAvailability(monthKey).catch(() => {})
-    } else {
-      await clientStore.fetchClientDashboardData()
-    }
+    // TODO: Availability is now fetched per service via GET /v1/services/{service}/availability.
+    // Update this page to select a service and fetch its availability.
   } catch {
     // silent fail
   } finally {
@@ -107,20 +103,12 @@ const prevMonth = () => {
   const d = new Date(currentMonth.value)
   d.setMonth(d.getMonth() - 1)
   currentMonth.value = d
-  if (isProvider.value) {
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    availabilityStore.fetchAvailability(monthKey).catch(() => {})
-  }
 }
 
 const nextMonth = () => {
   const d = new Date(currentMonth.value)
   d.setMonth(d.getMonth() + 1)
   currentMonth.value = d
-  if (isProvider.value) {
-    const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    availabilityStore.fetchAvailability(monthKey).catch(() => {})
-  }
 }
 
 const isToday = (date: Date) => {
@@ -169,14 +157,10 @@ const updateSlotTime = (index: number, field: 'start' | 'end', value: string) =>
 const saveAvailability = async () => {
   saveSuccess.value = false
   saveError.value = false
-  try {
-    await availabilityStore.saveAvailability()
-    saveSuccess.value = true
-    setTimeout(() => { saveSuccess.value = false }, 3000)
-  } catch {
-    saveError.value = true
-    setTimeout(() => { saveError.value = false }, 3000)
-  }
+  // TODO: Availability management has been moved to service-level endpoints.
+  // This function needs to be updated once the save endpoint is available.
+  saveError.value = true
+  setTimeout(() => { saveError.value = false }, 3000)
 }
 
 const isDayAvailable = (dateKey: string) => {

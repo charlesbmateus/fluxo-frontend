@@ -6,7 +6,8 @@ import type {User} from '~/types/auth'
 import type {LoginResponse} from '~/types/auth'
 import type { Conversation, Message } from '~/types/chat'
 import type { Notification } from '~/types/notification'
-import type {DashboardData, ClientDashboardData, AvailabilitySlot, BookingRequest, BookingResponse, CheckoutSessionRequest, CheckoutSessionResponse} from "~/types/dashboard";
+import type {DashboardData, AvailabilitySlot, BookingRequest, BookingResponse, PaymentIntentResponse, StripeConnectResponse} from "~/types/dashboard";
+import type { Invoice } from '~/types/invoice'
 
 interface AuthPayload {
     email: string
@@ -24,16 +25,38 @@ export const useApi = () => {
     const baseURL: string =
         (config.public.apiBase as string) || 'http://localhost:8000/api'
 
-    // ───────── SERVICES ─────────
+    // ───────── SERVICES (PUBLIC) ─────────
     const fetchServices = async (
         page = 1
     ): Promise<ApiResponse<PaginatedResponse<Service>>> => {
-        return await $fetch(`/services?page=${page}`, {baseURL})
+        return await $fetch(`/v1/services?page=${page}`, {baseURL})
     }
 
-    // ───────── CATEGORIES ─────────
+    const fetchService = async (
+        serviceId: number
+    ): Promise<ApiResponse<Service>> => {
+        return await $fetch(`/v1/services/${serviceId}`, {baseURL})
+    }
+
+    const fetchServiceAvailability = async (
+        serviceId: number
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: AvailabilitySlot[]
+        }>(`/v1/services/${serviceId}/availability`, {baseURL})
+    }
+
+    // ───────── CATEGORIES (PUBLIC) ─────────
     const fetchCategories = async (): Promise<ApiResponse<Category[]>> => {
-        return await $fetch('/categories', {baseURL})
+        return await $fetch('/v1/categories', {baseURL})
+    }
+
+    const fetchCategoryBySlug = async (
+        slug: string
+    ): Promise<ApiResponse<Category>> => {
+        return await $fetch(`/v1/categories/${slug}`, {baseURL})
     }
 
     // ───────── AUTH ─────────
@@ -41,7 +64,7 @@ export const useApi = () => {
         email: string,
         password: string
     ): Promise<LoginResponse> => {
-        return await $fetch('/login', {
+        return await $fetch('/v1/login', {
             method: 'POST',
             body: {email, password},
             baseURL,
@@ -54,7 +77,7 @@ export const useApi = () => {
         password: string
         password_confirmation: string
     }): Promise<LoginResponse> => {
-        return await $fetch('/register', {
+        return await $fetch('/v1/register', {
             method: 'POST',
             body: payload,
             baseURL,
@@ -76,8 +99,23 @@ export const useApi = () => {
         return response.data
     }
 
+    const fetchProfile = async (token: string): Promise<User> => {
+        const response = await $fetch<{
+            success: boolean
+            message: string
+            data: User
+        }>('/v1/profile', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        return response.data
+    }
+
     const logout = async (token: string): Promise<void> => {
-        await $fetch('/logout', {
+        await $fetch('/v1/logout', {
             method: 'POST',
             baseURL,
             headers: {
@@ -203,51 +241,6 @@ export const useApi = () => {
         })
     }
 
-    const fetchClientDashboardData = async (token: string) => {
-        return await $fetch<{
-            success: boolean
-            message: string
-            data: ClientDashboardData
-        }>('/v1/dashboard/client', {
-            baseURL,
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/json',
-            },
-        })
-    }
-
-    // ───────── AVAILABILITY ─────────
-    const fetchAvailability = async (token: string, month: string) => {
-        return await $fetch<{
-            success: boolean
-            message: string
-            data: AvailabilitySlot[]
-        }>(`/v1/availability?month=${month}`, {
-            baseURL,
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/json',
-            },
-        })
-    }
-
-    const saveAvailability = async (token: string, slots: AvailabilitySlot[]) => {
-        return await $fetch<{
-            success: boolean
-            message: string
-            data: AvailabilitySlot[]
-        }>('/v1/availability', {
-            method: 'PUT',
-            baseURL,
-            headers: {
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/json',
-            },
-            body: { slots },
-        })
-    }
-
     // ───────── BOOKINGS ─────────
     const createBooking = async (
         token: string,
@@ -268,35 +261,167 @@ export const useApi = () => {
         })
     }
 
-    // ───────── STRIPE CHECKOUT ─────────
-    const createCheckoutSession = async (
+    const updateBookingStatus = async (
         token: string,
-        payload: CheckoutSessionRequest
+        bookingId: number,
+        status: string
     ) => {
         return await $fetch<{
             success: boolean
             message: string
-            data: CheckoutSessionResponse
-        }>('/v1/checkout/session', {
+            data: BookingResponse
+        }>(`/v1/bookings/${bookingId}/status`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: { status },
+        })
+    }
+
+    const createPaymentIntent = async (
+        token: string,
+        bookingId: number
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: PaymentIntentResponse
+        }>(`/v1/bookings/${bookingId}/payment-intent`, {
             method: 'POST',
             baseURL,
             headers: {
                 Authorization: `Bearer ${token}`,
                 Accept: 'application/json',
             },
-            body: payload,
+        })
+    }
+
+    // ───────── INVOICES ─────────
+    const fetchInvoices = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Invoice[]
+        }>('/v1/invoices', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const fetchInvoice = async (token: string, invoiceId: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Invoice
+        }>(`/v1/invoices/${invoiceId}`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const issueInvoice = async (token: string, invoiceId: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Invoice
+        }>(`/v1/invoices/${invoiceId}/issue`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const payInvoice = async (token: string, invoiceId: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Invoice
+        }>(`/v1/invoices/${invoiceId}/pay`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const cancelInvoice = async (token: string, invoiceId: number) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Invoice
+        }>(`/v1/invoices/${invoiceId}/cancel`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    // ───────── PROVIDERS ─────────
+    const fetchProviderServices = async (
+        token: string,
+        providerId: number
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Service[]
+        }>(`/v1/providers/${providerId}/services`, {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    // ───────── STRIPE CONNECT ─────────
+    const createStripeAccount = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: StripeConnectResponse
+        }>('/v1/stripe/connect', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
         })
     }
 
     return {
-        // data
+        // services (public)
         fetchServices,
+        fetchService,
+        fetchServiceAvailability,
+
+        // categories (public)
         fetchCategories,
+        fetchCategoryBySlug,
 
         // auth
         login,
         register,
         fetchMe,
+        fetchProfile,
         logout,
 
         // chat
@@ -312,16 +437,23 @@ export const useApi = () => {
 
         // dashboard
         fetchDashboardData,
-        fetchClientDashboardData,
-
-        // availability
-        fetchAvailability,
-        saveAvailability,
 
         // bookings
         createBooking,
+        updateBookingStatus,
+        createPaymentIntent,
 
-        // stripe checkout
-        createCheckoutSession
+        // invoices
+        fetchInvoices,
+        fetchInvoice,
+        issueInvoice,
+        payInvoice,
+        cancelInvoice,
+
+        // providers
+        fetchProviderServices,
+
+        // stripe connect
+        createStripeAccount,
     }
 }
