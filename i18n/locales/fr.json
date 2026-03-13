@@ -212,7 +212,22 @@
     "pushNotificationsDesc": "Recevez des notifications push sur votre appareil",
     "weeklyDigest": "Résumé hebdomadaire",
     "weeklyDigestDesc": "Recevez un résumé hebdomadaire de votre activité",
-    "savePreferences": "Enregistrer les préférences"
+    "savePreferences": "Enregistrer les préférences",
+    "payments": "Paiements",
+    "paymentSetup": "Configuration des paiements",
+    "paymentSetupDesc": "Connectez votre compte Stripe pour recevoir des paiements",
+    "stripeConnectInfo": "Pour recevoir des paiements de vos clients, vous devez connecter votre compte Stripe. Cela permet des virements sécurisés et directs sur votre compte bancaire.",
+    "stripeConnect": "Stripe Connect",
+    "stripeConnectDesc": "Liez votre compte Stripe pour commencer à recevoir des paiements",
+    "connectWithStripe": "Se connecter avec Stripe",
+    "connecting": "Connexion...",
+    "stripeConnectSuccess": "Compte Stripe connecté avec succès !",
+    "stripeConnectError": "Échec de la connexion du compte Stripe. Veuillez réessayer.",
+    "paymentInfo": "Informations de paiement",
+    "paymentInfoDesc": "Avantages de la connexion Stripe",
+    "paymentBenefit1": "Recevez des paiements sécurisés directement sur votre compte bancaire",
+    "paymentBenefit2": "Virements automatiques avec une structure de frais transparente",
+    "paymentBenefit3": "Prise en charge de plusieurs devises et méthodes de paiement"
   },
   "common": {
     "loading": "Chargement...",

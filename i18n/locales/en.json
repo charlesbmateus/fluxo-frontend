@@ -212,7 +212,22 @@
     "pushNotificationsDesc": "Receive push notifications on your device",
     "weeklyDigest": "Weekly digest",
     "weeklyDigestDesc": "Get a weekly summary of your activity",
-    "savePreferences": "Save Preferences"
+    "savePreferences": "Save Preferences",
+    "payments": "Payments",
+    "paymentSetup": "Payment Setup",
+    "paymentSetupDesc": "Connect your Stripe account to receive payments",
+    "stripeConnectInfo": "To receive payments from clients, you need to connect your Stripe account. This allows secure and direct payouts to your bank account.",
+    "stripeConnect": "Stripe Connect",
+    "stripeConnectDesc": "Link your Stripe account to start receiving payments",
+    "connectWithStripe": "Connect with Stripe",
+    "connecting": "Connecting...",
+    "stripeConnectSuccess": "Stripe account connected successfully!",
+    "stripeConnectError": "Failed to connect Stripe account. Please try again.",
+    "paymentInfo": "Payment Information",
+    "paymentInfoDesc": "Benefits of connecting Stripe",
+    "paymentBenefit1": "Receive secure payments directly to your bank account",
+    "paymentBenefit2": "Automatic payouts with transparent fee structure",
+    "paymentBenefit3": "Support for multiple currencies and payment methods"
   },
   "common": {
     "loading": "Loading...",
