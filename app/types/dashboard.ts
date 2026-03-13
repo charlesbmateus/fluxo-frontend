@@ -110,8 +110,7 @@ export interface Transaction {
 
 export interface BookingRequest {
     service_id: number
-    date: string
-    time: string
+    start_datetime: string
     notes: string
 }
 

@@ -128,8 +128,7 @@ const handleConfirmBooking = async () => {
     // 1. Create the booking
     const bookingResponse = await api.createBooking(auth.token, {
       service_id: service.value.id,
-      date: selectedDate.value,
-      time: selectedTime.value,
+      start_datetime: `${selectedDate.value} ${selectedTime.value}`,
       notes: notes.value,
     })
 
