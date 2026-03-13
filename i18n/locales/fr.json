@@ -276,7 +276,8 @@
     "viewBookings": "Voir mes réservations",
     "browseMore": "Découvrir plus de services",
     "proceedToPayment": "Procéder au paiement",
-    "securePayment": "Paiement sécurisé par Stripe"
+    "securePayment": "Paiement sécurisé par Stripe",
+    "stepPayment": "Paiement"
   },
   "checkout": {
     "successTitle": "Paiement réussi !",
@@ -400,5 +401,27 @@
       "cookies": "Politique de cookies",
       "copyright": "Tous droits réservés."
     }
+  },
+  "stripe": {
+    "payNow": "Payer maintenant",
+    "processing": "Traitement...",
+    "securedByStripe": "Sécurisé par Stripe",
+    "initError": "Impossible de charger le formulaire de paiement. Veuillez rafraîchir la page.",
+    "paymentFailed": "Le paiement a échoué. Veuillez réessayer.",
+    "completePayment": "Finaliser le paiement",
+    "completePaymentDesc": "Entrez vos informations de paiement pour finaliser votre réservation.",
+    "savedCards": "Cartes enregistrées",
+    "savedCardsDesc": "Gérez vos moyens de paiement enregistrés",
+    "addCard": "Ajouter une carte",
+    "addFirstCard": "Ajouter votre première carte",
+    "addNewCard": "Ajouter une nouvelle carte",
+    "noCards": "Aucun moyen de paiement enregistré.",
+    "expires": "Expire",
+    "saveCard": "Enregistrer la carte",
+    "saving": "Enregistrement...",
+    "cardSaved": "Carte enregistrée avec succès !",
+    "cardSaveFailed": "Impossible d'enregistrer la carte. Veuillez réessayer.",
+    "cardDeleted": "Carte supprimée avec succès.",
+    "cardDeleteFailed": "Impossible de supprimer la carte. Veuillez réessayer."
   }
 }

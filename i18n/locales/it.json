@@ -276,7 +276,8 @@
     "viewBookings": "Vedi le mie prenotazioni",
     "browseMore": "Scopri altri servizi",
     "proceedToPayment": "Procedi al pagamento",
-    "securePayment": "Pagamento sicuro tramite Stripe"
+    "securePayment": "Pagamento sicuro tramite Stripe",
+    "stepPayment": "Pagamento"
   },
   "checkout": {
     "successTitle": "Pagamento riuscito!",
@@ -400,5 +401,27 @@
       "cookies": "Politica dei cookie",
       "copyright": "Tutti i diritti riservati."
     }
+  },
+  "stripe": {
+    "payNow": "Paga ora",
+    "processing": "Elaborazione...",
+    "securedByStripe": "Protetto da Stripe",
+    "initError": "Impossibile caricare il modulo di pagamento. Aggiorna la pagina e riprova.",
+    "paymentFailed": "Pagamento fallito. Riprova.",
+    "completePayment": "Completa il pagamento",
+    "completePaymentDesc": "Inserisci i dati di pagamento per finalizzare la prenotazione.",
+    "savedCards": "Carte salvate",
+    "savedCardsDesc": "Gestisci i tuoi metodi di pagamento salvati",
+    "addCard": "Aggiungi carta",
+    "addFirstCard": "Aggiungi la tua prima carta",
+    "addNewCard": "Aggiungi nuova carta",
+    "noCards": "Nessun metodo di pagamento salvato.",
+    "expires": "Scade",
+    "saveCard": "Salva carta",
+    "saving": "Salvataggio...",
+    "cardSaved": "Carta salvata con successo!",
+    "cardSaveFailed": "Impossibile salvare la carta. Riprova.",
+    "cardDeleted": "Carta rimossa con successo.",
+    "cardDeleteFailed": "Impossibile rimuovere la carta. Riprova."
   }
 }

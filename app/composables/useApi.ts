@@ -427,6 +427,50 @@ export const useApi = () => {
         })
     }
 
+    // ───────── STRIPE PAYMENT METHODS ─────────
+    const fetchPaymentMethods = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: { id: string; card: { brand: string; last4: string; exp_month: number; exp_year: number } }[]
+        }>('/v1/stripe/payment-methods', {
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const createSetupIntent = async (token: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: { client_secret: string }
+        }>('/v1/stripe/setup-intent', {
+            method: 'POST',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
+    const deletePaymentMethod = async (token: string, paymentMethodId: string) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+        }>(`/v1/stripe/payment-methods/${paymentMethodId}`, {
+            method: 'DELETE',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+        })
+    }
+
     return {
         // services (public)
         fetchServices,
@@ -476,5 +520,10 @@ export const useApi = () => {
 
         // stripe connect
         createStripeAccount,
+
+        // stripe payment methods
+        fetchPaymentMethods,
+        createSetupIntent,
+        deletePaymentMethod,
     }
 }

@@ -276,7 +276,8 @@
     "viewBookings": "Meine Buchungen ansehen",
     "browseMore": "Weitere Dienste durchsuchen",
     "proceedToPayment": "Weiter zur Zahlung",
-    "securePayment": "Sichere Zahlung über Stripe"
+    "securePayment": "Sichere Zahlung über Stripe",
+    "stepPayment": "Zahlung"
   },
   "checkout": {
     "successTitle": "Zahlung erfolgreich!",
@@ -400,5 +401,27 @@
       "cookies": "Cookie-Richtlinie",
       "copyright": "Alle Rechte vorbehalten."
     }
+  },
+  "stripe": {
+    "payNow": "Jetzt bezahlen",
+    "processing": "Verarbeitung...",
+    "securedByStripe": "Gesichert durch Stripe",
+    "initError": "Zahlungsformular konnte nicht geladen werden. Bitte aktualisieren Sie die Seite.",
+    "paymentFailed": "Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "completePayment": "Zahlung abschliessen",
+    "completePaymentDesc": "Geben Sie Ihre Zahlungsdetails ein, um Ihre Buchung abzuschliessen.",
+    "savedCards": "Gespeicherte Karten",
+    "savedCardsDesc": "Verwalten Sie Ihre gespeicherten Zahlungsmethoden",
+    "addCard": "Karte hinzufügen",
+    "addFirstCard": "Erste Karte hinzufügen",
+    "addNewCard": "Neue Karte hinzufügen",
+    "noCards": "Noch keine gespeicherten Zahlungsmethoden.",
+    "expires": "Gültig bis",
+    "saveCard": "Karte speichern",
+    "saving": "Speichern...",
+    "cardSaved": "Karte erfolgreich gespeichert!",
+    "cardSaveFailed": "Karte konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.",
+    "cardDeleted": "Karte erfolgreich entfernt.",
+    "cardDeleteFailed": "Karte konnte nicht entfernt werden. Bitte versuchen Sie es erneut."
   }
 }

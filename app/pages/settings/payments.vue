@@ -176,6 +176,13 @@ const connectStripe = async () => {
           </div>
         </div>
       </div>
+
+      <!-- Saved Payment Methods -->
+      <div class="card bg-base-100 shadow-xl border border-base-300 hover:shadow-2xl transition-shadow duration-300">
+        <div class="card-body">
+          <StripeCardManager />
+        </div>
+      </div>
     </div>
   </NuxtLayout>
 </template>
