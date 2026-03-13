@@ -212,7 +212,22 @@
     "pushNotificationsDesc": "Push-Benachrichtigungen auf Ihrem Gerät erhalten",
     "weeklyDigest": "Wöchentliche Zusammenfassung",
     "weeklyDigestDesc": "Erhalten Sie eine wöchentliche Übersicht Ihrer Aktivitäten",
-    "savePreferences": "Einstellungen speichern"
+    "savePreferences": "Einstellungen speichern",
+    "payments": "Zahlungen",
+    "paymentSetup": "Zahlungseinrichtung",
+    "paymentSetupDesc": "Verbinden Sie Ihr Stripe-Konto, um Zahlungen zu empfangen",
+    "stripeConnectInfo": "Um Zahlungen von Kunden zu erhalten, müssen Sie Ihr Stripe-Konto verbinden. Dies ermöglicht sichere und direkte Auszahlungen auf Ihr Bankkonto.",
+    "stripeConnect": "Stripe Connect",
+    "stripeConnectDesc": "Verknüpfen Sie Ihr Stripe-Konto, um Zahlungen zu erhalten",
+    "connectWithStripe": "Mit Stripe verbinden",
+    "connecting": "Verbinden...",
+    "stripeConnectSuccess": "Stripe-Konto erfolgreich verbunden!",
+    "stripeConnectError": "Stripe-Konto konnte nicht verbunden werden. Bitte versuchen Sie es erneut.",
+    "paymentInfo": "Zahlungsinformationen",
+    "paymentInfoDesc": "Vorteile der Stripe-Verbindung",
+    "paymentBenefit1": "Sichere Zahlungen direkt auf Ihr Bankkonto erhalten",
+    "paymentBenefit2": "Automatische Auszahlungen mit transparenter Gebührenstruktur",
+    "paymentBenefit3": "Unterstützung für mehrere Währungen und Zahlungsmethoden"
   },
   "common": {
     "loading": "Laden...",
