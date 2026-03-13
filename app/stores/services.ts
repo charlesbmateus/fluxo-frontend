@@ -86,18 +86,21 @@ export const useServicesStore = defineStore('services', {
 
             const api = useApi()
 
-            const service = this.providerServices.find(s => s.id === serviceId)
-            if (!service) return
+            const index = this.providerServices.findIndex(s => s.id === serviceId)
+            if (index === -1) return
 
-            const newStatus = !service.is_active
+            const previousStatus = this.providerServices[index].is_active
+            const newStatus = !previousStatus
+
+            // Optimistic update
+            this.providerServices[index] = { ...this.providerServices[index], is_active: newStatus }
 
             try {
                 const response = await api.toggleServiceActive(auth.token, serviceId, newStatus)
-                const index = this.providerServices.findIndex(s => s.id === serviceId)
-                if (index !== -1) {
-                    this.providerServices[index] = response.data
-                }
+                this.providerServices[index] = response.data
             } catch {
+                // Revert on failure
+                this.providerServices[index] = { ...this.providerServices[index], is_active: previousStatus }
                 this.error = `Failed to update service ${serviceId}`
             }
         },
