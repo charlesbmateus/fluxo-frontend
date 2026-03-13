@@ -7,7 +7,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  success: []
   error: [message: string]
 }>()
 
