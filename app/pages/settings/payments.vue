@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { useAuth } from '~/composables/useAuth'
-
-const { user } = useAuth()
 const { t } = useI18n()
 const api = useApi()
 const auth = useAuthStore()
