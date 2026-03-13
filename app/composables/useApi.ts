@@ -391,6 +391,26 @@ export const useApi = () => {
         })
     }
 
+    const toggleServiceActive = async (
+        token: string,
+        serviceId: number,
+        isActive: boolean
+    ) => {
+        return await $fetch<{
+            success: boolean
+            message: string
+            data: Service
+        }>(`/v1/services/${serviceId}/toggle-active`, {
+            method: 'PATCH',
+            baseURL,
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: 'application/json',
+            },
+            body: { is_active: isActive },
+        })
+    }
+
     // ───────── STRIPE CONNECT ─────────
     const createStripeAccount = async (token: string) => {
         return await $fetch<{
@@ -452,6 +472,7 @@ export const useApi = () => {
 
         // providers
         fetchProviderServices,
+        toggleServiceActive,
 
         // stripe connect
         createStripeAccount,

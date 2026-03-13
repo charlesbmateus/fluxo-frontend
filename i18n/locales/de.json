@@ -16,6 +16,18 @@
     "services": "Aktive Dienste",
     "growth": "Wachstum"
   },
+  "providerServices": {
+    "title": "Meine Dienstleistungen",
+    "subtitle": "Verwalten Sie die Sichtbarkeit Ihrer Dienste",
+    "active": "Aktiv",
+    "inactive": "Inaktiv",
+    "noServices": "Sie haben noch keine Dienstleistungen.",
+    "toggleSuccess": "Dienststatus erfolgreich aktualisiert",
+    "toggleError": "Dienststatus konnte nicht aktualisiert werden",
+    "category": "Kategorie",
+    "price": "Preis",
+    "status": "Status"
+  },
   "clientDashboard": {
     "walletBalance": "Kontostand",
     "availableFunds": "Verfügbare Mittel",

@@ -16,6 +16,18 @@
     "services": "Active Services",
     "growth": "Growth"
   },
+  "providerServices": {
+    "title": "My Services",
+    "subtitle": "Manage your services visibility",
+    "active": "Active",
+    "inactive": "Inactive",
+    "noServices": "You don't have any services yet.",
+    "toggleSuccess": "Service status updated successfully",
+    "toggleError": "Failed to update service status",
+    "category": "Category",
+    "price": "Price",
+    "status": "Status"
+  },
   "clientDashboard": {
     "walletBalance": "Wallet Balance",
     "availableFunds": "Available funds",
