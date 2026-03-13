@@ -16,6 +16,18 @@
     "services": "Services Actifs",
     "growth": "Croissance"
   },
+  "providerServices": {
+    "title": "Mes services",
+    "subtitle": "Gérer la visibilité de vos services",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "noServices": "Vous n'avez pas encore de services.",
+    "toggleSuccess": "Statut du service mis à jour avec succès",
+    "toggleError": "Échec de la mise à jour du statut du service",
+    "category": "Catégorie",
+    "price": "Prix",
+    "status": "Statut"
+  },
   "clientDashboard": {
     "walletBalance": "Solde du portefeuille",
     "availableFunds": "Fonds disponibles",
