@@ -141,7 +141,7 @@ const handleConfirmBooking = async () => {
     if (!stripe) throw new Error('Stripe not initialized')
 
     const { error } = await stripe.confirmPayment({
-      clientSecret: paymentIntentResponse.data.client_secret,
+      clientSecret: paymentIntentResponse.client_secret,
       confirmParams: {
         return_url: `${window.location.origin}/checkout/success`,
       },
