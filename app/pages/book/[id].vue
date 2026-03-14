@@ -139,21 +139,10 @@ const handleConfirmBooking = async () => {
     // 2. Create Stripe payment intent for this booking
     const paymentIntentResponse = await api.createPaymentIntent(auth.token, bookingResponse.data.id)
 
-    // 3. Handle payment with the client secret
-    const { getStripe } = useStripe()
-    const stripe = await getStripe()
-    if (!stripe) throw new Error('Stripe not initialized')
-
-    const { error } = await stripe.confirmPayment({
-      clientSecret: paymentIntentResponse.client_secret,
-      confirmParams: {
-        return_url: `${window.location.origin}/checkout/success`,
-      },
-    })
-
-    if (error) {
-      throw new Error(error.message || t('booking.errorGeneric'))
-    }
+    // 3. Show Stripe Payment Element for the user to complete payment
+    paymentClientSecret.value = paymentIntentResponse.client_secret
+    showPaymentForm.value = true
+    currentStep.value = totalSteps
   } catch (error: any) {
     bookingError.value = error?.data?.message || error?.message || t('booking.errorGeneric')
   } finally {
