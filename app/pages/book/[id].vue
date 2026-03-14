@@ -140,7 +140,7 @@ const handleConfirmBooking = async () => {
     const paymentIntentResponse = await api.createPaymentIntent(auth.token, bookingResponse.data.id)
 
     // 3. Show Stripe Payment Element for the user to complete payment
-    paymentClientSecret.value = paymentIntentResponse.data.client_secret
+    paymentClientSecret.value = paymentIntentResponse.client_secret
     showPaymentForm.value = true
     currentStep.value = totalSteps
   } catch (error: any) {
