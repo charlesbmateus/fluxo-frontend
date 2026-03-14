@@ -30,7 +30,7 @@ const service = computed(() => {
 
 // Multi-step booking flow
 const currentStep = ref(1)
-const totalSteps = 3
+const totalSteps = 4
 
 // Step 1: Date & Time
 const selectedDate = ref('')
@@ -113,6 +113,10 @@ const goToStep = (step: number) => {
   }
 }
 
+// Payment step state
+const paymentClientSecret = ref('')
+const showPaymentForm = ref(false)
+
 const handleConfirmBooking = async () => {
   if (!service.value) return
 
@@ -155,6 +159,10 @@ const handleConfirmBooking = async () => {
   } finally {
     submitting.value = false
   }
+}
+
+const handlePaymentError = (message: string) => {
+  bookingError.value = message
 }
 
 onMounted(async () => {
@@ -206,7 +214,7 @@ onMounted(async () => {
                   'text-base-content/50': step > currentStep,
                 }"
               >
-                {{ step === 1 ? t('booking.stepDateTime') : step === 2 ? t('booking.stepDetails') : t('booking.stepConfirm') }}
+                {{ step === 1 ? t('booking.stepDateTime') : step === 2 ? t('booking.stepDetails') : step === 3 ? t('booking.stepConfirm') : t('booking.stepPayment') }}
               </span>
             </button>
             <div v-if="step < totalSteps" class="flex-1 h-0.5 rounded" :class="step < currentStep ? 'bg-success' : 'bg-base-300'"></div>
@@ -392,6 +400,23 @@ onMounted(async () => {
                 {{ t('booking.securePayment') }}
               </p>
             </div>
+          </div>
+
+          <!-- STEP 4: Payment -->
+          <div v-if="currentStep === 4 && showPaymentForm && !bookingSuccess">
+            <h2 class="text-2xl font-bold mb-2">{{ t('stripe.completePayment') }}</h2>
+            <p class="text-base-content/60 mb-6">{{ t('stripe.completePaymentDesc') }}</p>
+
+            <!-- Error message -->
+            <div v-if="bookingError" class="alert alert-error mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              <span>{{ bookingError }}</span>
+            </div>
+
+            <StripePaymentForm
+              :client-secret="paymentClientSecret"
+              @error="handlePaymentError"
+            />
           </div>
 
           <!-- SUCCESS STATE -->

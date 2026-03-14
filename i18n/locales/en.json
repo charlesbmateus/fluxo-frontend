@@ -276,7 +276,8 @@
     "viewBookings": "View My Bookings",
     "browseMore": "Browse More Services",
     "proceedToPayment": "Proceed to Payment",
-    "securePayment": "Secure payment powered by Stripe"
+    "securePayment": "Secure payment powered by Stripe",
+    "stepPayment": "Payment"
   },
   "checkout": {
     "successTitle": "Payment successful!",
@@ -400,5 +401,27 @@
       "cookies": "Cookie Policy",
       "copyright": "All rights reserved."
     }
+  },
+  "stripe": {
+    "payNow": "Pay Now",
+    "processing": "Processing...",
+    "securedByStripe": "Secured by Stripe",
+    "initError": "Failed to initialize payment form. Please refresh and try again.",
+    "paymentFailed": "Payment failed. Please try again.",
+    "completePayment": "Complete Payment",
+    "completePaymentDesc": "Enter your payment details below to finalize your booking.",
+    "savedCards": "Saved Cards",
+    "savedCardsDesc": "Manage your saved payment methods",
+    "addCard": "Add Card",
+    "addFirstCard": "Add Your First Card",
+    "addNewCard": "Add New Card",
+    "noCards": "No saved payment methods yet.",
+    "expires": "Expires",
+    "saveCard": "Save Card",
+    "saving": "Saving...",
+    "cardSaved": "Card saved successfully!",
+    "cardSaveFailed": "Failed to save card. Please try again.",
+    "cardDeleted": "Card removed successfully.",
+    "cardDeleteFailed": "Failed to remove card. Please try again."
   }
 }
